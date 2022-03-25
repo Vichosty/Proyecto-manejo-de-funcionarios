@@ -4,7 +4,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.ParseException;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,7 +19,7 @@ import java.util.logging.Logger;
  * @author Vichosty
  */
 public class Prueba {
-    public static void main (String[] args) throws ParseException, SQLException {
+    public static void main (String[] args) throws SQLException {
         Gobierno gobierno = new Gobierno();
         
         // Create a database connection
@@ -28,9 +27,10 @@ public class Prueba {
             String conURL = "jdbc:mysql://localhost:3306/chk_test";
             String conUser = "chkP";
             String conPass = "8heeArhoqm3G";
+            
             Connection connection = DriverManager.getConnection(conURL, conUser, conPass);
             
-            // Get some users
+            // bd -> trabajadores
             Statement statement = connection.createStatement();
             ResultSet results = statement.executeQuery("select * from trabajadores");
             while(results.next())
@@ -42,16 +42,43 @@ public class Prueba {
                 
                 gobierno.addTrabajador(new Trabajador(id, nombre, apellido, fechaDeNacimiento));
             }
-            connection.close();
+            statement.close();
             
-            for(Trabajador trabajador : gobierno.getTrabajadores())
+            // bd -> reparticiones
+            statement = connection.createStatement();
+            results = statement.executeQuery("select * from reparticiones");
+            while(results.next())
             {
-                System.out.println(trabajador.getNombre());
+                int id = results.getInt("id");
+                String nombre = results.getString("nombre");
+                String estado = results.getString("estado");
+                
+                gobierno.addReparticion(new Reparticion(id, nombre, estado));
             }
+            statement.close();
             
+            // TODO: falta una tabla que contenga todas las relaciones
+            // trabajador -> reparticion, para poder deducir a que
+            // reparticion(es) pertenece cada trabajador. (util para cuando un
+            // trabajador pertenezca a multiples reparticiones)
+            
+            connection.close();
         } catch (Exception ex) {
             Logger.getLogger(Prueba.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        System.out.println("Reparticiones:");
+        for(Reparticion reparticion : gobierno.getReparticiones())
+        {
+            System.out.println("\t" + reparticion.getNombre());
+        }
+        
+        System.out.println("Trabajadores:");
+        for(Trabajador trabajador : gobierno.getTrabajadores())
+        {
+            System.out.println("\t" + trabajador.getNombre());
+        }
+        
         
     }
 }

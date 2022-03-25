@@ -15,17 +15,41 @@ import java.util.List;
 public class Reparticion {
     private int id;
     private String nombre;
-    private List<Integer> trabajadores;
     private EstadoReparticion estado;
+    private List<Integer> trabajadores;
     
-    public Reparticion(int id, String nombre) {
+    public Reparticion(int id, String nombre, EstadoReparticion estado) {
         this.id = id;
         this.nombre = nombre;
+        this.estado = estado;
         this.trabajadores = new ArrayList<>();
     }
-
-    public Reparticion(int id, String nombre, List<Integer> trabajadores) {
-        this(id, nombre);
+    
+    public Reparticion(int id, String nombre, String estadoString) {
+        EstadoReparticion estado = EstadoReparticion.Normal;
+        if (estadoString.compareToIgnoreCase("deficit") == 0) {
+            estado = EstadoReparticion.Deficit;
+        } else if (estadoString.compareToIgnoreCase("superavit") == 0) {
+            estado = EstadoReparticion.Superavit;
+        }
+        
+        this.id = id;
+        this.nombre = nombre;
+        this.estado = estado;
+        this.trabajadores = new ArrayList<>();
+    }
+    
+    public Reparticion(int id, String nombre, EstadoReparticion estado, List<Integer> trabajadores) {
+        this(id, nombre, estado);
+        
+        for(int i = 0; i < trabajadores.size(); ++i)
+        {
+            this.trabajadores.add(trabajadores.get(i));
+        }
+    }
+    
+    public Reparticion(int id, String nombre, String estadoString, List<Integer> trabajadores) {
+        this(id, nombre, estadoString);
         
         for(int i = 0; i < trabajadores.size(); ++i)
         {
