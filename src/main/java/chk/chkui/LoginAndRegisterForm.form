@@ -23,21 +23,21 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jTabbedPane1" alignment="0" max="32767" attributes="0"/>
+          <Component id="tabsPanel" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jTabbedPane1" alignment="0" max="32767" attributes="0"/>
+          <Component id="tabsPanel" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="javax.swing.JTabbedPane" name="jTabbedPane1">
+    <Container class="javax.swing.JTabbedPane" name="tabsPanel">
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
       <SubComponents>
-        <Container class="javax.swing.JPanel" name="LoginPanel">
+        <Container class="javax.swing.JPanel" name="loginPanel">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="Login">
@@ -49,14 +49,14 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="LoginTitlePanel" pref="475" max="32767" attributes="0"/>
-                  <Component id="jSeparator2" max="32767" attributes="0"/>
-                  <Component id="jSeparator3" alignment="1" max="32767" attributes="0"/>
+                  <Component id="loginTitlePanel" pref="475" max="32767" attributes="0"/>
+                  <Component id="separator1" max="32767" attributes="0"/>
+                  <Component id="separator2" alignment="1" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="LoginContentsPanel" max="32767" attributes="0"/>
-                          <Component id="LoginButtonsPanel" alignment="0" max="32767" attributes="0"/>
+                          <Component id="loginContentsPanel" max="32767" attributes="0"/>
+                          <Component id="loginButtonsPanel" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -65,22 +65,22 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <Component id="LoginTitlePanel" min="-2" pref="100" max="-2" attributes="0"/>
+                      <Component id="loginTitlePanel" min="-2" pref="100" max="-2" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="jSeparator2" min="-2" pref="10" max="-2" attributes="0"/>
+                      <Component id="separator1" min="-2" pref="10" max="-2" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="LoginContentsPanel" pref="119" max="32767" attributes="0"/>
+                      <Component id="loginContentsPanel" pref="119" max="32767" attributes="0"/>
                       <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-                      <Component id="jSeparator3" min="-2" pref="10" max="-2" attributes="0"/>
+                      <Component id="separator2" min="-2" pref="10" max="-2" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="LoginButtonsPanel" min="-2" max="-2" attributes="0"/>
+                      <Component id="loginButtonsPanel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Container class="javax.swing.JPanel" name="LoginTitlePanel">
+            <Container class="javax.swing.JPanel" name="loginTitlePanel">
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
               <SubComponents>
@@ -101,9 +101,9 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JSeparator" name="jSeparator2">
+            <Component class="javax.swing.JSeparator" name="separator1">
             </Component>
-            <Container class="javax.swing.JPanel" name="LoginContentsPanel">
+            <Container class="javax.swing.JPanel" name="loginContentsPanel">
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">
                 <Property name="columns" type="int" value="2"/>
@@ -132,23 +132,23 @@
                     <AuxValue name="classDetails" type="java.lang.String" value="Box.Filler.VerticalGlue"/>
                   </AuxValues>
                 </Component>
-                <Component class="javax.swing.JLabel" name="LoginUserLabel">
+                <Component class="javax.swing.JLabel" name="loginUserLabel">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Username"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="LoginUserText">
+                <Component class="javax.swing.JTextField" name="loginUserText">
                   <AccessibilityProperties>
                     <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Login Username Field"/>
                     <Property name="AccessibleContext.accessibleDescription" type="java.lang.String" value="Login Username Field"/>
                   </AccessibilityProperties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="LoginPassLabel">
+                <Component class="javax.swing.JLabel" name="loginPassLabel">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Password"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JPasswordField" name="LoginPassText">
+                <Component class="javax.swing.JPasswordField" name="loginPassText">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="jPasswordField1"/>
                   </Properties>
@@ -179,9 +179,9 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JSeparator" name="jSeparator3">
+            <Component class="javax.swing.JSeparator" name="separator2">
             </Component>
-            <Container class="javax.swing.JPanel" name="LoginButtonsPanel">
+            <Container class="javax.swing.JPanel" name="loginButtonsPanel">
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">
                 <Property name="columns" type="int" value="2"/>
@@ -190,12 +190,12 @@
                 <Property name="verticalGap" type="int" value="4"/>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JButton" name="LoginClearButton">
+                <Component class="javax.swing.JButton" name="loginClearButton">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Clear"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JButton" name="LoginSubmitButton">
+                <Component class="javax.swing.JButton" name="loginSubmitButton">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Login"/>
                   </Properties>
@@ -204,7 +204,7 @@
             </Container>
           </SubComponents>
         </Container>
-        <Container class="javax.swing.JPanel" name="RegisterPanel">
+        <Container class="javax.swing.JPanel" name="registerPanel">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="Register">
@@ -216,14 +216,14 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="RegisterTitlePanel" alignment="0" max="32767" attributes="0"/>
-                  <Component id="jSeparator1" alignment="1" max="32767" attributes="0"/>
-                  <Component id="jSeparator4" alignment="0" max="32767" attributes="0"/>
+                  <Component id="registerTitlePanel" alignment="0" max="32767" attributes="0"/>
+                  <Component id="separator3" alignment="1" max="32767" attributes="0"/>
+                  <Component id="separator4" alignment="0" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="RegContentsPanel" pref="451" max="32767" attributes="0"/>
-                          <Component id="RegButtonsPanel" alignment="0" max="32767" attributes="0"/>
+                          <Component id="registerContentsPanel" pref="451" max="32767" attributes="0"/>
+                          <Component id="registerButtonsPanel" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -232,26 +232,26 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <Component id="RegisterTitlePanel" min="-2" pref="100" max="-2" attributes="0"/>
+                      <Component id="registerTitlePanel" min="-2" pref="100" max="-2" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
+                      <Component id="separator3" min="-2" pref="10" max="-2" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="RegContentsPanel" pref="119" max="32767" attributes="0"/>
+                      <Component id="registerContentsPanel" pref="119" max="32767" attributes="0"/>
                       <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-                      <Component id="jSeparator4" min="-2" pref="10" max="-2" attributes="0"/>
+                      <Component id="separator4" min="-2" pref="10" max="-2" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="RegButtonsPanel" min="-2" max="-2" attributes="0"/>
+                      <Component id="registerButtonsPanel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Container class="javax.swing.JPanel" name="RegisterTitlePanel">
+            <Container class="javax.swing.JPanel" name="registerTitlePanel">
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JLabel" name="RegisterTitleLabel">
+                <Component class="javax.swing.JLabel" name="registerTitleLabel">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Segoe UI" size="36" style="0"/>
@@ -268,9 +268,9 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JSeparator" name="jSeparator1">
+            <Component class="javax.swing.JSeparator" name="separator3">
             </Component>
-            <Container class="javax.swing.JPanel" name="RegContentsPanel">
+            <Container class="javax.swing.JPanel" name="registerContentsPanel">
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">
                 <Property name="columns" type="int" value="2"/>
@@ -279,12 +279,12 @@
                 <Property name="verticalGap" type="int" value="4"/>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JLabel" name="RegUserLabel">
+                <Component class="javax.swing.JLabel" name="registerUserLabel">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Username"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="RegUserText">
+                <Component class="javax.swing.JTextField" name="registerUserText">
                   <Properties>
                     <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
                       <Color id="&#x30c6;&#x30ad;&#x30b9;&#x30c8;&#x30fb;&#x30ab;&#x30fc;&#x30bd;&#x30eb;"/>
@@ -295,12 +295,12 @@
                     <Property name="AccessibleContext.accessibleDescription" type="java.lang.String" value="Register Username Field"/>
                   </AccessibilityProperties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="RegEmail1Label">
+                <Component class="javax.swing.JLabel" name="registerEmail1Label">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Email"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="RegEmail1Text">
+                <Component class="javax.swing.JTextField" name="registerEmail1Text">
                   <Properties>
                     <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
                       <Color id="&#x30c6;&#x30ad;&#x30b9;&#x30c8;&#x30fb;&#x30ab;&#x30fc;&#x30bd;&#x30eb;"/>
@@ -311,12 +311,12 @@
                     <Property name="AccessibleContext.accessibleDescription" type="java.lang.String" value="Register First Email Field"/>
                   </AccessibilityProperties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="RegEmail2Label">
+                <Component class="javax.swing.JLabel" name="registerEmail2Label">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Email again"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="RegEmail2Text">
+                <Component class="javax.swing.JTextField" name="registerEmail2Text">
                   <Properties>
                     <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
                       <Color id="&#x30c6;&#x30ad;&#x30b9;&#x30c8;&#x30fb;&#x30ab;&#x30fc;&#x30bd;&#x30eb;"/>
@@ -327,12 +327,12 @@
                     <Property name="AccessibleContext.accessibleDescription" type="java.lang.String" value="Register Second Email Field"/>
                   </AccessibilityProperties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="RegPass1Label">
+                <Component class="javax.swing.JLabel" name="registerPass1Label">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Password"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JPasswordField" name="RegPass1Text">
+                <Component class="javax.swing.JPasswordField" name="registerPass1Text">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="jPasswordField1"/>
                     <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
@@ -344,12 +344,12 @@
                     <Property name="AccessibleContext.accessibleDescription" type="java.lang.String" value="Register First Password Field"/>
                   </AccessibilityProperties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="RegPass2Label">
+                <Component class="javax.swing.JLabel" name="registerPass2Label">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Password again"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JPasswordField" name="RegPass2Text">
+                <Component class="javax.swing.JPasswordField" name="registerPass2Text">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="jPasswordField1"/>
                     <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
@@ -363,9 +363,9 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JSeparator" name="jSeparator4">
+            <Component class="javax.swing.JSeparator" name="separator4">
             </Component>
-            <Container class="javax.swing.JPanel" name="RegButtonsPanel">
+            <Container class="javax.swing.JPanel" name="registerButtonsPanel">
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">
                 <Property name="columns" type="int" value="2"/>
@@ -374,17 +374,17 @@
                 <Property name="verticalGap" type="int" value="4"/>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JButton" name="RegClearButton">
+                <Component class="javax.swing.JButton" name="registerClearButton">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Clear"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JButton" name="RegSubmitButton">
+                <Component class="javax.swing.JButton" name="registerSubmitButton">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Register"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="RegSubmitButtonActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="registerSubmitButtonActionPerformed"/>
                   </Events>
                 </Component>
               </SubComponents>

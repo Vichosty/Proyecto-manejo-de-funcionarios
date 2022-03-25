@@ -27,265 +27,265 @@ public class LoginAndRegisterForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTabbedPane1 = new javax.swing.JTabbedPane();
-        LoginPanel = new javax.swing.JPanel();
-        LoginTitlePanel = new javax.swing.JPanel();
+        tabsPanel = new javax.swing.JTabbedPane();
+        loginPanel = new javax.swing.JPanel();
+        loginTitlePanel = new javax.swing.JPanel();
         LoginTitleLabel = new javax.swing.JLabel();
-        jSeparator2 = new javax.swing.JSeparator();
-        LoginContentsPanel = new javax.swing.JPanel();
+        separator1 = new javax.swing.JSeparator();
+        loginContentsPanel = new javax.swing.JPanel();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 32767));
         filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 32767));
-        LoginUserLabel = new javax.swing.JLabel();
-        LoginUserText = new javax.swing.JTextField();
-        LoginPassLabel = new javax.swing.JLabel();
-        LoginPassText = new javax.swing.JPasswordField();
+        loginUserLabel = new javax.swing.JLabel();
+        loginUserText = new javax.swing.JTextField();
+        loginPassLabel = new javax.swing.JLabel();
+        loginPassText = new javax.swing.JPasswordField();
         filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 32767));
         filler4 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 32767));
-        jSeparator3 = new javax.swing.JSeparator();
-        LoginButtonsPanel = new javax.swing.JPanel();
-        LoginClearButton = new javax.swing.JButton();
-        LoginSubmitButton = new javax.swing.JButton();
-        RegisterPanel = new javax.swing.JPanel();
-        RegisterTitlePanel = new javax.swing.JPanel();
-        RegisterTitleLabel = new javax.swing.JLabel();
-        jSeparator1 = new javax.swing.JSeparator();
-        RegContentsPanel = new javax.swing.JPanel();
-        RegUserLabel = new javax.swing.JLabel();
-        RegUserText = new javax.swing.JTextField();
-        RegEmail1Label = new javax.swing.JLabel();
-        RegEmail1Text = new javax.swing.JTextField();
-        RegEmail2Label = new javax.swing.JLabel();
-        RegEmail2Text = new javax.swing.JTextField();
-        RegPass1Label = new javax.swing.JLabel();
-        RegPass1Text = new javax.swing.JPasswordField();
-        RegPass2Label = new javax.swing.JLabel();
-        RegPass2Text = new javax.swing.JPasswordField();
-        jSeparator4 = new javax.swing.JSeparator();
-        RegButtonsPanel = new javax.swing.JPanel();
-        RegClearButton = new javax.swing.JButton();
-        RegSubmitButton = new javax.swing.JButton();
+        separator2 = new javax.swing.JSeparator();
+        loginButtonsPanel = new javax.swing.JPanel();
+        loginClearButton = new javax.swing.JButton();
+        loginSubmitButton = new javax.swing.JButton();
+        registerPanel = new javax.swing.JPanel();
+        registerTitlePanel = new javax.swing.JPanel();
+        registerTitleLabel = new javax.swing.JLabel();
+        separator3 = new javax.swing.JSeparator();
+        registerContentsPanel = new javax.swing.JPanel();
+        registerUserLabel = new javax.swing.JLabel();
+        registerUserText = new javax.swing.JTextField();
+        registerEmail1Label = new javax.swing.JLabel();
+        registerEmail1Text = new javax.swing.JTextField();
+        registerEmail2Label = new javax.swing.JLabel();
+        registerEmail2Text = new javax.swing.JTextField();
+        registerPass1Label = new javax.swing.JLabel();
+        registerPass1Text = new javax.swing.JPasswordField();
+        registerPass2Label = new javax.swing.JLabel();
+        registerPass2Text = new javax.swing.JPasswordField();
+        separator4 = new javax.swing.JSeparator();
+        registerButtonsPanel = new javax.swing.JPanel();
+        registerClearButton = new javax.swing.JButton();
+        registerSubmitButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        LoginTitlePanel.setLayout(new java.awt.BorderLayout());
+        loginTitlePanel.setLayout(new java.awt.BorderLayout());
 
         LoginTitleLabel.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         LoginTitleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         LoginTitleLabel.setText("Welcome to ChkTest");
         LoginTitleLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        LoginTitlePanel.add(LoginTitleLabel, java.awt.BorderLayout.CENTER);
+        loginTitlePanel.add(LoginTitleLabel, java.awt.BorderLayout.CENTER);
 
-        LoginContentsPanel.setLayout(new java.awt.GridLayout(4, 2, 4, 4));
-        LoginContentsPanel.add(filler1);
-        LoginContentsPanel.add(filler2);
+        loginContentsPanel.setLayout(new java.awt.GridLayout(4, 2, 4, 4));
+        loginContentsPanel.add(filler1);
+        loginContentsPanel.add(filler2);
 
-        LoginUserLabel.setText("Username");
-        LoginContentsPanel.add(LoginUserLabel);
-        LoginContentsPanel.add(LoginUserText);
-        LoginUserText.getAccessibleContext().setAccessibleName("Login Username Field");
-        LoginUserText.getAccessibleContext().setAccessibleDescription("Login Username Field");
+        loginUserLabel.setText("Username");
+        loginContentsPanel.add(loginUserLabel);
+        loginContentsPanel.add(loginUserText);
+        loginUserText.getAccessibleContext().setAccessibleName("Login Username Field");
+        loginUserText.getAccessibleContext().setAccessibleDescription("Login Username Field");
 
-        LoginPassLabel.setText("Password");
-        LoginContentsPanel.add(LoginPassLabel);
+        loginPassLabel.setText("Password");
+        loginContentsPanel.add(loginPassLabel);
 
-        LoginPassText.setText("jPasswordField1");
-        LoginContentsPanel.add(LoginPassText);
-        LoginPassText.getAccessibleContext().setAccessibleName("Login Password Field");
-        LoginPassText.getAccessibleContext().setAccessibleDescription("Login Password Field");
+        loginPassText.setText("jPasswordField1");
+        loginContentsPanel.add(loginPassText);
+        loginPassText.getAccessibleContext().setAccessibleName("Login Password Field");
+        loginPassText.getAccessibleContext().setAccessibleDescription("Login Password Field");
 
-        LoginContentsPanel.add(filler3);
-        LoginContentsPanel.add(filler4);
+        loginContentsPanel.add(filler3);
+        loginContentsPanel.add(filler4);
 
-        LoginButtonsPanel.setLayout(new java.awt.GridLayout(1, 2, 4, 4));
+        loginButtonsPanel.setLayout(new java.awt.GridLayout(1, 2, 4, 4));
 
-        LoginClearButton.setText("Clear");
-        LoginButtonsPanel.add(LoginClearButton);
+        loginClearButton.setText("Clear");
+        loginButtonsPanel.add(loginClearButton);
 
-        LoginSubmitButton.setText("Login");
-        LoginButtonsPanel.add(LoginSubmitButton);
+        loginSubmitButton.setText("Login");
+        loginButtonsPanel.add(loginSubmitButton);
 
-        javax.swing.GroupLayout LoginPanelLayout = new javax.swing.GroupLayout(LoginPanel);
-        LoginPanel.setLayout(LoginPanelLayout);
-        LoginPanelLayout.setHorizontalGroup(
-            LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(LoginTitlePanel, javax.swing.GroupLayout.DEFAULT_SIZE, 475, Short.MAX_VALUE)
-            .addComponent(jSeparator2)
-            .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.TRAILING)
-            .addGroup(LoginPanelLayout.createSequentialGroup()
+        javax.swing.GroupLayout loginPanelLayout = new javax.swing.GroupLayout(loginPanel);
+        loginPanel.setLayout(loginPanelLayout);
+        loginPanelLayout.setHorizontalGroup(
+            loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(loginTitlePanel, javax.swing.GroupLayout.DEFAULT_SIZE, 475, Short.MAX_VALUE)
+            .addComponent(separator1)
+            .addComponent(separator2, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(loginPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(LoginContentsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(LoginButtonsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(loginContentsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(loginButtonsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
-        LoginPanelLayout.setVerticalGroup(
-            LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LoginPanelLayout.createSequentialGroup()
-                .addComponent(LoginTitlePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+        loginPanelLayout.setVerticalGroup(
+            loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, loginPanelLayout.createSequentialGroup()
+                .addComponent(loginTitlePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(separator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(LoginContentsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
+                .addComponent(loginContentsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(separator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(LoginButtonsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(loginButtonsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Login", LoginPanel);
+        tabsPanel.addTab("Login", loginPanel);
 
-        RegisterTitlePanel.setLayout(new java.awt.BorderLayout());
+        registerTitlePanel.setLayout(new java.awt.BorderLayout());
 
-        RegisterTitleLabel.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        RegisterTitleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        RegisterTitleLabel.setText("Welcome to ChkTest");
-        RegisterTitleLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        RegisterTitlePanel.add(RegisterTitleLabel, java.awt.BorderLayout.CENTER);
+        registerTitleLabel.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        registerTitleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        registerTitleLabel.setText("Welcome to ChkTest");
+        registerTitleLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        registerTitlePanel.add(registerTitleLabel, java.awt.BorderLayout.CENTER);
 
-        RegContentsPanel.setLayout(new java.awt.GridLayout(5, 2, 4, 4));
+        registerContentsPanel.setLayout(new java.awt.GridLayout(5, 2, 4, 4));
 
-        RegUserLabel.setText("Username");
-        RegContentsPanel.add(RegUserLabel);
+        registerUserLabel.setText("Username");
+        registerContentsPanel.add(registerUserLabel);
 
-        RegUserText.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        RegContentsPanel.add(RegUserText);
-        RegUserText.getAccessibleContext().setAccessibleName("Register Username Field");
-        RegUserText.getAccessibleContext().setAccessibleDescription("Register Username Field");
+        registerUserText.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        registerContentsPanel.add(registerUserText);
+        registerUserText.getAccessibleContext().setAccessibleName("Register Username Field");
+        registerUserText.getAccessibleContext().setAccessibleDescription("Register Username Field");
 
-        RegEmail1Label.setText("Email");
-        RegContentsPanel.add(RegEmail1Label);
+        registerEmail1Label.setText("Email");
+        registerContentsPanel.add(registerEmail1Label);
 
-        RegEmail1Text.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        RegContentsPanel.add(RegEmail1Text);
-        RegEmail1Text.getAccessibleContext().setAccessibleName("Register First Email Field");
-        RegEmail1Text.getAccessibleContext().setAccessibleDescription("Register First Email Field");
+        registerEmail1Text.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        registerContentsPanel.add(registerEmail1Text);
+        registerEmail1Text.getAccessibleContext().setAccessibleName("Register First Email Field");
+        registerEmail1Text.getAccessibleContext().setAccessibleDescription("Register First Email Field");
 
-        RegEmail2Label.setText("Email again");
-        RegContentsPanel.add(RegEmail2Label);
+        registerEmail2Label.setText("Email again");
+        registerContentsPanel.add(registerEmail2Label);
 
-        RegEmail2Text.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        RegContentsPanel.add(RegEmail2Text);
-        RegEmail2Text.getAccessibleContext().setAccessibleName("Register Second Email Field");
-        RegEmail2Text.getAccessibleContext().setAccessibleDescription("Register Second Email Field");
+        registerEmail2Text.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        registerContentsPanel.add(registerEmail2Text);
+        registerEmail2Text.getAccessibleContext().setAccessibleName("Register Second Email Field");
+        registerEmail2Text.getAccessibleContext().setAccessibleDescription("Register Second Email Field");
 
-        RegPass1Label.setText("Password");
-        RegContentsPanel.add(RegPass1Label);
+        registerPass1Label.setText("Password");
+        registerContentsPanel.add(registerPass1Label);
 
-        RegPass1Text.setText("jPasswordField1");
-        RegPass1Text.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        RegContentsPanel.add(RegPass1Text);
-        RegPass1Text.getAccessibleContext().setAccessibleName("Register First Password Field");
-        RegPass1Text.getAccessibleContext().setAccessibleDescription("Register First Password Field");
+        registerPass1Text.setText("jPasswordField1");
+        registerPass1Text.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        registerContentsPanel.add(registerPass1Text);
+        registerPass1Text.getAccessibleContext().setAccessibleName("Register First Password Field");
+        registerPass1Text.getAccessibleContext().setAccessibleDescription("Register First Password Field");
 
-        RegPass2Label.setText("Password again");
-        RegContentsPanel.add(RegPass2Label);
+        registerPass2Label.setText("Password again");
+        registerContentsPanel.add(registerPass2Label);
 
-        RegPass2Text.setText("jPasswordField1");
-        RegPass2Text.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        RegContentsPanel.add(RegPass2Text);
-        RegPass2Text.getAccessibleContext().setAccessibleName("Register Second Password Field");
-        RegPass2Text.getAccessibleContext().setAccessibleDescription("Register Second Password Field");
+        registerPass2Text.setText("jPasswordField1");
+        registerPass2Text.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        registerContentsPanel.add(registerPass2Text);
+        registerPass2Text.getAccessibleContext().setAccessibleName("Register Second Password Field");
+        registerPass2Text.getAccessibleContext().setAccessibleDescription("Register Second Password Field");
 
-        RegButtonsPanel.setLayout(new java.awt.GridLayout(1, 2, 4, 4));
+        registerButtonsPanel.setLayout(new java.awt.GridLayout(1, 2, 4, 4));
 
-        RegClearButton.setText("Clear");
-        RegButtonsPanel.add(RegClearButton);
+        registerClearButton.setText("Clear");
+        registerButtonsPanel.add(registerClearButton);
 
-        RegSubmitButton.setText("Register");
-        RegSubmitButton.addActionListener(new java.awt.event.ActionListener() {
+        registerSubmitButton.setText("Register");
+        registerSubmitButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RegSubmitButtonActionPerformed(evt);
+                registerSubmitButtonActionPerformed(evt);
             }
         });
-        RegButtonsPanel.add(RegSubmitButton);
+        registerButtonsPanel.add(registerSubmitButton);
 
-        javax.swing.GroupLayout RegisterPanelLayout = new javax.swing.GroupLayout(RegisterPanel);
-        RegisterPanel.setLayout(RegisterPanelLayout);
-        RegisterPanelLayout.setHorizontalGroup(
-            RegisterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(RegisterTitlePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
-            .addComponent(jSeparator4)
-            .addGroup(RegisterPanelLayout.createSequentialGroup()
+        javax.swing.GroupLayout registerPanelLayout = new javax.swing.GroupLayout(registerPanel);
+        registerPanel.setLayout(registerPanelLayout);
+        registerPanelLayout.setHorizontalGroup(
+            registerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(registerTitlePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(separator3, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(separator4)
+            .addGroup(registerPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(RegisterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(RegContentsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 451, Short.MAX_VALUE)
-                    .addComponent(RegButtonsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(registerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(registerContentsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 451, Short.MAX_VALUE)
+                    .addComponent(registerButtonsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
-        RegisterPanelLayout.setVerticalGroup(
-            RegisterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, RegisterPanelLayout.createSequentialGroup()
-                .addComponent(RegisterTitlePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+        registerPanelLayout.setVerticalGroup(
+            registerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, registerPanelLayout.createSequentialGroup()
+                .addComponent(registerTitlePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(separator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(RegContentsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
+                .addComponent(registerContentsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(separator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(RegButtonsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(registerButtonsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Register", RegisterPanel);
+        tabsPanel.addTab("Register", registerPanel);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addComponent(tabsPanel)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addComponent(tabsPanel)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void RegSubmitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegSubmitButtonActionPerformed
+    private void registerSubmitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerSubmitButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_RegSubmitButtonActionPerformed
+    }//GEN-LAST:event_registerSubmitButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel LoginButtonsPanel;
-    private javax.swing.JButton LoginClearButton;
-    private javax.swing.JPanel LoginContentsPanel;
-    private javax.swing.JPanel LoginPanel;
-    private javax.swing.JLabel LoginPassLabel;
-    private javax.swing.JPasswordField LoginPassText;
-    private javax.swing.JButton LoginSubmitButton;
     private javax.swing.JLabel LoginTitleLabel;
-    private javax.swing.JPanel LoginTitlePanel;
-    private javax.swing.JLabel LoginUserLabel;
-    private javax.swing.JTextField LoginUserText;
-    private javax.swing.JPanel RegButtonsPanel;
-    private javax.swing.JButton RegClearButton;
-    private javax.swing.JPanel RegContentsPanel;
-    private javax.swing.JLabel RegEmail1Label;
-    private javax.swing.JTextField RegEmail1Text;
-    private javax.swing.JLabel RegEmail2Label;
-    private javax.swing.JTextField RegEmail2Text;
-    private javax.swing.JLabel RegPass1Label;
-    private javax.swing.JPasswordField RegPass1Text;
-    private javax.swing.JLabel RegPass2Label;
-    private javax.swing.JPasswordField RegPass2Text;
-    private javax.swing.JButton RegSubmitButton;
-    private javax.swing.JLabel RegUserLabel;
-    private javax.swing.JTextField RegUserText;
-    private javax.swing.JPanel RegisterPanel;
-    private javax.swing.JLabel RegisterTitleLabel;
-    private javax.swing.JPanel RegisterTitlePanel;
     private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler2;
     private javax.swing.Box.Filler filler3;
     private javax.swing.Box.Filler filler4;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JPanel loginButtonsPanel;
+    private javax.swing.JButton loginClearButton;
+    private javax.swing.JPanel loginContentsPanel;
+    private javax.swing.JPanel loginPanel;
+    private javax.swing.JLabel loginPassLabel;
+    private javax.swing.JPasswordField loginPassText;
+    private javax.swing.JButton loginSubmitButton;
+    private javax.swing.JPanel loginTitlePanel;
+    private javax.swing.JLabel loginUserLabel;
+    private javax.swing.JTextField loginUserText;
+    private javax.swing.JPanel registerButtonsPanel;
+    private javax.swing.JButton registerClearButton;
+    private javax.swing.JPanel registerContentsPanel;
+    private javax.swing.JLabel registerEmail1Label;
+    private javax.swing.JTextField registerEmail1Text;
+    private javax.swing.JLabel registerEmail2Label;
+    private javax.swing.JTextField registerEmail2Text;
+    private javax.swing.JPanel registerPanel;
+    private javax.swing.JLabel registerPass1Label;
+    private javax.swing.JPasswordField registerPass1Text;
+    private javax.swing.JLabel registerPass2Label;
+    private javax.swing.JPasswordField registerPass2Text;
+    private javax.swing.JButton registerSubmitButton;
+    private javax.swing.JLabel registerTitleLabel;
+    private javax.swing.JPanel registerTitlePanel;
+    private javax.swing.JLabel registerUserLabel;
+    private javax.swing.JTextField registerUserText;
+    private javax.swing.JSeparator separator1;
+    private javax.swing.JSeparator separator2;
+    private javax.swing.JSeparator separator3;
+    private javax.swing.JSeparator separator4;
+    private javax.swing.JTabbedPane tabsPanel;
     // End of variables declaration//GEN-END:variables
 }
