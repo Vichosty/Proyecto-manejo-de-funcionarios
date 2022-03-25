@@ -35,10 +35,11 @@ public class Prueba {
             ResultSet results = statement.executeQuery("select * from trabajadores");
             while(results.next())
             {
-                int id = results.getInt(1);
-                String nombre = results.getString(2);
-                String apellido = results.getString(3);
-                Date fechaDeNacimiento = results.getTimestamp(4);
+                int id = results.getInt("id");
+                String nombre = results.getString("nombre");
+                String apellido = results.getString("apellido");
+                Date fechaDeNacimiento = results.getTimestamp("fechaDeNacimiento");
+                
                 gobierno.addTrabajador(new Trabajador(id, nombre, apellido, fechaDeNacimiento));
             }
             connection.close();
