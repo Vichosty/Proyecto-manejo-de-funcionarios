@@ -1,4 +1,5 @@
 
+import chk.chkui.CreateContract;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -78,5 +79,10 @@ public class Prueba {
         {
             System.out.println("\t" + trabajador.getNombre());
         }
+        
+        
+        // Test the GUI
+        CreateContract createContract = new CreateContract(null, true);
+        createContract.setVisible(true);
     }
 }

@@ -5,6 +5,12 @@
  */
 package chk.chkui;
 
+import java.awt.CardLayout;
+import java.awt.Component;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+
 /**
  *
  * @author chkp
@@ -29,17 +35,15 @@ public class CreateContract extends javax.swing.JDialog {
     private void initComponents() {
 
         titleLabel = new javax.swing.JLabel();
-        pasosComboBox = new javax.swing.JComboBox<>();
         pasosPanel = new javax.swing.JPanel();
         paso1Panel = new javax.swing.JPanel();
         paso2Panel = new javax.swing.JPanel();
         paso3Panel = new javax.swing.JPanel();
+        pasosComboBox = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        titleLabel.setText("Crear contrato");
-
-        pasosComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        titleLabel.setText("Create contract");
 
         pasosPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         pasosPanel.setLayout(new java.awt.CardLayout(4, 4));
@@ -58,7 +62,7 @@ public class CreateContract extends javax.swing.JDialog {
             .addGap(0, 246, Short.MAX_VALUE)
         );
 
-        pasosPanel.add(paso1Panel, "card2");
+        pasosPanel.add(paso1Panel, "Paso 1");
 
         paso2Panel.setBackground(new java.awt.Color(153, 255, 153));
         paso2Panel.setName("Paso 2"); // NOI18N
@@ -74,7 +78,7 @@ public class CreateContract extends javax.swing.JDialog {
             .addGap(0, 246, Short.MAX_VALUE)
         );
 
-        pasosPanel.add(paso2Panel, "card3");
+        pasosPanel.add(paso2Panel, "Paso 2");
 
         paso3Panel.setBackground(new java.awt.Color(153, 153, 255));
         paso3Panel.setName("Paso 3"); // NOI18N
@@ -90,7 +94,24 @@ public class CreateContract extends javax.swing.JDialog {
             .addGap(0, 246, Short.MAX_VALUE)
         );
 
-        pasosPanel.add(paso3Panel, "card4");
+        pasosPanel.add(paso3Panel, "Paso 3");
+
+        // pasosNames
+        pasosNames = new ArrayList<>();
+        int pasosCount = 0;
+        for(Component c : pasosPanel.getComponents()) {
+            if (c instanceof javax.swing.JPanel) {
+                pasosCount++;
+                pasosNames.add(c.getName());
+            }
+        }
+
+        pasosComboBox.setModel(new DefaultComboBoxModel(pasosNames.toArray()));
+        pasosComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pasosComboBoxActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -121,53 +142,15 @@ public class CreateContract extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /*
-         * Set the Nimbus look and feel
-         */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /*
-         * If Nimbus (introduced in Java SE 6) is not available, stay with the
-         * default look and feel. For details see
-         * http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CreateContract.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CreateContract.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CreateContract.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CreateContract.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /*
-         * Create and display the dialog
-         */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                CreateContract dialog = new CreateContract(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+    private void pasosComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pasosComboBoxActionPerformed
+        int selectedIndex = pasosComboBox.getSelectedIndex(); 
+        if (selectedIndex == -1) { return; }
+        
+        String targetName = pasosNames.get(selectedIndex);
+        
+        CardLayout layout = (CardLayout)(pasosPanel.getLayout());
+        layout.show(pasosPanel, targetName);
+    }//GEN-LAST:event_pasosComboBoxActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel paso1Panel;
@@ -175,6 +158,7 @@ public class CreateContract extends javax.swing.JDialog {
     private javax.swing.JPanel paso3Panel;
     private javax.swing.JComboBox<String> pasosComboBox;
     private javax.swing.JPanel pasosPanel;
+    private List<String> pasosNames;
     private javax.swing.JLabel titleLabel;
     // End of variables declaration//GEN-END:variables
 }
