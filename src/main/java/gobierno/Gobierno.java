@@ -1,3 +1,5 @@
+package gobierno;
+
 
 import java.util.Collection;
 import java.util.HashMap;

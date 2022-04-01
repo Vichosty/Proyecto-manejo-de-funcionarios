@@ -1,3 +1,5 @@
+package gobierno;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +20,13 @@ public class Reparticion {
     private EstadoReparticion estado;
     private List<Integer> trabajadores;
     
+    public Reparticion() {
+        this.id = -1;
+        this.nombre = "Nombre";
+        this.estado = EstadoReparticion.Normal;
+        this.trabajadores = new ArrayList<>();
+    }
+    
     public Reparticion(int id, String nombre, EstadoReparticion estado) {
         this.id = id;
         this.nombre = nombre;
@@ -26,17 +35,17 @@ public class Reparticion {
     }
     
     public Reparticion(int id, String nombre, String estadoString) {
-        EstadoReparticion estado = EstadoReparticion.Normal;
+        this();
+        
+        this.estado = EstadoReparticion.Normal;
         if (estadoString.compareToIgnoreCase("deficit") == 0) {
-            estado = EstadoReparticion.Deficit;
+            this.estado = EstadoReparticion.Deficit;
         } else if (estadoString.compareToIgnoreCase("superavit") == 0) {
-            estado = EstadoReparticion.Superavit;
+            this.estado = EstadoReparticion.Superavit;
         }
         
         this.id = id;
         this.nombre = nombre;
-        this.estado = estado;
-        this.trabajadores = new ArrayList<>();
     }
     
     public Reparticion(int id, String nombre, EstadoReparticion estado, List<Integer> trabajadores) {

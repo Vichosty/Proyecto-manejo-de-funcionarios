@@ -1,5 +1,8 @@
 
-import chk.chkui.CreateContract;
+import chk.chkui.trabajador.TrabajadorEditor;
+import gobierno.Gobierno;
+import gobierno.Reparticion;
+import gobierno.Trabajador;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -81,8 +84,19 @@ public class Prueba {
         }
         
         
-        // Test the GUI
+        // Test the GUI (por ahora no hace nada, solo muestra los valores del usuario de id 1
+        try {
+            Trabajador trabajadorSample = gobierno.getTrabajador(1);
+            System.out.println("test: " + trabajadorSample.getNombre());
+            TrabajadorEditor trabajadorEditor = new TrabajadorEditor(null, true, trabajadorSample);
+            trabajadorEditor.setVisible(true);
+        } catch (Exception ex) {
+            Logger.getLogger(Prueba.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        /*
         CreateContract createContract = new CreateContract(null, true);
         createContract.setVisible(true);
+        */
     }
 }

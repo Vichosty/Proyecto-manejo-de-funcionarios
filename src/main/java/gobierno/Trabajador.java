@@ -1,29 +1,38 @@
+package gobierno;
 
 import java.util.Date;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * To change this template file, choose Tools | Templates and open the template
+ * in the editor.
  */
-
 /**
  *
  * @author chkp
  */
-public class Trabajador {
+public final class Trabajador {
+
     private int id;
     private String nombre;
     private String apellido;
+    private String fechaDeNacimientoAsString;
     private Date fechaDeNacimiento;
-    
+
+    public Trabajador() {
+        this.id = -1;
+        this.nombre = "Nombre";
+        this.apellido = "Apellido";
+        setFechaDeNacimiento(new Date(System.currentTimeMillis()));
+    }
+
     public Trabajador(int id, String nombre, String apellido, Date fechaDeNacimiento) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
-        this.fechaDeNacimiento = fechaDeNacimiento;
+        setFechaDeNacimiento(fechaDeNacimiento);
     }
-    
+
     public int getId() {
         return id;
     }
@@ -31,7 +40,7 @@ public class Trabajador {
     public void setId(int id) {
         this.id = id;
     }
-    
+
     public String getNombre() {
         return nombre;
     }
@@ -48,11 +57,16 @@ public class Trabajador {
         this.apellido = apellido;
     }
 
+    public String getFechaDeNacimientoAsString() {
+        return fechaDeNacimientoAsString;
+    }
+
     public Date getFechaDeNacimiento() {
         return fechaDeNacimiento;
     }
 
     public void setFechaDeNacimiento(Date fechaDeNacimiento) {
         this.fechaDeNacimiento = fechaDeNacimiento;
+        this.fechaDeNacimientoAsString = fechaDeNacimiento.toString();
     }
 }
