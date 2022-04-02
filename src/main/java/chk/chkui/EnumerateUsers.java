@@ -242,13 +242,11 @@ public class EnumerateUsers extends javax.swing.JFrame {
         DefaultMutableTreeNode selectedNode =
                 (DefaultMutableTreeNode)reparticionTree.getLastSelectedPathComponent();
         Reparticion r = (Reparticion)selectedNode.getUserObject();
-        System.out.println("R: " + r.getNombre());
         
         DefaultTableModel tableModel = (DefaultTableModel)trabajadoresTable.getModel();
         tableModel.setRowCount(0);
         
         for (Trabajador t : gobierno.getTrabajadoresEnReparticion(r.getId())) {
-            System.out.println("\tT: " + t.getNombre());
             tableModel.addRow(new Object[]{ t.getNombre(), t.getApellido(), t.getFechaDeNacimientoAsString() });
         }
     }//GEN-LAST:event_reparticionTreeValueChanged

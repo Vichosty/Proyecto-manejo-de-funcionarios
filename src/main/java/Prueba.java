@@ -1,14 +1,11 @@
 
 import chk.chkui.EnumerateUsers;
 import gobierno.Contrato;
+import gobierno.EstadoReparticion;
 import gobierno.Gobierno;
 import gobierno.Reparticion;
 import gobierno.Trabajador;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -30,10 +27,10 @@ import javax.swing.UnsupportedLookAndFeelException;
  * @author Vichosty
  */
 public class Prueba {
-
     public static void main(String[] args) throws SQLException {
         Gobierno gobierno = new Gobierno();
 
+        /*
         // Create a database connection
         try {
             String conURL = "jdbc:mysql://localhost:3306/chk_test";
@@ -75,9 +72,68 @@ public class Prueba {
         } catch (Exception ex) {
             Logger.getLogger(Prueba.class.getName()).log(Level.SEVERE, null, ex);
         }
+        */
 
+        // Agregar algunas reparticiones de prueba.
+        String[] reparticionNames = {
+            "Deportes", "Economia", "Construccion"
+        };
+        
+        int index = 1;
+        for(String name : reparticionNames) {
+            gobierno.addReparticion(new Reparticion(index++, name, EstadoReparticion.Normal));
+        }
+        
         // Crear 20 trabajadores random
+        debugCrearDatosRandom(gobierno);
+        
+        debugPrintGobierno(gobierno);
+        
+        try {
+            // Test de GUI
+            UIManager.setLookAndFeel(
+                    UIManager.getSystemLookAndFeelClassName());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Prueba.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(Prueba.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(Prueba.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedLookAndFeelException ex) {
+            Logger.getLogger(Prueba.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        EnumerateUsers enumerateUsers = new EnumerateUsers(gobierno);
+        enumerateUsers.setVisible(true);
+        
+        debugPrintGobierno(gobierno);
+    }
+    
+    public static void debugPrintGobierno(Gobierno gobierno) {
+        // Mostrar valores en consola para probar.
+        System.out.println("Reparticiones:");
+        for (Reparticion reparticion : gobierno.getReparticiones()) {
+            System.out.println("\t" + reparticion.getNombre());
+        }
+
+        System.out.println("Trabajadores:");
+        for (Trabajador trabajador : gobierno.getTrabajadores()) {
+            System.out.println("\t" + trabajador.getNombre());
+        }
+
+        System.out.println("Contratos:");
+        for (List<Contrato> listasDeContratos : gobierno.getContratos()) {
+            for (Contrato c : listasDeContratos) {
+                Trabajador t = gobierno.getTrabajador(c.getIdTrabajador());
+                Reparticion r = gobierno.getReparticion(c.getIdReparticion());
+                System.out.println("\t" + t.getNombre() + " -> " + r.getNombre());
+            }
+        }
+    }
+    
+    public static void debugCrearDatosRandom(Gobierno gobierno) {
         Random random = new Random();
+
         String[] commonNames = {
             "James", "Robert", "John", "Michael", "William", "David", "Richard", "Joseph", "Thomas", "Charles",
             "Mary", "Patricia", "Jennifer", "Linda", "Elizabeth", "Barbara", "Susan", "Jessica", "Sarah", "Karen"
@@ -99,7 +155,7 @@ public class Prueba {
 
                 long randomMilis = ThreadLocalRandom.current().nextLong(startMilis, endMilis);
                 Date randomDate = new Date(randomMilis);
-                Trabajador t = new Trabajador(-i, randomName, randomSurname, randomDate);
+                Trabajador t = new Trabajador(i, randomName, randomSurname, randomDate);
                 gobierno.addTrabajador(t);
             }
         }catch (Exception ex) {
@@ -108,49 +164,16 @@ public class Prueba {
         
         // Crea contratos aleatorios entre los trabajadores y una reparticion al azar
         Object[] items = gobierno.getReparticiones().toArray();
-        for(Trabajador t : gobierno.getTrabajadores()) {    
-            Object randomItem = items[random.nextInt(items.length)];
-            
-            Reparticion r = (Reparticion)randomItem;
-            Contrato c = new Contrato(t.getId(), r.getId());
-            gobierno.addContrato(c);
-        }
-        
-        // Mostrar valores en consola para probar.
-        System.out.println("Reparticiones:");
-        for (Reparticion reparticion : gobierno.getReparticiones()) {
-            System.out.println("\t" + reparticion.getNombre());
-        }
+        if (items.length > 0) {
+            for(Trabajador t : gobierno.getTrabajadores()) {    
+                Object randomItem = items[random.nextInt(items.length)];
 
-        System.out.println("Trabajadores:");
-        for (Trabajador trabajador : gobierno.getTrabajadores()) {
-            System.out.println("\t" + trabajador.getNombre());
-        }
-
-        System.out.println("Contratos:");
-        for (List<Contrato> listasDeContratos : gobierno.getContratos()) {
-            for (Contrato c : listasDeContratos) {
-                Trabajador t = gobierno.getTrabajador(c.getIdTrabajador());
-                Reparticion r = gobierno.getReparticion(c.getIdReparticion());
-                System.out.println("\t" + t.getNombre() + " -> " + r.getNombre());
+                Reparticion r = (Reparticion)randomItem;
+                Contrato c = new Contrato(t.getId(), r.getId());
+                gobierno.addContrato(c);
             }
+        } else {
+            System.out.println("No hay reparticiones!");
         }
-        
-        try {
-            // Test de GUI
-            UIManager.setLookAndFeel(
-                    UIManager.getSystemLookAndFeelClassName());
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Prueba.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            Logger.getLogger(Prueba.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(Prueba.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (UnsupportedLookAndFeelException ex) {
-            Logger.getLogger(Prueba.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        EnumerateUsers enumerateUsers = new EnumerateUsers(gobierno);
-        enumerateUsers.setVisible(true);
     }
 }
