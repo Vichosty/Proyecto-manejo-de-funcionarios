@@ -1,0 +1,73 @@
+@startuml
+class gobierno.Gobierno {
+    -reparticiones
+    -trabajadores
+    
+    +getReparticion()
+    +addReparticion()
+    +getReparticiones()
+    +addReparticiones()
+    +getTrabajador()
+    +addTrabajador()
+    +getTrabajadores()
+    +addTrabajadores()
+}
+class gobierno.Reparticion {
+    -id
+    -nombre
+    -estado
+    -trabajadores
+
+    +getId()
+    +setId()
+    +getNombre()
+    +setNombre()
+    +getTrabajadores()
+    +setTrabajadores()
+    +getEstado()
+}
+enum gobierno.EstadoReparticion {
+    Normal
+    Deficit
+    Superavit
+}
+class gobierno.Trabajador {
+    -id
+    -nombre
+    -apellido
+    -fechaDeNacimientoAsString
+    -fechaDeNacimiento
+
+    +getId()
+    +setId()
+    +getNombre()
+    +setNombre()
+    +getApellido()
+    +setApellido()
+    +getFechaDeNacimientoAsString()
+    +getFechaDeNacimiento()
+    +setFechaDeNacimiento()
+}
+
+class java.util.Date
+
+interface java.util.List
+class java.util.ArrayList
+java.util.ArrayList <|-- java.util.List
+
+interface java.util.Collection
+interface java.util.Map
+class java.util.HashMap
+java.util.HashMap <|-- java.util.Map
+
+gobierno.Gobierno ..> gobierno.Reparticion : "contiene"
+gobierno.Gobierno ..> gobierno.Trabajador : "contiene"
+gobierno.Gobierno ..> java.util.Collection
+gobierno.Gobierno ..> java.util.HashMap
+gobierno.Reparticion ..> gobierno.EstadoReparticion : "contiene"
+gobierno.Reparticion ..> java.util.ArrayList
+gobierno.Trabajador ..> java.util.Date
+
+
+
+@enduml
