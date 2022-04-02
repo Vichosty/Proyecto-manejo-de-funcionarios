@@ -19,6 +19,11 @@ public class Reparticion {
     private String nombre;
     private EstadoReparticion estado;
     private List<Integer> trabajadores;
+
+    @Override
+    public String toString() {
+        return nombre;
+    }
     
     public Reparticion() {
         this.id = -1;

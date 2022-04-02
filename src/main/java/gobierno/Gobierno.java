@@ -78,6 +78,18 @@ public class Gobierno {
     public Collection<Trabajador> getTrabajadores() {
         return trabajadores.values();
     }
+    
+    public List<Trabajador> getTrabajadoresEnReparticion(int idReparticion) {
+        List<Trabajador> resultado = new ArrayList<>();
+        for(List<Contrato> listaContratos : contratos.values()) {
+            for (Contrato c : listaContratos) {
+                if (c.getIdReparticion() == idReparticion) {
+                    resultado.add(getTrabajador(c.getIdTrabajador()));
+                }
+            }
+        }
+        return resultado;
+    }
      
     public boolean addTrabajador(Trabajador trabajador)
     {

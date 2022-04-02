@@ -6,6 +6,8 @@
 package chk.chkui;
 
 import gobierno.Reparticion;
+import gobierno.Trabajador;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
@@ -65,6 +67,14 @@ public class EnumerateUsers extends javax.swing.JFrame {
 
         reparticionTitle.setText("Reparticiones");
 
+        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
+        reparticionTree.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        reparticionTree.setRootVisible(false);
+        reparticionTree.addTreeSelectionListener(new javax.swing.event.TreeSelectionListener() {
+            public void valueChanged(javax.swing.event.TreeSelectionEvent evt) {
+                reparticionTreeValueChanged(evt);
+            }
+        });
         reparticionScrollPane.setViewportView(reparticionTree);
 
         leftButtonsPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(4, 4, 4, 4));
@@ -113,15 +123,27 @@ public class EnumerateUsers extends javax.swing.JFrame {
 
         trabajadoresTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Nombre", "Apellido", "Fecha de Nacimiento"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                true, true, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         trabajadoresScrollPane.setViewportView(trabajadoresTable);
 
         rightButtonsPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(4, 4, 4, 4));
@@ -215,6 +237,22 @@ public class EnumerateUsers extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void reparticionTreeValueChanged(javax.swing.event.TreeSelectionEvent evt) {//GEN-FIRST:event_reparticionTreeValueChanged
+        // Get the selected item name
+        DefaultMutableTreeNode selectedNode =
+                (DefaultMutableTreeNode)reparticionTree.getLastSelectedPathComponent();
+        Reparticion r = (Reparticion)selectedNode.getUserObject();
+        System.out.println("R: " + r.getNombre());
+        
+        DefaultTableModel tableModel = (DefaultTableModel)trabajadoresTable.getModel();
+        tableModel.setRowCount(0);
+        
+        for (Trabajador t : gobierno.getTrabajadoresEnReparticion(r.getId())) {
+            System.out.println("\tT: " + t.getNombre());
+            tableModel.addRow(new Object[]{ t.getNombre(), t.getApellido(), t.getFechaDeNacimientoAsString() });
+        }
+    }//GEN-LAST:event_reparticionTreeValueChanged
+
     public void setGobierno(gobierno.Gobierno gobierno) {
         this.gobierno = gobierno;
         reloadGobierno();
@@ -226,6 +264,7 @@ public class EnumerateUsers extends javax.swing.JFrame {
         DefaultMutableTreeNode reparticionNode = null;
         for(Reparticion reparticion : gobierno.getReparticiones()){
             reparticionNode = new DefaultMutableTreeNode(reparticion.getNombre());
+            reparticionNode.setUserObject(reparticion);
             treeRoot.add(reparticionNode);
         }
         
