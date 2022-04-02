@@ -1,9 +1,12 @@
 package gobierno;
 
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -18,10 +21,12 @@ import java.util.Map;
 public class Gobierno {
     final private Map<Integer, Reparticion> reparticiones;
     final private Map<Integer, Trabajador> trabajadores;
+    final private Map<Integer, List<Contrato>> contratos;
 
     public Gobierno() {
         reparticiones = new HashMap<>();
         trabajadores = new HashMap<>();
+        contratos = new HashMap<>();
     }
 
     // Reparticion
@@ -35,6 +40,10 @@ public class Gobierno {
     
     public Collection<Reparticion> getReparticiones() {
         return reparticiones.values();
+    }
+    
+    public Set<Integer> getReparticionesIds() {
+        return reparticiones.keySet();
     }
     
     public boolean addReparticion(Reparticion reparticion)
@@ -85,6 +94,65 @@ public class Gobierno {
         if (trabajadores.containsKey(id))
         {
             return trabajadores.remove(id);
+        }
+        return null;
+    }
+    // </editor-fold>
+    
+    // Contratos
+    // <editor-fold defaultstate="collapsed" desc="Contratos">
+    public Contrato getContrato(int idTrabajador, int idReparticion) {
+        if (contratos.containsKey(idTrabajador)) {
+            for(Contrato c : contratos.get(idTrabajador)) {
+                if (c.getIdReparticion() == idReparticion) {
+                    return c;
+                }
+            }
+        }
+        return null;
+    }
+    
+    public Collection<List<Contrato>> getContratos() {
+        return contratos.values();
+    }
+    
+    public boolean addContrato(Contrato contrato)
+    {
+        if (contratos.containsKey(contrato.getIdTrabajador())) {
+            // La lista ya existe, agrega al final, pero solo si la reparticion no esta previamente
+            List<Contrato> listaContratos = contratos.get(contrato.getIdTrabajador());
+            for(Contrato c : listaContratos) {
+                if (c.getIdReparticion() == contrato.getIdReparticion()) {
+                    return false;
+                }
+            }
+            listaContratos.add(contrato);
+            return true;
+        } else {
+            // La lista no existe, crea una nueva, agrega el contrato y retorna
+            List<Contrato> listaContratos = new ArrayList<>();
+            listaContratos.add(contrato);
+            contratos.put(contrato.getIdTrabajador(), listaContratos);
+            return true;
+        }
+    }
+    
+    public Contrato removeContrato(int idTrabajador, int idReparticion)
+    {
+        if (contratos.containsKey(idTrabajador))
+        {
+            List<Contrato> listaContratos = contratos.get(idTrabajador);
+            Contrato found = null;
+            for(Contrato c : listaContratos) {
+                if (c.getIdReparticion() == idReparticion) {
+                    found = c;
+                    break;
+                }
+            }
+            if (found != null) {
+                listaContratos.remove(found);
+                return found;
+            }
         }
         return null;
     }

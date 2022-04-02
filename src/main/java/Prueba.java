@@ -1,5 +1,6 @@
 
-import chk.chkui.trabajador.TrabajadorEditor;
+import chk.chkui.EnumerateUsers;
+import gobierno.Contrato;
 import gobierno.Gobierno;
 import gobierno.Reparticion;
 import gobierno.Trabajador;
@@ -8,7 +9,11 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -69,6 +74,47 @@ public class Prueba {
             Logger.getLogger(Prueba.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+        // Crear 20 trabajadores random
+        Random random = new Random();
+        String[] commonNames = {
+            "James", "Robert", "John", "Michael", "William", "David", "Richard", "Joseph", "Thomas", "Charles",
+            "Mary", "Patricia", "Jennifer", "Linda", "Elizabeth", "Barbara", "Susan", "Jessica", "Sarah", "Karen"
+        };
+        String[] commonSurnames = {
+            "Smith", "Johnson", "Williams", "Brown", "Jones", "Garcia", "Miller", "Davis", "Rodriguez", "Martinez",
+            "Hernandez", "Lopez", "Gonzalez", "Wilson", "Anderson", "Thomas", "Taylor", "Moore", "Jackson", "Martin"
+        };
+        
+        try {
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            Date startDate = df.parse("1990-01-01");
+            Date endDate = df.parse("2010-01-01");
+            long startMilis = startDate.getTime();
+            long endMilis = endDate.getTime();
+            for(int i = 1; i <= 20; ++i) {
+                String randomName = commonNames[random.nextInt(commonNames.length)];
+                String randomSurname = commonSurnames[random.nextInt(commonSurnames.length)];
+
+                long randomMilis = ThreadLocalRandom.current().nextLong(startMilis, endMilis);
+                Date randomDate = new Date(randomMilis);
+                Trabajador t = new Trabajador(-i, randomName, randomSurname, randomDate);
+                gobierno.addTrabajador(t);
+            }
+        }catch (Exception ex) {
+            Logger.getLogger(Prueba.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        // Crea contratos aleatorios entre los trabajadores y una reparticion al azar
+        Object[] items = gobierno.getReparticiones().toArray();
+        for(Trabajador t : gobierno.getTrabajadores()) {    
+            Object randomItem = items[random.nextInt(items.length)];
+            
+            Reparticion r = (Reparticion)randomItem;
+            Contrato c = new Contrato(t.getId(), r.getId());
+            gobierno.addContrato(c);
+        }
+        
+        // Mostrar valores en consola para probar.
         System.out.println("Reparticiones:");
         for (Reparticion reparticion : gobierno.getReparticiones()) {
             System.out.println("\t" + reparticion.getNombre());
@@ -79,19 +125,17 @@ public class Prueba {
             System.out.println("\t" + trabajador.getNombre());
         }
 
-        // Test the GUI (por ahora no hace nada, solo muestra los valores del usuario de id 1
-        try {
-            Trabajador trabajadorSample = gobierno.getTrabajador(1);
-            System.out.println("test: " + trabajadorSample.getNombre());
-            TrabajadorEditor trabajadorEditor = new TrabajadorEditor(null, true, trabajadorSample);
-            trabajadorEditor.setVisible(true);
-        } catch (Exception ex) {
-            Logger.getLogger(Prueba.class.getName()).log(Level.SEVERE, null, ex);
+        System.out.println("Contratos:");
+        for (List<Contrato> listasDeContratos : gobierno.getContratos()) {
+            for (Contrato c : listasDeContratos) {
+                Trabajador t = gobierno.getTrabajador(c.getIdTrabajador());
+                Reparticion r = gobierno.getReparticion(c.getIdReparticion());
+                System.out.println("\t" + t.getNombre() + " -> " + r.getNombre());
+            }
         }
-
-        /*
-         * CreateContract createContract = new CreateContract(null, true);
-         * createContract.setVisible(true);
-         */
+        
+        // Test de GUI
+        EnumerateUsers enumerateUsers = new EnumerateUsers(gobierno);
+        enumerateUsers.setVisible(true);
     }
 }
