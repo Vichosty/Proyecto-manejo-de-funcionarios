@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package chk.chkui.trabajador;
+package chk.chkui;
 import gobierno.Trabajador;
+import javax.swing.event.DocumentEvent;
 
 /**
  *
@@ -32,6 +33,7 @@ public class TrabajadorEditor extends javax.swing.JDialog {
         java.awt.GridBagConstraints gridBagConstraints;
 
         trabajador = new gobierno.Trabajador();
+        trabajadorSaved = new gobierno.Trabajador();
         titlePanel = new javax.swing.JPanel();
         titleLabel = new javax.swing.JLabel();
         viewPanel = new javax.swing.JPanel();
@@ -40,14 +42,17 @@ public class TrabajadorEditor extends javax.swing.JDialog {
         apellidoLabel = new javax.swing.JLabel();
         apellidoText = new javax.swing.JTextField();
         fechaDeNacimientoLabel = new javax.swing.JLabel();
-        fechaDeNacimientoText = new javax.swing.JTextField();
+        fechaDeNacimientoDatePicker = new org.jdesktop.swingx.JXDatePicker();
         buttonsPanel = new javax.swing.JPanel();
         backButton = new javax.swing.JButton();
         saveButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Editor de Trabajador");
+        setName("editorDialog"); // NOI18N
+        setResizable(false);
 
-        titlePanel.setLayout(new java.awt.GridLayout());
+        titlePanel.setLayout(new java.awt.GridLayout(1, 0));
 
         titleLabel.setFont(titleLabel.getFont().deriveFont(titleLabel.getFont().getStyle() | java.awt.Font.BOLD, titleLabel.getFont().getSize()+8));
         titleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -72,9 +77,11 @@ public class TrabajadorEditor extends javax.swing.JDialog {
         viewPanel.add(nombreLabel, gridBagConstraints);
 
         nombreText.setText(trabajador.getNombre());
-        nombreText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nombreTextActionPerformed(evt);
+        nombreText.getDocument().addDocumentListener(new SimpleDocumentListener() {
+            @Override
+            public void update(DocumentEvent e) {
+                trabajador.setNombre(nombreText.getText());
+                checkForChanges();
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -102,9 +109,11 @@ public class TrabajadorEditor extends javax.swing.JDialog {
         viewPanel.add(apellidoLabel, gridBagConstraints);
 
         apellidoText.setText(trabajador.getApellido());
-        apellidoText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                apellidoTextActionPerformed(evt);
+        apellidoText.getDocument().addDocumentListener(new SimpleDocumentListener() {
+            @Override
+            public void update(DocumentEvent e) {
+                trabajador.setApellido(apellidoText.getText());
+                checkForChanges();
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -131,23 +140,37 @@ public class TrabajadorEditor extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
         viewPanel.add(fechaDeNacimientoLabel, gridBagConstraints);
 
-        fechaDeNacimientoText.setText(trabajador.getFechaDeNacimientoAsString());
-        fechaDeNacimientoText.setEnabled(false);
+        fechaDeNacimientoDatePicker.setDate(trabajador.getFechaDeNacimiento());
+        fechaDeNacimientoDatePicker.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fechaDeNacimientoDatePickerActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.ipadx = 4;
         gridBagConstraints.ipady = 4;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 3.0;
         gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
-        viewPanel.add(fechaDeNacimientoText, gridBagConstraints);
+        viewPanel.add(fechaDeNacimientoDatePicker, gridBagConstraints);
 
-        backButton.setText("Volver Atras");
+        backButton.setText("Revertir Cambios");
+        backButton.setEnabled(false);
+        backButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backButtonActionPerformed(evt);
+            }
+        });
 
         saveButton.setText("Guardar Cambios");
         saveButton.setEnabled(false);
+        saveButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout buttonsPanelLayout = new javax.swing.GroupLayout(buttonsPanel);
         buttonsPanel.setLayout(buttonsPanelLayout);
@@ -191,30 +214,56 @@ public class TrabajadorEditor extends javax.swing.JDialog {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+    
+    private void fechaDeNacimientoDatePickerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fechaDeNacimientoDatePickerActionPerformed
+        this.trabajador.setFechaDeNacimiento(this.fechaDeNacimientoDatePicker.getDate());
+        this.checkForChanges();
+    }//GEN-LAST:event_fechaDeNacimientoDatePickerActionPerformed
 
-    private void nombreTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreTextActionPerformed
-        this.trabajador.setNombre(this.nombreText.getText());
-        this.setChangedSomething(true);
-    }//GEN-LAST:event_nombreTextActionPerformed
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
+        // Revertir los cambios a this.trabajador, usando this.trabajadorSaved
+        this.trabajador.setNombre(this.trabajadorSaved.getNombre());
+        this.trabajador.setApellido(this.trabajadorSaved.getApellido());
+        this.trabajador.setFechaDeNacimiento(this.trabajadorSaved.getFechaDeNacimiento());
+        
+        // Cerrar la ventana
+        this.dispose();
+    }//GEN-LAST:event_backButtonActionPerformed
 
-    private void apellidoTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_apellidoTextActionPerformed
-        this.trabajador.setApellido(this.apellidoText.getText());
-        this.setChangedSomething(true);
-    }//GEN-LAST:event_apellidoTextActionPerformed
+    private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
+        // Cerrar la ventana
+        this.dispose();
+    }//GEN-LAST:event_saveButtonActionPerformed
 
-    public void setTrabajador(Trabajador trabajador) {
-        this.trabajador = trabajador;
-        // Update all widgets
-        this.nombreText.setText(this.trabajador.getNombre());
-        this.apellidoText.setText(this.trabajador.getApellido());
-        this.fechaDeNacimientoText.setText(this.trabajador.getFechaDeNacimientoAsString());
+    public Trabajador getTrabajador() {
+        return this.trabajador;
     }
     
-    public void setChangedSomething(boolean changedSomething) {
-        this.changedSomething = changedSomething;
-        if (changedSomething) {
-            this.saveButton.setEnabled(changedSomething);
+    public void setTrabajador(Trabajador trabajador) {
+        this.trabajador = trabajador;
+        // Respalda el trabajador en caso de que no se quiera guardar cambios.
+        trabajadorSaved.setNombre(this.trabajador.getNombre());
+        trabajadorSaved.setApellido(this.trabajador.getApellido());
+        trabajadorSaved.setFechaDeNacimiento(this.trabajador.getFechaDeNacimiento());
+        
+        // Actualiza los widgets
+        this.nombreText.setText(this.trabajador.getNombre());
+        this.apellidoText.setText(this.trabajador.getApellido());
+        this.fechaDeNacimientoDatePicker.setDate(this.trabajador.getFechaDeNacimiento());
+    }
+    
+    public void checkForChanges() {
+        boolean changedSomething = false;
+        if (!this.trabajador.getNombre().equals(this.trabajadorSaved.getNombre())) {
+            changedSomething = true;
+        }else if (!this.trabajador.getApellido().equals(this.trabajadorSaved.getApellido())) {
+            changedSomething = true;
+        }else if (!this.trabajador.getFechaDeNacimiento().equals(this.trabajadorSaved.getFechaDeNacimiento())) {
+            changedSomething = true;
         }
+        
+        this.saveButton.setEnabled(changedSomething);
+        this.backButton.setEnabled(changedSomething);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -222,15 +271,15 @@ public class TrabajadorEditor extends javax.swing.JDialog {
     private javax.swing.JTextField apellidoText;
     private javax.swing.JButton backButton;
     private javax.swing.JPanel buttonsPanel;
+    private org.jdesktop.swingx.JXDatePicker fechaDeNacimientoDatePicker;
     private javax.swing.JLabel fechaDeNacimientoLabel;
-    private javax.swing.JTextField fechaDeNacimientoText;
     private javax.swing.JLabel nombreLabel;
     private javax.swing.JTextField nombreText;
     private javax.swing.JButton saveButton;
     private javax.swing.JLabel titleLabel;
     private javax.swing.JPanel titlePanel;
     private gobierno.Trabajador trabajador;
+    private gobierno.Trabajador trabajadorSaved;
     private javax.swing.JPanel viewPanel;
     // End of variables declaration//GEN-END:variables
-    private boolean changedSomething;
 }

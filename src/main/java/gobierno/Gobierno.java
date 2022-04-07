@@ -109,6 +109,12 @@ public class Gobierno {
         }
         return null;
     }
+    
+    public boolean replaceTrabajador(int id, Trabajador trabajador) {
+        removeTrabajador(id);
+        trabajador.setId(id);
+        return addTrabajador(trabajador);
+    }
     // </editor-fold>
     
     // Contratos

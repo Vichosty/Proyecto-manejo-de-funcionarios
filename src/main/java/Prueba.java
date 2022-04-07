@@ -1,5 +1,5 @@
 
-import chk.chkui.EnumerateUsers;
+import chk.chkui.TrabajadorEditor;
 import gobierno.Contrato;
 import gobierno.EstadoReparticion;
 import gobierno.Gobierno;
@@ -9,7 +9,6 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,6 +29,7 @@ public class Prueba {
     public static void main(String[] args) throws SQLException {
         Gobierno gobierno = new Gobierno();
 
+        // <editor-fold defaultstate="collapsed" desc="Cargar los datos de la BD">
         /*
         // Create a database connection
         try {
@@ -71,10 +71,11 @@ public class Prueba {
             connection.close();
         } catch (Exception ex) {
             Logger.getLogger(Prueba.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        */
+        } 
+        */ //</editor-fold>
 
-        // Agregar algunas reparticiones de prueba.
+        // <editor-fold defaultstate="collapsed" desc="Agregar algunas reparticiones de prueba">
+        // Agregar algunas reparticiones de prueba
         String[] reparticionNames = {
             "Deportes", "Economia", "Construccion"
         };
@@ -82,13 +83,14 @@ public class Prueba {
         int index = 1;
         for(String name : reparticionNames) {
             gobierno.addReparticion(new Reparticion(index++, name, EstadoReparticion.Normal));
-        }
+        } //</editor-fold>
         
         // Crear 20 trabajadores random
         debugCrearDatosRandom(gobierno);
         
-        debugPrintGobierno(gobierno);
+        debugPrintGobierno(gobierno, false);
         
+        // <editor-fold defaultstate="collapsed" desc="La GUI deberia verse nativa y no como win95">
         try {
             // Test de GUI
             UIManager.setLookAndFeel(
@@ -101,15 +103,31 @@ public class Prueba {
             Logger.getLogger(Prueba.class.getName()).log(Level.SEVERE, null, ex);
         } catch (UnsupportedLookAndFeelException ex) {
             Logger.getLogger(Prueba.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        } // </editor-fold>
         
+        // <editor-fold defaultstate="collapsed" desc="Editar un trabajador al azar">
+        // Editar un trabajador al azar
+        Trabajador randomTrabajador = null;
+        {
+            Object[] items = gobierno.getTrabajadores().toArray();
+            Object randomItem = items[ThreadLocalRandom.current().nextInt(items.length)];
+            randomTrabajador = (Trabajador)randomItem;
+            
+            TrabajadorEditor trabajadorEditor = new TrabajadorEditor(null, true, randomTrabajador);
+            trabajadorEditor.setVisible(true);
+            
+            gobierno.replaceTrabajador(randomTrabajador.getId(), trabajadorEditor.getTrabajador());
+        } // </editor-fold>
+        
+        /*
         EnumerateUsers enumerateUsers = new EnumerateUsers(gobierno);
         enumerateUsers.setVisible(true);
+        */
         
-        debugPrintGobierno(gobierno);
+        debugPrintGobierno(gobierno, false);
     }
     
-    public static void debugPrintGobierno(Gobierno gobierno) {
+    public static void debugPrintGobierno(Gobierno gobierno, boolean printContratos) {
         // Mostrar valores en consola para probar.
         System.out.println("Reparticiones:");
         for (Reparticion reparticion : gobierno.getReparticiones()) {
@@ -118,29 +136,33 @@ public class Prueba {
 
         System.out.println("Trabajadores:");
         for (Trabajador trabajador : gobierno.getTrabajadores()) {
-            System.out.println("\t" + trabajador.getNombre());
+            System.out.println("\t" + trabajador.getNombre() + " " + trabajador.getApellido());
         }
 
-        System.out.println("Contratos:");
-        for (List<Contrato> listasDeContratos : gobierno.getContratos()) {
-            for (Contrato c : listasDeContratos) {
-                Trabajador t = gobierno.getTrabajador(c.getIdTrabajador());
-                Reparticion r = gobierno.getReparticion(c.getIdReparticion());
-                System.out.println("\t" + t.getNombre() + " -> " + r.getNombre());
+        if (printContratos) {
+            System.out.println("Contratos:");
+            for (List<Contrato> listasDeContratos : gobierno.getContratos()) {
+                for (Contrato c : listasDeContratos) {
+                    Trabajador t = gobierno.getTrabajador(c.getIdTrabajador());
+                    Reparticion r = gobierno.getReparticion(c.getIdReparticion());
+                    System.out.println("\t" + t.getNombre() + " -> " + r.getNombre());
+                }
             }
         }
     }
     
     public static void debugCrearDatosRandom(Gobierno gobierno) {
-        Random random = new Random();
-
         String[] commonNames = {
-            "James", "Robert", "John", "Michael", "William", "David", "Richard", "Joseph", "Thomas", "Charles",
-            "Mary", "Patricia", "Jennifer", "Linda", "Elizabeth", "Barbara", "Susan", "Jessica", "Sarah", "Karen"
+            "James", "Robert", "John", "Michael", "William", 
+            "David", "Richard", "Joseph", "Thomas", "Charles",
+            "Mary", "Patricia", "Jennifer", "Linda", "Elizabeth", 
+            "Barbara", "Susan", "Jessica", "Sarah", "Karen"
         };
         String[] commonSurnames = {
-            "Smith", "Johnson", "Williams", "Brown", "Jones", "Garcia", "Miller", "Davis", "Rodriguez", "Martinez",
-            "Hernandez", "Lopez", "Gonzalez", "Wilson", "Anderson", "Thomas", "Taylor", "Moore", "Jackson", "Martin"
+            "Smith", "Johnson", "Williams", "Brown", "Jones", 
+            "Garcia", "Miller", "Davis", "Rodriguez", "Martinez",
+            "Hernandez", "Lopez", "Gonzalez", "Wilson", "Anderson", 
+            "Thomas", "Taylor", "Moore", "Jackson", "Martin"
         };
         
         try {
@@ -150,8 +172,8 @@ public class Prueba {
             long startMilis = startDate.getTime();
             long endMilis = endDate.getTime();
             for(int i = 1; i <= 20; ++i) {
-                String randomName = commonNames[random.nextInt(commonNames.length)];
-                String randomSurname = commonSurnames[random.nextInt(commonSurnames.length)];
+                String randomName = commonNames[ThreadLocalRandom.current().nextInt(commonNames.length)];
+                String randomSurname = commonSurnames[ThreadLocalRandom.current().nextInt(commonSurnames.length)];
 
                 long randomMilis = ThreadLocalRandom.current().nextLong(startMilis, endMilis);
                 Date randomDate = new Date(randomMilis);
@@ -166,7 +188,7 @@ public class Prueba {
         Object[] items = gobierno.getReparticiones().toArray();
         if (items.length > 0) {
             for(Trabajador t : gobierno.getTrabajadores()) {    
-                Object randomItem = items[random.nextInt(items.length)];
+                Object randomItem = items[ThreadLocalRandom.current().nextInt(items.length)];
 
                 Reparticion r = (Reparticion)randomItem;
                 Contrato c = new Contrato(t.getId(), r.getId());
