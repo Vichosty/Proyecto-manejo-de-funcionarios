@@ -1,5 +1,7 @@
 package gobierno;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /*
@@ -67,6 +69,7 @@ public final class Trabajador {
 
     public void setFechaDeNacimiento(Date fechaDeNacimiento) {
         this.fechaDeNacimiento = fechaDeNacimiento;
-        this.fechaDeNacimientoAsString = fechaDeNacimiento.toString();
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        this.fechaDeNacimientoAsString = df.format(this.fechaDeNacimiento);
     }
 }

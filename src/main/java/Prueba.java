@@ -1,5 +1,5 @@
 
-import chk.chkui.TrabajadorEditor;
+import chk.chkui.EnumerateUsers;
 import gobierno.Contrato;
 import gobierno.EstadoReparticion;
 import gobierno.Gobierno;
@@ -105,6 +105,7 @@ public class Prueba {
             Logger.getLogger(Prueba.class.getName()).log(Level.SEVERE, null, ex);
         } // </editor-fold>
         
+        /*
         // <editor-fold defaultstate="collapsed" desc="Editar un trabajador al azar">
         // Editar un trabajador al azar
         Trabajador randomTrabajador = null;
@@ -118,17 +119,18 @@ public class Prueba {
             
             gobierno.replaceTrabajador(randomTrabajador.getId(), trabajadorEditor.getTrabajador());
         } // </editor-fold>
-        
-        /*
-        EnumerateUsers enumerateUsers = new EnumerateUsers(gobierno);
-        enumerateUsers.setVisible(true);
         */
         
-        debugPrintGobierno(gobierno, false);
+        EnumerateUsers enumerateUsers = new EnumerateUsers(gobierno);
+        enumerateUsers.setVisible(true);
+        
+        System.out.println("xd!");
+        // debugPrintGobierno(gobierno, false);
     }
     
     public static void debugPrintGobierno(Gobierno gobierno, boolean printContratos) {
         // Mostrar valores en consola para probar.
+        System.out.println("================================================");
         System.out.println("Reparticiones:");
         for (Reparticion reparticion : gobierno.getReparticiones()) {
             System.out.println("\t" + reparticion.getNombre());
@@ -149,6 +151,7 @@ public class Prueba {
                 }
             }
         }
+        System.out.println("================================================");
     }
     
     public static void debugCrearDatosRandom(Gobierno gobierno) {
@@ -186,13 +189,17 @@ public class Prueba {
         
         // Crea contratos aleatorios entre los trabajadores y una reparticion al azar
         Object[] items = gobierno.getReparticiones().toArray();
+        int indexContrato = 0;
         if (items.length > 0) {
             for(Trabajador t : gobierno.getTrabajadores()) {    
                 Object randomItem = items[ThreadLocalRandom.current().nextInt(items.length)];
 
                 Reparticion r = (Reparticion)randomItem;
-                Contrato c = new Contrato(t.getId(), r.getId());
+                Contrato c = new Contrato(indexContrato++, t.getId(), r.getId());
                 gobierno.addContrato(c);
+            }
+            if (indexContrato == 0) {
+                System.out.println("No hay trabajadores!");
             }
         } else {
             System.out.println("No hay reparticiones!");

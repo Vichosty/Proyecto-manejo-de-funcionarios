@@ -7,6 +7,8 @@ package chk.chkui;
 
 import gobierno.Reparticion;
 import gobierno.Trabajador;
+import java.awt.Point;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
@@ -15,7 +17,7 @@ import javax.swing.tree.DefaultTreeModel;
  *
  * @author chkp
  */
-public class EnumerateUsers extends javax.swing.JFrame {
+public final class EnumerateUsers extends javax.swing.JFrame {
 
     /**
      * Creates new form EnumerateUsers
@@ -41,22 +43,20 @@ public class EnumerateUsers extends javax.swing.JFrame {
         reparticionTitle = new javax.swing.JLabel();
         reparticionScrollPane = new javax.swing.JScrollPane();
         reparticionTree = new javax.swing.JTree();
-        leftButtonsPanel = new javax.swing.JPanel();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        reparticionButtonsPanel = new javax.swing.JPanel();
+        reparticionAddButton = new javax.swing.JButton();
+        reparticionEditButton = new javax.swing.JButton();
+        reparticionRemoveButton = new javax.swing.JButton();
+        reparticionHelpButton = new javax.swing.JButton();
         rightPanel = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        trabajadoresTitle = new javax.swing.JLabel();
         trabajadoresScrollPane = new javax.swing.JScrollPane();
         trabajadoresTable = new javax.swing.JTable();
-        rightButtonsPanel = new javax.swing.JPanel();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
-        jButton12 = new javax.swing.JButton();
+        trabajadoresButtonsPanel = new javax.swing.JPanel();
+        trabajadoresAddButton = new javax.swing.JButton();
+        trabajadoresEditButton = new javax.swing.JButton();
+        trabajadoresRemoveButton = new javax.swing.JButton();
+        trabajadoresHelpButton = new javax.swing.JButton();
         mainButtonsPanel = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -70,6 +70,11 @@ public class EnumerateUsers extends javax.swing.JFrame {
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
         reparticionTree.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
         reparticionTree.setRootVisible(false);
+        reparticionTree.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                reparticionTreeMouseClicked(evt);
+            }
+        });
         reparticionTree.addTreeSelectionListener(new javax.swing.event.TreeSelectionListener() {
             public void valueChanged(javax.swing.event.TreeSelectionEvent evt) {
                 reparticionTreeValueChanged(evt);
@@ -77,20 +82,22 @@ public class EnumerateUsers extends javax.swing.JFrame {
         });
         reparticionScrollPane.setViewportView(reparticionTree);
 
-        leftButtonsPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(4, 4, 4, 4));
-        leftButtonsPanel.setLayout(new java.awt.GridLayout(2, 2, 4, 4));
+        reparticionButtonsPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(4, 4, 4, 4));
+        reparticionButtonsPanel.setLayout(new java.awt.GridLayout(2, 2, 4, 4));
 
-        jButton3.setText("jButton3");
-        leftButtonsPanel.add(jButton3);
+        reparticionAddButton.setText("Agregar");
+        reparticionButtonsPanel.add(reparticionAddButton);
 
-        jButton4.setText("jButton4");
-        leftButtonsPanel.add(jButton4);
+        reparticionEditButton.setText("Editar");
+        reparticionEditButton.setEnabled(false);
+        reparticionButtonsPanel.add(reparticionEditButton);
 
-        jButton5.setText("jButton5");
-        leftButtonsPanel.add(jButton5);
+        reparticionRemoveButton.setText("Eliminar");
+        reparticionRemoveButton.setEnabled(false);
+        reparticionButtonsPanel.add(reparticionRemoveButton);
 
-        jButton6.setText("jButton6");
-        leftButtonsPanel.add(jButton6);
+        reparticionHelpButton.setText("Ayuda");
+        reparticionButtonsPanel.add(reparticionHelpButton);
 
         javax.swing.GroupLayout leftPanelLayout = new javax.swing.GroupLayout(leftPanel);
         leftPanel.setLayout(leftPanelLayout);
@@ -104,7 +111,7 @@ public class EnumerateUsers extends javax.swing.JFrame {
                         .addComponent(reparticionTitle)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addComponent(leftButtonsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(reparticionButtonsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         leftPanelLayout.setVerticalGroup(
             leftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -114,26 +121,26 @@ public class EnumerateUsers extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(reparticionScrollPane)
                 .addGap(18, 18, 18)
-                .addComponent(leftButtonsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(reparticionButtonsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         splitPanel.setLeftComponent(leftPanel);
 
-        jLabel2.setText("Trabajadores");
+        trabajadoresTitle.setText("Trabajadores");
 
         trabajadoresTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null}
+
             },
             new String [] {
-                "Nombre", "Apellido", "Fecha de Nacimiento"
+                "ID", "Nombre", "Apellido", "Fecha de Nacimiento"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                true, true, false
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -144,28 +151,34 @@ public class EnumerateUsers extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        trabajadoresTable.getTableHeader().setReorderingAllowed(false);
+        trabajadoresTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                trabajadoresTableMousePressed(evt);
+            }
+        });
         trabajadoresScrollPane.setViewportView(trabajadoresTable);
+        if (trabajadoresTable.getColumnModel().getColumnCount() > 0) {
+            trabajadoresTable.getColumnModel().getColumn(0).setPreferredWidth(3);
+        }
 
-        rightButtonsPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(4, 4, 4, 4));
-        rightButtonsPanel.setLayout(new java.awt.GridLayout(2, 3, 4, 4));
+        trabajadoresButtonsPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(4, 4, 4, 4));
+        trabajadoresButtonsPanel.setLayout(new java.awt.GridLayout(2, 3, 4, 4));
 
-        jButton7.setText("jButton7");
-        rightButtonsPanel.add(jButton7);
+        trabajadoresAddButton.setText("Agregar");
+        trabajadoresAddButton.setEnabled(false);
+        trabajadoresButtonsPanel.add(trabajadoresAddButton);
 
-        jButton8.setText("jButton8");
-        rightButtonsPanel.add(jButton8);
+        trabajadoresEditButton.setText("Editar");
+        trabajadoresEditButton.setEnabled(false);
+        trabajadoresButtonsPanel.add(trabajadoresEditButton);
 
-        jButton9.setText("jButton9");
-        rightButtonsPanel.add(jButton9);
+        trabajadoresRemoveButton.setText("Eliminar");
+        trabajadoresRemoveButton.setEnabled(false);
+        trabajadoresButtonsPanel.add(trabajadoresRemoveButton);
 
-        jButton10.setText("jButton10");
-        rightButtonsPanel.add(jButton10);
-
-        jButton11.setText("jButton11");
-        rightButtonsPanel.add(jButton11);
-
-        jButton12.setText("jButton12");
-        rightButtonsPanel.add(jButton12);
+        trabajadoresHelpButton.setText("Ayuda");
+        trabajadoresButtonsPanel.add(trabajadoresHelpButton);
 
         javax.swing.GroupLayout rightPanelLayout = new javax.swing.GroupLayout(rightPanel);
         rightPanel.setLayout(rightPanelLayout);
@@ -176,20 +189,20 @@ public class EnumerateUsers extends javax.swing.JFrame {
                 .addGroup(rightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(trabajadoresScrollPane)
                     .addGroup(rightPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel2)
+                        .addComponent(trabajadoresTitle)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addComponent(rightButtonsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(trabajadoresButtonsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         rightPanelLayout.setVerticalGroup(
             rightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(rightPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel2)
+                .addComponent(trabajadoresTitle)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(trabajadoresScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(rightButtonsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(trabajadoresButtonsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         splitPanel.setRightComponent(rightPanel);
@@ -241,15 +254,46 @@ public class EnumerateUsers extends javax.swing.JFrame {
         // Get the selected item name
         DefaultMutableTreeNode selectedNode =
                 (DefaultMutableTreeNode)reparticionTree.getLastSelectedPathComponent();
-        Reparticion r = (Reparticion)selectedNode.getUserObject();
         
-        DefaultTableModel tableModel = (DefaultTableModel)trabajadoresTable.getModel();
-        tableModel.setRowCount(0);
-        
-        for (Trabajador t : gobierno.getTrabajadoresEnReparticion(r.getId())) {
-            tableModel.addRow(new Object[]{ t.getNombre(), t.getApellido(), t.getFechaDeNacimientoAsString() });
+        Reparticion r = null;
+        if (selectedNode != null) { 
+            r = (Reparticion)selectedNode.getUserObject();
         }
+        
+        reloadTable(r);
     }//GEN-LAST:event_reparticionTreeValueChanged
+
+    private void trabajadoresTableMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_trabajadoresTableMousePressed
+        JTable table =(JTable) evt.getSource();
+        Point point = evt.getPoint();
+        int row = table.rowAtPoint(point);
+        if (evt.getClickCount() == 2 && table.getSelectedRow() != -1) {
+            // Edit that Trabajador!
+            Object cell = table.getModel().getValueAt(row, 0);
+            if (cell != null) {
+                int id = (int)(cell);
+
+                Trabajador t = gobierno.getTrabajador(id);
+                if (t != null) {
+                    TrabajadorEditor editor = new TrabajadorEditor(this, true, t);
+                    editor.setVisible(true);
+                    gobierno.replaceTrabajador(id, editor.getTrabajador());
+                    
+                    DefaultMutableTreeNode selectedNode = 
+                            (DefaultMutableTreeNode)reparticionTree.getLastSelectedPathComponent();
+                    Reparticion r = (Reparticion)selectedNode.getUserObject();
+                    reloadTable(r);
+                }
+            }
+        }
+    }//GEN-LAST:event_trabajadoresTableMousePressed
+
+    private void reparticionTreeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reparticionTreeMouseClicked
+        if(reparticionTree.getRowForLocation(evt.getX(), evt.getY()) == -1) {
+            reparticionTree.clearSelection();
+            reloadTable(null);
+        }
+    }//GEN-LAST:event_reparticionTreeMouseClicked
 
     public void setGobierno(gobierno.Gobierno gobierno) {
         this.gobierno = gobierno;
@@ -270,31 +314,47 @@ public class EnumerateUsers extends javax.swing.JFrame {
         this.reparticionTree.setModel(treeModel);
     }
     
+    public void reloadTable(Reparticion r) {
+        DefaultTableModel tableModel = (DefaultTableModel)trabajadoresTable.getModel();
+        tableModel.setRowCount(0);
+        if (r != null) {
+            for (Trabajador t : gobierno.getTrabajadoresEnReparticion(r.getId())) {
+                tableModel.addRow(new Object[]{ 
+                    t.getId(), 
+                    t.getNombre(), 
+                    t.getApellido(), 
+                    t.getFechaDeNacimientoAsString() 
+                });
+            }
+            trabajadoresAddButton.setEnabled(true);
+        } else {
+            trabajadoresAddButton.setEnabled(false);
+        }
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private gobierno.Gobierno gobierno;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel leftButtonsPanel;
     private javax.swing.JPanel leftPanel;
     private javax.swing.JPanel mainButtonsPanel;
+    private javax.swing.JButton reparticionAddButton;
+    private javax.swing.JPanel reparticionButtonsPanel;
+    private javax.swing.JButton reparticionEditButton;
+    private javax.swing.JButton reparticionHelpButton;
+    private javax.swing.JButton reparticionRemoveButton;
     private javax.swing.JScrollPane reparticionScrollPane;
     private javax.swing.JLabel reparticionTitle;
     private javax.swing.JTree reparticionTree;
-    private javax.swing.JPanel rightButtonsPanel;
     private javax.swing.JPanel rightPanel;
     private javax.swing.JSplitPane splitPanel;
+    private javax.swing.JButton trabajadoresAddButton;
+    private javax.swing.JPanel trabajadoresButtonsPanel;
+    private javax.swing.JButton trabajadoresEditButton;
+    private javax.swing.JButton trabajadoresHelpButton;
+    private javax.swing.JButton trabajadoresRemoveButton;
     private javax.swing.JScrollPane trabajadoresScrollPane;
     private javax.swing.JTable trabajadoresTable;
+    private javax.swing.JLabel trabajadoresTitle;
     // End of variables declaration//GEN-END:variables
 }

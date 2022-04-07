@@ -28,20 +28,27 @@ package gobierno;
  * @author chkp
  */
 public class Contrato {
+    private int id;
     private int idTrabajador;
     private int idReparticion;
     /* etc */
     
     public Contrato() {
+        this.id = -1;
         this.idTrabajador = -1;
         this.idReparticion = -1;
     }
 
-    public Contrato(int idTrabajador, int idReparticion) {
+    public Contrato(int id, int idTrabajador, int idReparticion) {
+        this.id = id;
         this.idTrabajador = idTrabajador;
         this.idReparticion = idReparticion;
     }
 
+    public int getId() {
+        return id;
+    }
+    
     public int getIdTrabajador() {
         return idTrabajador;
     }

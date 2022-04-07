@@ -22,6 +22,9 @@ public class Gobierno {
     final private Map<Integer, Reparticion> reparticiones;
     final private Map<Integer, Trabajador> trabajadores;
     final private Map<Integer, List<Contrato>> contratos;
+    private int mayorIdTrabajador;
+    private int mayorIdReparticion;
+    private int mayorIdContrato;
 
     public Gobierno() {
         reparticiones = new HashMap<>();
@@ -52,6 +55,12 @@ public class Gobierno {
         Reparticion anterior = reparticiones.putIfAbsent(reparticion.getId(), reparticion);
         // Si anterior tiene un valor, entonces trabajador.id ya existe en trabajadores
         if (anterior != null) { return false; }
+        else {
+            // Chequeamos si la id ingresada es la mayor hasta ahora.
+            if (reparticion.getId() > this.mayorIdReparticion) { 
+                this.mayorIdReparticion = reparticion.getId(); 
+            }
+        }
         // Sino, entonces estaba vacio antes.
         return true;
     }
@@ -97,6 +106,12 @@ public class Gobierno {
         Trabajador anterior = trabajadores.putIfAbsent(trabajador.getId(), trabajador);
         // Si anterior tiene un valor, entonces trabajador.id ya existe en trabajadores
         if (anterior != null) { return false; }
+        else {
+            // Chequeamos si la id ingresada es la mayor hasta ahora.
+            if (trabajador.getId() > this.mayorIdTrabajador) { 
+                this.mayorIdTrabajador = trabajador.getId(); 
+            } 
+        }
         // Sino, entonces estaba vacio antes.
         return(true);
     }
@@ -145,14 +160,17 @@ public class Gobierno {
                 }
             }
             listaContratos.add(contrato);
-            return true;
         } else {
             // La lista no existe, crea una nueva, agrega el contrato y retorna
             List<Contrato> listaContratos = new ArrayList<>();
             listaContratos.add(contrato);
             contratos.put(contrato.getIdTrabajador(), listaContratos);
-            return true;
         }
+        
+        if (contrato.getId() > this.mayorIdContrato) {
+            this.mayorIdContrato = contrato.getId();
+        }
+        return true;
     }
     
     public Contrato removeContrato(int idTrabajador, int idReparticion)

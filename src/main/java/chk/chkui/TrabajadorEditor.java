@@ -11,10 +11,13 @@ import javax.swing.event.DocumentEvent;
  *
  * @author chkp
  */
-public class TrabajadorEditor extends javax.swing.JDialog {
+public final class TrabajadorEditor extends javax.swing.JDialog {
 
     /**
      * Creates new form TrabajadorView
+     * @param parent
+     * @param modal
+     * @param trabajador
      */
     public TrabajadorEditor(java.awt.Frame parent, boolean modal, Trabajador trabajador) {
         super(parent, modal);
@@ -226,14 +229,29 @@ public class TrabajadorEditor extends javax.swing.JDialog {
         this.trabajador.setApellido(this.trabajadorSaved.getApellido());
         this.trabajador.setFechaDeNacimiento(this.trabajadorSaved.getFechaDeNacimiento());
         
-        // Cerrar la ventana
-        this.dispose();
+        nombreText.setText(this.trabajador.getNombre());
+        apellidoText.setText(this.trabajador.getApellido());
+        fechaDeNacimientoDatePicker.setDate(this.trabajador.getFechaDeNacimiento());
     }//GEN-LAST:event_backButtonActionPerformed
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
         // Cerrar la ventana
         this.dispose();
     }//GEN-LAST:event_saveButtonActionPerformed
+
+    public void checkForChanges() {
+        boolean changedSomething = false;
+        if (!this.trabajador.getNombre().equals(this.trabajadorSaved.getNombre())) {
+            changedSomething = true;
+        }else if (!this.trabajador.getApellido().equals(this.trabajadorSaved.getApellido())) {
+            changedSomething = true;
+        }else if (!this.trabajador.getFechaDeNacimiento().equals(this.trabajadorSaved.getFechaDeNacimiento())) {
+            changedSomething = true;
+        }
+        
+        this.saveButton.setEnabled(changedSomething);
+        this.backButton.setEnabled(changedSomething);
+    }
 
     public Trabajador getTrabajador() {
         return this.trabajador;
@@ -252,20 +270,6 @@ public class TrabajadorEditor extends javax.swing.JDialog {
         this.fechaDeNacimientoDatePicker.setDate(this.trabajador.getFechaDeNacimiento());
     }
     
-    public void checkForChanges() {
-        boolean changedSomething = false;
-        if (!this.trabajador.getNombre().equals(this.trabajadorSaved.getNombre())) {
-            changedSomething = true;
-        }else if (!this.trabajador.getApellido().equals(this.trabajadorSaved.getApellido())) {
-            changedSomething = true;
-        }else if (!this.trabajador.getFechaDeNacimiento().equals(this.trabajadorSaved.getFechaDeNacimiento())) {
-            changedSomething = true;
-        }
-        
-        this.saveButton.setEnabled(changedSomething);
-        this.backButton.setEnabled(changedSomething);
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel apellidoLabel;
     private javax.swing.JTextField apellidoText;
