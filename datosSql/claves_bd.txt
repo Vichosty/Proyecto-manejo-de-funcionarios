@@ -1,4 +1,0 @@
-claves bd chk_test
-
-root: Eqdj7wyLccwG
-chkP: 8heeArhoqm3G
