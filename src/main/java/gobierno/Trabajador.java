@@ -72,4 +72,8 @@ public final class Trabajador {
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         this.fechaDeNacimientoAsString = df.format(this.fechaDeNacimiento);
     }
+    
+    public static String getIconPath() {
+        return "icons/trabajador.png";
+    }
 }

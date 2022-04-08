@@ -106,4 +106,8 @@ public class Reparticion {
         
         return estado;
     }
+    
+    public static String getIconPath() {
+        return "icons/reparticion.png";
+    }
 }

@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package chk.chkui;
+import chk.chkui.plugins.SimpleDocumentListener;
 import gobierno.Trabajador;
 import javax.swing.event.DocumentEvent;
 
@@ -11,7 +12,7 @@ import javax.swing.event.DocumentEvent;
  *
  * @author chkp
  */
-public final class TrabajadorEditor extends javax.swing.JDialog {
+public final class TrabajadorEditorForm extends javax.swing.JDialog {
 
     /**
      * Creates new form TrabajadorView
@@ -19,10 +20,14 @@ public final class TrabajadorEditor extends javax.swing.JDialog {
      * @param modal
      * @param trabajador
      */
-    public TrabajadorEditor(java.awt.Frame parent, boolean modal, Trabajador trabajador) {
+    public TrabajadorEditorForm(java.awt.Frame parent, boolean modal, Trabajador trabajador) {
         super(parent, modal);
         initComponents();
-        setTrabajador(trabajador);
+        if (trabajador != null) {
+            setTrabajador(trabajador);
+        } else {
+            titleLabel.setText("Crear Trabajador");
+        }
     }
 
     /**
@@ -59,7 +64,7 @@ public final class TrabajadorEditor extends javax.swing.JDialog {
 
         titleLabel.setFont(titleLabel.getFont().deriveFont(titleLabel.getFont().getStyle() | java.awt.Font.BOLD, titleLabel.getFont().getSize()+8));
         titleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        titleLabel.setText("Editor de Trabajador");
+        titleLabel.setText("Editar Trabajador");
         titlePanel.add(titleLabel);
 
         viewPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());

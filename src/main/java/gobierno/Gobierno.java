@@ -193,4 +193,8 @@ public class Gobierno {
         return null;
     }
     // </editor-fold>
+
+    public static String getIconPath() {
+        return "icons/gobierno.png";
+    }
 }

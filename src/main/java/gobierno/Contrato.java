@@ -56,4 +56,8 @@ public class Contrato {
     public int getIdReparticion() {
         return idReparticion;
     }
+    
+    public static String getIconPath() {
+        return "icons/contrato.png";
+    }
 }

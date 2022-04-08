@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package chk.chkui;
+package chk.chkui.plugins;
 
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;

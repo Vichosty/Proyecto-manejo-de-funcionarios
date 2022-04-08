@@ -1,5 +1,5 @@
 
-import chk.chkui.EnumerateUsers;
+import chk.chkui.MainWindow;
 import gobierno.Contrato;
 import gobierno.EstadoReparticion;
 import gobierno.Gobierno;
@@ -88,8 +88,6 @@ public class Prueba {
         // Crear 20 trabajadores random
         debugCrearDatosRandom(gobierno);
         
-        debugPrintGobierno(gobierno, false);
-        
         // <editor-fold defaultstate="collapsed" desc="La GUI deberia verse nativa y no como win95">
         try {
             // Test de GUI
@@ -121,11 +119,9 @@ public class Prueba {
         } // </editor-fold>
         */
         
-        EnumerateUsers enumerateUsers = new EnumerateUsers(gobierno);
-        enumerateUsers.setVisible(true);
-        
-        System.out.println("xd!");
         // debugPrintGobierno(gobierno, false);
+        MainWindow mainWindow = new MainWindow(gobierno);
+        mainWindow.setVisible(true);
     }
     
     public static void debugPrintGobierno(Gobierno gobierno, boolean printContratos) {
