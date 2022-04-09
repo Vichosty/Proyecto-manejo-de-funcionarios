@@ -419,7 +419,7 @@ public final class MainWindow extends javax.swing.JFrame {
         // Obtener la reparticion, usando la lista de la izquierda
         gobierno.Reparticion r = getReparticionFromTree();
         
-        TrabajadorAddExistingForm form = new TrabajadorAddExistingForm(this, true, this.gobierno, r);
+        TrabajadorChooserForm form = new TrabajadorChooserForm(this, true, this.gobierno, r);
         form.setVisible(true);
         gobierno.Trabajador t = form.getTrabajador();
         if (t != null && t.getId() >= 0) {

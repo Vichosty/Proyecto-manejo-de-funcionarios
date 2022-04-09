@@ -31,12 +31,12 @@ import javax.swing.tree.TreeSelectionModel;
  *
  * @author chkp
  */
-public final class TrabajadorAddExistingForm extends javax.swing.JDialog {
+public final class TrabajadorChooserForm extends javax.swing.JDialog {
 
     /**
      * Creates new form TrabajadorAddExistingForm
      */
-    public TrabajadorAddExistingForm(java.awt.Frame parent, boolean modal, gobierno.Gobierno gobierno, gobierno.Reparticion reparticion) {
+    public TrabajadorChooserForm(java.awt.Frame parent, boolean modal, gobierno.Gobierno gobierno, gobierno.Reparticion reparticion) {
         super(parent, modal);
         initComponents();
         this.gobierno = gobierno;
