@@ -6,8 +6,11 @@
 package chk.forms;
 
 import java.awt.Point;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -67,6 +70,9 @@ public final class MainWindow extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
         jButton3 = new javax.swing.JButton();
+        menuBar = new javax.swing.JMenuBar();
+        menuOptions = new javax.swing.JMenu();
+        menuOptionsLaf = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Manejo de Funcionarios");
@@ -163,7 +169,7 @@ public final class MainWindow extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(reparticionTitle)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(reparticionScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 428, Short.MAX_VALUE)
+                .addComponent(reparticionScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 402, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(reparticionButtonsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -279,7 +285,7 @@ public final class MainWindow extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(trabajadoresTitle)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(trabajadoresScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 428, Short.MAX_VALUE)
+                .addComponent(trabajadoresScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 402, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(trabajadoresButtonsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -330,6 +336,30 @@ public final class MainWindow extends javax.swing.JFrame {
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
         getContentPane().add(mainButtonsPanel, gridBagConstraints);
+
+        menuOptions.setText("Options");
+
+        menuOptionsLaf.setText("Look and Feel");
+        UIManager.LookAndFeelInfo[] lookAndFeels = UIManager.getInstalledLookAndFeels();
+        for (UIManager.LookAndFeelInfo lookAndFeelInfo : lookAndFeels) {
+            JMenuItem item = new JMenuItem(lookAndFeelInfo.getName());
+            item.addActionListener(event -> {
+                try {
+                    // Set the look and feel for the frame and update the UI
+                    // to use a new selected look and feel.
+                    UIManager.setLookAndFeel(lookAndFeelInfo.getClassName());
+                    SwingUtilities.updateComponentTreeUI(this);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+            menuOptionsLaf.add(item);
+        }
+        menuOptions.add(menuOptionsLaf);
+
+        menuBar.add(menuOptions);
+
+        setJMenuBar(menuBar);
 
         pack();
         setLocationRelativeTo(null);
@@ -549,6 +579,9 @@ public final class MainWindow extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JPanel leftPanel;
     private javax.swing.JPanel mainButtonsPanel;
+    private javax.swing.JMenuBar menuBar;
+    private javax.swing.JMenu menuOptions;
+    private javax.swing.JMenu menuOptionsLaf;
     private javax.swing.JButton reparticionAddButton;
     private javax.swing.JPanel reparticionButtonsPanel;
     private javax.swing.JButton reparticionEditButton;

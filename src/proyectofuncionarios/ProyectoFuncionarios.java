@@ -11,6 +11,8 @@ import java.util.Date;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
@@ -81,19 +83,26 @@ public class ProyectoFuncionarios {
 
         // <editor-fold defaultstate="collapsed" desc="Look and Feel">
         try {
-            // Test de GUI
-            javax.swing.UIManager.setLookAndFeel(
-                    javax.swing.UIManager.getSystemLookAndFeelClassName()
-            );
-        } catch (ClassNotFoundException
-                | InstantiationException
-                | IllegalAccessException
-                | javax.swing.UnsupportedLookAndFeelException ex) {
-            Logger.getLogger(ProyectoFuncionarios.class.getName()).log(Level.SEVERE, null, ex);
+            // Si FlatLaf esta instalado, agregalos a la lista y usa FlatLightLaf por defecto.
+            javax.swing.UIManager.setLookAndFeel("com.formdev.flatlaf.FlatLightLaf");
+            
+            UIManager.installLookAndFeel("FlatLightLaf", "com.formdev.flatlaf.FlatLightLaf");
+            UIManager.installLookAndFeel("FlatDarkLaf", "com.formdev.flatlaf.FlatDarkLaf");
+            UIManager.installLookAndFeel("FlatDarculaLaf", "com.formdev.flatlaf.FlatDarculaLaf");
+        } catch (javax.swing.UnsupportedLookAndFeelException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+            System.out.println("FlatLaf no esta instalado.");
+            try {
+                // FlatLaf not found, intenta el de sistema.
+                javax.swing.UIManager.setLookAndFeel(
+                        javax.swing.UIManager.getSystemLookAndFeelClassName()
+                );
+            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex1) {
+                Logger.getLogger(ProyectoFuncionarios.class.getName()).log(Level.SEVERE, null, ex1);
+            }
         }
         // </editor-fold>
 
-        gob.printAll(gob, false);
+        // gob.printAll(gob, false);
 
         chk.forms.MainWindow mainWindow = new chk.forms.MainWindow(gob);
         mainWindow.setVisible(true);

@@ -4,12 +4,32 @@
   <NonVisualComponents>
     <Component class="gobierno.Gobierno" name="gobierno">
     </Component>
+    <Menu class="javax.swing.JMenuBar" name="menuBar">
+      <SubComponents>
+        <Menu class="javax.swing.JMenu" name="menuOptions">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Options"/>
+          </Properties>
+          <SubComponents>
+            <Menu class="javax.swing.JMenu" name="menuOptionsLaf">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Look and Feel"/>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="UIManager.LookAndFeelInfo[] lookAndFeels = UIManager.getInstalledLookAndFeels();&#xa;for (UIManager.LookAndFeelInfo lookAndFeelInfo : lookAndFeels) {&#xa;    JMenuItem item = new JMenuItem(lookAndFeelInfo.getName());&#xa;    item.addActionListener(event -&gt; {&#xa;        try {&#xa;            // Set the look and feel for the frame and update the UI&#xa;            // to use a new selected look and feel.&#xa;            UIManager.setLookAndFeel(lookAndFeelInfo.getClassName());&#xa;            SwingUtilities.updateComponentTreeUI(this);&#xa;        } catch (Exception e) {&#xa;            e.printStackTrace();&#xa;        }&#xa;    });&#xa;    menuOptionsLaf.add(item);&#xa;}"/>
+              </AuxValues>
+            </Menu>
+          </SubComponents>
+        </Menu>
+      </SubComponents>
+    </Menu>
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
     <Property name="title" type="java.lang.String" value="Manejo de Funcionarios"/>
   </Properties>
   <SyntheticProperties>
+    <SyntheticProperty name="menuBar" type="java.lang.String" value="menuBar"/>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
     <SyntheticProperty name="generateCenter" type="boolean" value="true"/>
   </SyntheticProperties>
@@ -120,7 +140,7 @@
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Component id="reparticionTitle" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-                          <Component id="reparticionScrollPane" pref="428" max="32767" attributes="0"/>
+                          <Component id="reparticionScrollPane" pref="402" max="32767" attributes="0"/>
                           <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                           <Component id="reparticionButtonsPanel" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -237,7 +257,7 @@
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Component id="trabajadoresTitle" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-                          <Component id="trabajadoresScrollPane" pref="428" max="32767" attributes="0"/>
+                          <Component id="trabajadoresScrollPane" pref="402" max="32767" attributes="0"/>
                           <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                           <Component id="trabajadoresButtonsPanel" min="-2" max="-2" attributes="0"/>
                       </Group>
