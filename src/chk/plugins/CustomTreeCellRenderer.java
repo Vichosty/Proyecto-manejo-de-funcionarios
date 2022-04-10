@@ -37,6 +37,8 @@ public class CustomTreeCellRenderer extends DefaultTreeCellRenderer {
     public Component getTreeCellRendererComponent(JTree tree, Object value, boolean selected, boolean expanded,
                                                   boolean leaf, int row, boolean hasFocus) {
         
+        super.getTreeCellRendererComponent(tree, value, selected, expanded, leaf, row, hasFocus);
+        
         Object userObject = ((DefaultMutableTreeNode) value).getUserObject();
         if (userObject instanceof gobierno.Reparticion) {
             gobierno.Reparticion reparticion = (gobierno.Reparticion)userObject;
