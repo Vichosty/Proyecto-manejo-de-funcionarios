@@ -102,32 +102,44 @@ public class ProyectoFuncionarios {
         }
         // </editor-fold>
         
-        debugPrintGobierno(gob, false);
+        print(gob, false);
         
         chk.forms.MainWindow mainWindow = new chk.forms.MainWindow(gob);
         mainWindow.setVisible(true);
     }
     
-    public static void debugPrintGobierno(gobierno.Gobierno gob, boolean printContratos) {
+    public static void print(gobierno.Trabajador t) {
+        System.out.println("\t" + t.getNombre() + " " + t.getApellido());
+    }
+    
+    public static void print(gobierno.Reparticion r) {
+        System.out.println("\t" + r.getNombre());
+    }
+    
+    public static void print(gobierno.Gobierno gob, gobierno.Contrato c) {
+        gobierno.Trabajador t = gob.getTrabajador(c.getIdTrabajador());
+        gobierno.Reparticion r = gob.getReparticion(c.getIdReparticion());
+        System.out.println("\t" + t.getNombre() + " -> " + r.getNombre());
+    }
+    
+    public static void print(gobierno.Gobierno gob, boolean printContratos) {
         // Mostrar valores en consola para probar.
         System.out.println("================================================");
         System.out.println("Reparticiones:");
-        for (gobierno.Reparticion reparticion : gob.getReparticiones()) {
-            System.out.println("\t" + reparticion.getNombre());
+        for (gobierno.Reparticion r : gob.getReparticiones()) {
+            print(r);
         }
 
         System.out.println("Trabajadores:");
-        for (gobierno.Trabajador trabajador : gob.getTrabajadores()) {
-            System.out.println("\t" + trabajador.getNombre() + " " + trabajador.getApellido());
+        for (gobierno.Trabajador t : gob.getTrabajadores()) {
+            print(t);
         }
 
         if (printContratos) {
             System.out.println("Contratos:");
             for (List<gobierno.Contrato> listasDeContratos : gob.getContratos()) {
                 for (gobierno.Contrato c : listasDeContratos) {
-                    gobierno.Trabajador t = gob.getTrabajador(c.getIdTrabajador());
-                    gobierno.Reparticion r = gob.getReparticion(c.getIdReparticion());
-                    System.out.println("\t" + t.getNombre() + " -> " + r.getNombre());
+                    print(gob, c);
                 }
             }
         }
