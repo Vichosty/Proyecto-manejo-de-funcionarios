@@ -2,7 +2,7 @@
 
 <ClassDiagram name="gobierno">
   <ClassDiagramComponents>
-    <Class name="Contrato" package="gobierno" visibility="public" xPosition="20.0" yPosition="20.0">
+    <Class name="Contrato" package="gobierno" visibility="public" xPosition="345.0" yPosition="357.0">
       <Fields>
         <Field name="id" type="int" visibility="private"/>
         <Field name="idTrabajador" type="int" visibility="private"/>
@@ -23,18 +23,11 @@
         <Method name="getIconPath" returnType="String" visibility="public" isStatic="true"/>
       </Methods>
     </Class>
-    <Enum name="EstadoReparticion" package="gobierno" visibility="public" xPosition="320.0" yPosition="20.0">
-      <Literals>
-        <Literal name="Normal"/>
-        <Literal name="Deficit"/>
-        <Literal name="Superavit"/>
-      </Literals>
-    </Enum>
-    <Class name="Gobierno" package="gobierno" visibility="public" xPosition="620.0" yPosition="20.0">
+    <Class name="Gobierno" package="gobierno" visibility="public" xPosition="794.0" yPosition="120.0">
       <Fields>
-        <Field name="reparticiones" type="Map&lt;Integer, Reparticion&gt;" visibility="private" isFinal="true"/>
-        <Field name="trabajadores" type="Map&lt;Integer, Trabajador&gt;" visibility="private" isFinal="true"/>
-        <Field name="contratos" type="Map&lt;Integer, List&lt;Contrato&gt;&gt;" visibility="private" isFinal="true"/>
+        <Field name="reparticiones" type="HashMap&lt;Integer, Reparticion&gt;" visibility="private" isFinal="true"/>
+        <Field name="trabajadores" type="HashMap&lt;Integer, Trabajador&gt;" visibility="private" isFinal="true"/>
+        <Field name="contratos" type="HashMap&lt;Integer, ArrayList&lt;Contrato&gt;&gt;" visibility="private" isFinal="true"/>
         <Field name="mayorIdTrabajador" type="int" visibility="private"/>
         <Field name="mayorIdReparticion" type="int" visibility="private"/>
         <Field name="mayorIdContrato" type="int" visibility="private"/>
@@ -67,10 +60,10 @@
           <Argument type="int" name="id"/>
         </Method>
         <Method name="getTrabajadores" returnType="Collection&lt;Trabajador&gt;" visibility="public"/>
-        <Method name="getTrabajadoresEnReparticion" returnType="List&lt;Trabajador&gt;" visibility="public">
+        <Method name="getTrabajadoresEnReparticion" returnType="ArrayList&lt;Trabajador&gt;" visibility="public">
           <Argument type="int" name="idReparticion"/>
         </Method>
-        <Method name="getTrabajadoresSinReparticion" returnType="List&lt;Trabajador&gt;" visibility="public"/>
+        <Method name="getTrabajadoresSinReparticion" returnType="ArrayList&lt;Trabajador&gt;" visibility="public"/>
         <Method name="addTrabajador" returnType="boolean" visibility="public">
           <Argument type="Trabajador" name="trabajador"/>
         </Method>
@@ -86,10 +79,10 @@
           <Argument type="int" name="idTrabajador"/>
           <Argument type="int" name="idReparticion"/>
         </Method>
-        <Method name="getContratosDeTrabajador" returnType="List&lt;Contrato&gt;" visibility="public">
+        <Method name="getContratosDeTrabajador" returnType="ArrayList&lt;Contrato&gt;" visibility="public">
           <Argument type="int" name="idTrabajador"/>
         </Method>
-        <Method name="getContratos" returnType="Collection&lt;List&lt;Contrato&gt;&gt;" visibility="public"/>
+        <Method name="getContratos" returnType="Collection&lt;ArrayList&lt;Contrato&gt;&gt;" visibility="public"/>
         <Method name="addContrato" returnType="boolean" visibility="public">
           <Argument type="Contrato" name="contrato"/>
         </Method>
@@ -98,14 +91,29 @@
           <Argument type="int" name="idReparticion"/>
         </Method>
         <Method name="getMayorIdContrato" returnType="int" visibility="public"/>
+        <Method name="print" returnType="void" visibility="public" isStatic="true">
+          <Argument type="gobierno.Trabajador" name="t"/>
+        </Method>
+        <Method name="print" returnType="void" visibility="public" isStatic="true">
+          <Argument type="gobierno.Reparticion" name="r"/>
+        </Method>
+        <Method name="print" returnType="void" visibility="public" isStatic="true">
+          <Argument type="gobierno.Gobierno" name="gob"/>
+          <Argument type="gobierno.Contrato" name="c"/>
+        </Method>
+        <Method name="printAll" returnType="void" visibility="public" isStatic="true">
+          <Argument type="gobierno.Gobierno" name="gob"/>
+          <Argument type="boolean" name="printContratos"/>
+        </Method>
         <Method name="getIconPath" returnType="String" visibility="public" isStatic="true"/>
       </Methods>
     </Class>
-    <Class name="Reparticion" package="gobierno" visibility="public" xPosition="920.0" yPosition="20.0">
+    <Class name="Reparticion" package="gobierno" visibility="public" xPosition="1522.0" yPosition="110.0">
       <Fields>
         <Field name="id" type="int" visibility="private"/>
         <Field name="nombre" type="String" visibility="private"/>
         <Field name="estado" type="EstadoReparticion" visibility="private"/>
+        <Field name="trabajadores" type="ArrayList&lt;Integer&gt;" visibility="private"/>
       </Fields>
       <Constructors>
         <Constructor visibility="public"/>
@@ -134,7 +142,7 @@
         <Method name="getIconPath" returnType="String" visibility="public" isStatic="true"/>
       </Methods>
     </Class>
-    <Class name="Trabajador" package="gobierno" visibility="public" isFinal="true" xPosition="1220.0" yPosition="20.0">
+    <Class name="Trabajador" package="gobierno" visibility="public" isFinal="true" xPosition="1522.0" yPosition="525.0">
       <Fields>
         <Field name="id" type="int" visibility="private"/>
         <Field name="nombre" type="String" visibility="private"/>
@@ -173,15 +181,23 @@
         <Method name="getIconPath" returnType="String" visibility="public" isStatic="true"/>
       </Methods>
     </Class>
+    <Enum name="EstadoReparticion" package="gobierno" visibility="public" xPosition="2050.0" yPosition="220.0">
+      <Literals>
+        <Literal name="Normal"/>
+        <Literal name="Deficit"/>
+        <Literal name="Superavit"/>
+      </Literals>
+    </Enum>
   </ClassDiagramComponents>
   <ClassDiagramRelations>
-    <UseRelation source="gobierno.Gobierno" target="gobierno.Contrato" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="contratos" source="gobierno.Gobierno" target="gobierno.Contrato" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="Map&lt;Integer, List&lt;Contrato&gt;&gt;"/>
-    <HasRelation name="trabajadores" source="gobierno.Gobierno" target="gobierno.Trabajador" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="Map&lt;Integer, Trabajador&gt;"/>
-    <UseRelation source="gobierno.Gobierno" target="gobierno.Trabajador" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="contratos" source="gobierno.Gobierno" target="gobierno.Contrato" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="HashMap&lt;Integer, ArrayList&lt;Contrato&gt;&gt;"/>
     <UseRelation source="gobierno.Gobierno" target="gobierno.Reparticion" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="gobierno.Gobierno" target="gobierno.Contrato" sourceCardinality="1..1" targetCardinality="1..1"/>
     <HasRelation name="estado" source="gobierno.Reparticion" target="gobierno.EstadoReparticion" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="reparticiones" source="gobierno.Gobierno" target="gobierno.Reparticion" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="Map&lt;Integer, Reparticion&gt;"/>
+    <UseRelation source="gobierno.Gobierno" target="gobierno.Trabajador" sourceCardinality="1..1" targetCardinality="1..1"/>
     <UseRelation source="gobierno.Reparticion" target="gobierno.Reparticion" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="trabajadores" source="gobierno.Gobierno" target="gobierno.Trabajador" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="HashMap&lt;Integer, Trabajador&gt;"/>
+    <HasRelation name="reparticiones" source="gobierno.Gobierno" target="gobierno.Reparticion" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="HashMap&lt;Integer, Reparticion&gt;"/>
+    <UseRelation source="gobierno.Gobierno" target="gobierno.Gobierno" sourceCardinality="1..1" targetCardinality="1..1"/>
   </ClassDiagramRelations>
 </ClassDiagram>
