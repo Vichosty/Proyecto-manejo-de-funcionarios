@@ -1,3 +1,8 @@
+/* 
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package gobierno;
 
 import java.util.ArrayList;
@@ -7,11 +12,6 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Set;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates and open the template
- * in the editor.
- */
 /**
  *
  * @author chkp
@@ -274,7 +274,6 @@ public class Gobierno {
     }
     // </editor-fold>
 
-    
     public static void print(gobierno.Trabajador t) {
         System.out.println("\t" + t.getNombre() + " " + t.getApellido());
     }
@@ -312,7 +311,7 @@ public class Gobierno {
         }
         System.out.println("================================================");
     }
-    
+
     public static String getIconPath() {
         return "icons/gobierno.png";
     }
