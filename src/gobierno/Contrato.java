@@ -10,7 +10,6 @@ package gobierno;
  * @author chkp
  */
 public class Contrato {
-
     private int id;
     private int idTrabajador;
     private int idReparticion;
@@ -39,6 +38,12 @@ public class Contrato {
         return idReparticion;
     }
 
+    @Override
+    public String toString() {
+        // TODO: busca los nombres de los elementos involucrados en el contrato.
+        return "Contrato{" + "id=" + id + ", idTrabajador=" + idTrabajador + ", idReparticion=" + idReparticion + '}';
+    }
+    
     public static String getIconPath() {
         return "icons/contrato.png";
     }
