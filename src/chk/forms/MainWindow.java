@@ -6,6 +6,7 @@
 package chk.forms;
 
 import java.awt.Point;
+import java.awt.Rectangle;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -408,8 +409,15 @@ public final class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_trabajadoresTableMousePressed
 
     private void reparticionTreeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reparticionTreeMouseClicked
-        // int row = reparticionTree.getRowForLocation(evt.getX(), evt.getY());
-        int row = reparticionTree.getClosestRowForLocation(evt.getX(), evt.getY());
+        int x = evt.getX();
+        int y = evt.getY();
+        
+        int row = reparticionTree.getClosestRowForLocation(x, y);
+        Rectangle bounds = reparticionTree.getRowBounds(row);
+        // Si cliqueamos arriba o abajo del rectangulo, desactiva la seleccion
+        if (y < bounds.y || y > bounds.y + bounds.height) {
+            row = -1;
+        }
         
         if (row == -1) {
             reparticionTree.clearSelection();
