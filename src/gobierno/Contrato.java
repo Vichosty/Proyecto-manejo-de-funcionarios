@@ -28,11 +28,15 @@ package gobierno;
  * @author chkp
  */
 public class Contrato {
+
     private int id;
     private int idTrabajador;
     private int idReparticion;
-    /* etc */
-    
+
+    /*
+     * etc
+     */
+
     public Contrato() {
         this.id = -1;
         this.idTrabajador = -1;
@@ -48,15 +52,15 @@ public class Contrato {
     public int getId() {
         return id;
     }
-    
+
     public int getIdTrabajador() {
         return idTrabajador;
     }
-    
+
     public int getIdReparticion() {
         return idReparticion;
     }
-    
+
     public static String getIconPath() {
         return "icons/contrato.png";
     }

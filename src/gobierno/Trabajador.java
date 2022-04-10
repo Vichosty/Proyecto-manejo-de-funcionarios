@@ -50,7 +50,7 @@ public final class Trabajador {
     public String getNombreCompleto() {
         return nombre + " " + apellido;
     }
-    
+
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
@@ -78,7 +78,7 @@ public final class Trabajador {
             this.fechaDeNacimientoAsString = df.format(this.fechaDeNacimiento);
         }
     }
-    
+
     public static String getIconPath() {
         return "icons/trabajador.png";
     }

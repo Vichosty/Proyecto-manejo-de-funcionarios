@@ -145,16 +145,16 @@ public final class TrabajadorChooserForm extends javax.swing.JDialog {
 
     private void selectTreeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_selectTreeMouseClicked
         int row = selectTree.getRowForLocation(evt.getX(), evt.getY());
-        if(row == -1) {
+        if (row == -1) {
             selectTree.clearSelection();
             this.trabajador = null;
             addButton.setEnabled(false);
         } else {
-            DefaultMutableTreeNode selectedNode =
-                (DefaultMutableTreeNode)selectTree.getLastSelectedPathComponent();
+            DefaultMutableTreeNode selectedNode
+                    = (DefaultMutableTreeNode) selectTree.getLastSelectedPathComponent();
             Object userObject = selectedNode.getUserObject();
             if (userObject instanceof gobierno.Trabajador) {
-                gobierno.Trabajador t = (gobierno.Trabajador)userObject;
+                gobierno.Trabajador t = (gobierno.Trabajador) userObject;
                 this.trabajador = t;
                 addButton.setEnabled(true);
                 // Check if double clicked
@@ -175,56 +175,62 @@ public final class TrabajadorChooserForm extends javax.swing.JDialog {
         DefaultMutableTreeNode treeRoot = new DefaultMutableTreeNode();
         // populate the nodes
         DefaultMutableTreeNode reparticionNode = null;
-        for(gobierno.Reparticion r : this.gobierno.getReparticiones()){
+        for (gobierno.Reparticion r : this.gobierno.getReparticiones()) {
             // Saltar el nodo si es de la reparticion a la que queremos agregar
-            if (this.reparticion.equals(r)) { continue; }
-            
+            if (this.reparticion.equals(r)) {
+                continue;
+            }
+
             reparticionNode = new DefaultMutableTreeNode(r.getNombre());
             reparticionNode.setUserObject(r);
             treeRoot.add(reparticionNode);
-            
+
             // Agregar los trabajadores a ese nodo
             DefaultMutableTreeNode trabajadorNode = null;
-            for(gobierno.Trabajador t : gobierno.getTrabajadoresEnReparticion(r.getId())) {
-                
+            for (gobierno.Trabajador t : gobierno.getTrabajadoresEnReparticion(r.getId())) {
+
                 // Omitir los trabajadores que ya estan en ambas reparticiones
                 boolean found = false;
-                for(gobierno.Contrato c : gobierno.getContratosDeTrabajador(t.getId())) {
-                    if (c.getIdReparticion() == this.reparticion.getId()) { found = true; break; }
+                for (gobierno.Contrato c : gobierno.getContratosDeTrabajador(t.getId())) {
+                    if (c.getIdReparticion() == this.reparticion.getId()) {
+                        found = true;
+                        break;
+                    }
                 }
-                if (found) { continue; }
-                
+                if (found) {
+                    continue;
+                }
+
                 trabajadorNode = new DefaultMutableTreeNode(t.getNombreCompleto());
                 trabajadorNode.setUserObject(t);
                 reparticionNode.add(trabajadorNode);
             }
         }
-        
+
         // Agregar todos los que no tienen ninguna reparticion
         reparticionNode = new DefaultMutableTreeNode("Sin Reparticion");
         treeRoot.add(reparticionNode);
-        
+
         DefaultMutableTreeNode trabajadorNode = null;
-        for(gobierno.Trabajador t : gobierno.getTrabajadoresSinReparticion()) {
+        for (gobierno.Trabajador t : gobierno.getTrabajadoresSinReparticion()) {
             trabajadorNode = new DefaultMutableTreeNode(t.getNombreCompleto());
             trabajadorNode.setUserObject(t);
             reparticionNode.add(trabajadorNode);
         }
-        
-        
+
         DefaultTreeModel treeModel = new DefaultTreeModel(treeRoot);
         this.selectTree.setModel(treeModel);
     }
-    
+
     public void setReparticion(gobierno.Reparticion reparticion) {
         this.reparticion = reparticion;
         reloadTree();
     }
-    
+
     public gobierno.Trabajador getTrabajador() {
         return this.trabajador;
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addButton;
     private javax.swing.JPanel addPanel;

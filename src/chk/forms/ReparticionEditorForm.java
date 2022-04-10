@@ -13,6 +13,7 @@ public final class ReparticionEditorForm extends javax.swing.JDialog {
 
     /**
      * Creates new form TrabajadorView
+     *
      * @param parent
      * @param modal
      * @param trabajador
@@ -153,11 +154,11 @@ public final class ReparticionEditorForm extends javax.swing.JDialog {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-    
+
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
         // Revertir los cambios a this.trabajador, usando this.trabajadorSaved
         this.reparticion.setNombre(this.reparticionSaved.getNombre());
-        
+
         nombreText.setText(this.reparticion.getNombre());
     }//GEN-LAST:event_backButtonActionPerformed
 
@@ -171,12 +172,12 @@ public final class ReparticionEditorForm extends javax.swing.JDialog {
         if (!this.reparticion.getNombre().equals(this.reparticionSaved.getNombre())) {
             changedSomething = true;
         }
-        
+
         // Check if the inputs are empty
         if (this.reparticion.getNombre().isEmpty()) {
             changedSomething = false;
         }
-        
+
         this.saveButton.setEnabled(changedSomething);
         this.backButton.setEnabled(changedSomething);
     }
@@ -184,16 +185,16 @@ public final class ReparticionEditorForm extends javax.swing.JDialog {
     public gobierno.Reparticion getReparticion() {
         return this.reparticion;
     }
-    
+
     public void setReparticion(gobierno.Reparticion reparticion) {
         this.reparticion = reparticion;
         // Respalda el trabajador en caso de que no se quiera guardar cambios.
         reparticionSaved.setNombre(this.reparticion.getNombre());
-        
+
         // Actualiza los widgets
         this.nombreText.setText(this.reparticion.getNombre());
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backButton;
     private javax.swing.JPanel buttonsPanel;

@@ -13,6 +13,7 @@ public final class TrabajadorEditorForm extends javax.swing.JDialog {
 
     /**
      * Creates new form TrabajadorView
+     *
      * @param parent
      * @param modal
      * @param trabajador
@@ -219,7 +220,7 @@ public final class TrabajadorEditorForm extends javax.swing.JDialog {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-    
+
     private void fechaDeNacimientoDatePickerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fechaDeNacimientoDatePickerActionPerformed
         this.trabajador.setFechaDeNacimiento(this.fechaDeNacimientoDatePicker.getDate());
         this.checkForChanges();
@@ -230,7 +231,7 @@ public final class TrabajadorEditorForm extends javax.swing.JDialog {
         this.trabajador.setNombre(this.trabajadorSaved.getNombre());
         this.trabajador.setApellido(this.trabajadorSaved.getApellido());
         this.trabajador.setFechaDeNacimiento(this.trabajadorSaved.getFechaDeNacimiento());
-        
+
         nombreText.setText(this.trabajador.getNombre());
         apellidoText.setText(this.trabajador.getApellido());
         fechaDeNacimientoDatePicker.setDate(this.trabajador.getFechaDeNacimiento());
@@ -245,17 +246,17 @@ public final class TrabajadorEditorForm extends javax.swing.JDialog {
         boolean changedSomething = false;
         if (!this.trabajador.getNombre().equals(this.trabajadorSaved.getNombre())) {
             changedSomething = true;
-        }else if (!this.trabajador.getApellido().equals(this.trabajadorSaved.getApellido())) {
+        } else if (!this.trabajador.getApellido().equals(this.trabajadorSaved.getApellido())) {
             changedSomething = true;
-        }else if (!this.trabajador.getFechaDeNacimiento().equals(this.trabajadorSaved.getFechaDeNacimiento())) {
+        } else if (!this.trabajador.getFechaDeNacimiento().equals(this.trabajadorSaved.getFechaDeNacimiento())) {
             changedSomething = true;
         }
-        
+
         // Check if the inputs are empty
         if (this.trabajador.getNombre().isEmpty() || this.trabajador.getApellido().isEmpty()) {
             changedSomething = false;
         }
-        
+
         this.saveButton.setEnabled(changedSomething);
         this.backButton.setEnabled(changedSomething);
     }
@@ -263,20 +264,20 @@ public final class TrabajadorEditorForm extends javax.swing.JDialog {
     public gobierno.Trabajador getTrabajador() {
         return this.trabajador;
     }
-    
+
     public void setTrabajador(gobierno.Trabajador trabajador) {
         this.trabajador = trabajador;
         // Respalda el trabajador en caso de que no se quiera guardar cambios.
         trabajadorSaved.setNombre(this.trabajador.getNombre());
         trabajadorSaved.setApellido(this.trabajador.getApellido());
         trabajadorSaved.setFechaDeNacimiento(this.trabajador.getFechaDeNacimiento());
-        
+
         // Actualiza los widgets
         this.nombreText.setText(this.trabajador.getNombre());
         this.apellidoText.setText(this.trabajador.getApellido());
         this.fechaDeNacimientoDatePicker.setDate(this.trabajador.getFechaDeNacimiento());
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel apellidoLabel;
     private javax.swing.JTextField apellidoText;
