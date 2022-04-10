@@ -387,7 +387,7 @@ public final class MainWindow extends javax.swing.JFrame {
         JTable table = (JTable) evt.getSource();
         Point point = evt.getPoint();
         int row = table.rowAtPoint(point);
-        if (table.getSelectedRow() != -1 && evt.getClickCount() == 2) {
+        if (row != -1 && evt.getClickCount() == 2) {
             // Edit that Trabajador!
             Object cell = table.getModel().getValueAt(row, 0);
             if (cell != null) {
@@ -408,7 +408,10 @@ public final class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_trabajadoresTableMousePressed
 
     private void reparticionTreeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reparticionTreeMouseClicked
-        if (reparticionTree.getRowForLocation(evt.getX(), evt.getY()) == -1) {
+        // int row = reparticionTree.getRowForLocation(evt.getX(), evt.getY());
+        int row = reparticionTree.getClosestRowForLocation(evt.getX(), evt.getY());
+        
+        if (row == -1) {
             reparticionTree.clearSelection();
             reloadTable(null);
         }
