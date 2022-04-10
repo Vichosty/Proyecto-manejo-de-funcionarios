@@ -8,7 +8,6 @@ package gobierno;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.ListIterator;
 import java.util.Set;
 
@@ -67,7 +66,7 @@ public class Gobierno {
     public Reparticion removeReparticion(int id) {
         if (reparticiones.containsKey(id)) {
             // Remover todos los contratos que continenen a esta reparticion
-            for (List<Contrato> lc : getContratos()) {
+            for (ArrayList<Contrato> lc : getContratos()) {
                 ListIterator iter = lc.listIterator();
                 while (iter.hasNext()) {
                     Contrato c = (Contrato) iter.next();
@@ -123,7 +122,7 @@ public class Gobierno {
 
     public ArrayList<Trabajador> getTrabajadoresEnReparticion(int idReparticion) {
         ArrayList<Trabajador> resultado = new ArrayList<>();
-        for (List<Contrato> listaContratos : contratos.values()) {
+        for (ArrayList<Contrato> listaContratos : contratos.values()) {
             for (Contrato c : listaContratos) {
                 if (c.getIdReparticion() == idReparticion) {
                     resultado.add(getTrabajador(c.getIdTrabajador()));
@@ -136,7 +135,7 @@ public class Gobierno {
     public ArrayList<Trabajador> getTrabajadoresSinReparticion() {
         ArrayList<Trabajador> resultado = new ArrayList<>();
         for (Trabajador t : getTrabajadores()) {
-            List<Contrato> lc = getContratosDeTrabajador(t.getId());
+            ArrayList<Contrato> lc = getContratosDeTrabajador(t.getId());
             if (lc.isEmpty()) {
                 resultado.add(t);
             }
@@ -231,7 +230,7 @@ public class Gobierno {
     public boolean addContrato(Contrato contrato) {
         if (contratos.containsKey(contrato.getIdTrabajador())) {
             // La lista ya existe, agrega al final, pero solo si la reparticion no esta previamente
-            List<Contrato> listaContratos = contratos.get(contrato.getIdTrabajador());
+            ArrayList<Contrato> listaContratos = contratos.get(contrato.getIdTrabajador());
             for (Contrato c : listaContratos) {
                 if (c.getIdReparticion() == contrato.getIdReparticion()) {
                     return false;
@@ -303,7 +302,7 @@ public class Gobierno {
 
         if (printContratos) {
             System.out.println("Contratos:");
-            for (List<gobierno.Contrato> listasDeContratos : gob.getContratos()) {
+            for (ArrayList<gobierno.Contrato> listasDeContratos : gob.getContratos()) {
                 for (gobierno.Contrato c : listasDeContratos) {
                     print(gob, c);
                 }
