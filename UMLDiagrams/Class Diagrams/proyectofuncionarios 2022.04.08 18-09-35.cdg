@@ -2,7 +2,7 @@
 
 <ClassDiagram name="proyectofuncionarios">
   <ClassDiagramComponents>
-    <Class name="ProyectoFuncionarios" package="proyectofuncionarios" visibility="public" xPosition="20.0" yPosition="20.0">
+    <Class name="ProyectoFuncionarios" package="proyectofuncionarios" visibility="public" xPosition="807.0" yPosition="283.0">
       <Fields/>
       <Constructors/>
       <Methods>
