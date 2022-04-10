@@ -5,7 +5,6 @@
  */
 package proyectofuncionarios;
 
-import gobierno.EstadoReparticion;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -24,10 +23,9 @@ public class ProyectoFuncionarios {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        gobierno.Gobierno gobierno = new gobierno.Gobierno();
+        gobierno.Gobierno gob = new gobierno.Gobierno();
 
         // <editor-fold defaultstate="collapsed" desc="Cargar los datos de la BD">
-        // Create a database connection
         /*
         try {
             String conURL = "jdbc:mysql://localhost:3306/chk_test";
@@ -68,7 +66,9 @@ public class ProyectoFuncionarios {
             connection.close();
         } catch (Exception ex) {
             Logger.getLogger(Prueba.class.getName()).log(Level.SEVERE, null, ex);
-        } */ //</editor-fold>
+        } 
+        */ 
+        //</editor-fold>
 
         // <editor-fold defaultstate="collapsed" desc="Agregar algunas reparticiones de prueba">
         // Agregar algunas reparticiones de prueba
@@ -76,19 +76,24 @@ public class ProyectoFuncionarios {
             "Deportes", "Economia", "Construccion", "Politica"
         };
         
-        int index = 1;
-        for(String name : reparticionNames) {
-            gobierno.addReparticion(new gobierno.Reparticion(index++, name, EstadoReparticion.Normal));
-        } //</editor-fold>
+        for(int index = 0; index < reparticionNames.length; ++index) {
+            gob.addReparticion(
+                    new gobierno.Reparticion(
+                            index + 1, reparticionNames[index], gobierno.EstadoReparticion.Normal
+                    )
+            );
+        } 
+        //</editor-fold>
         
         // Crear varios trabajadores random
-        debugCrearDatosRandom(gobierno);
+        debugCrearDatosRandom(gob);
         
-        // <editor-fold defaultstate="collapsed" desc="La GUI deberia verse nativa y no como win95">
+        // <editor-fold defaultstate="collapsed" desc="Look and Feel">
         try {
             // Test de GUI
             javax.swing.UIManager.setLookAndFeel(
-                    javax.swing.UIManager.getSystemLookAndFeelClassName());
+                    javax.swing.UIManager.getSystemLookAndFeelClassName()
+            );
         } catch (ClassNotFoundException | 
                 InstantiationException | 
                 IllegalAccessException | 
@@ -96,33 +101,32 @@ public class ProyectoFuncionarios {
             Logger.getLogger(ProyectoFuncionarios.class.getName()).log(Level.SEVERE, null, ex);
         }
         // </editor-fold>
-         // </editor-fold>
         
-        debugPrintGobierno(gobierno, false);
+        debugPrintGobierno(gob, false);
         
-        chk.forms.MainWindow mainWindow = new chk.forms.MainWindow(gobierno);
+        chk.forms.MainWindow mainWindow = new chk.forms.MainWindow(gob);
         mainWindow.setVisible(true);
     }
     
-    public static void debugPrintGobierno(gobierno.Gobierno gobierno, boolean printContratos) {
+    public static void debugPrintGobierno(gobierno.Gobierno gob, boolean printContratos) {
         // Mostrar valores en consola para probar.
         System.out.println("================================================");
         System.out.println("Reparticiones:");
-        for (gobierno.Reparticion reparticion : gobierno.getReparticiones()) {
+        for (gobierno.Reparticion reparticion : gob.getReparticiones()) {
             System.out.println("\t" + reparticion.getNombre());
         }
 
         System.out.println("Trabajadores:");
-        for (gobierno.Trabajador trabajador : gobierno.getTrabajadores()) {
+        for (gobierno.Trabajador trabajador : gob.getTrabajadores()) {
             System.out.println("\t" + trabajador.getNombre() + " " + trabajador.getApellido());
         }
 
         if (printContratos) {
             System.out.println("Contratos:");
-            for (List<gobierno.Contrato> listasDeContratos : gobierno.getContratos()) {
+            for (List<gobierno.Contrato> listasDeContratos : gob.getContratos()) {
                 for (gobierno.Contrato c : listasDeContratos) {
-                    gobierno.Trabajador t = gobierno.getTrabajador(c.getIdTrabajador());
-                    gobierno.Reparticion r = gobierno.getReparticion(c.getIdReparticion());
+                    gobierno.Trabajador t = gob.getTrabajador(c.getIdTrabajador());
+                    gobierno.Reparticion r = gob.getReparticion(c.getIdReparticion());
                     System.out.println("\t" + t.getNombre() + " -> " + r.getNombre());
                 }
             }
@@ -130,7 +134,7 @@ public class ProyectoFuncionarios {
         System.out.println("================================================");
     }
     
-    public static void debugCrearDatosRandom(gobierno.Gobierno gobierno) {
+    public static void debugCrearDatosRandom(gobierno.Gobierno gob) {
         String[] commonNames = {
             "James", "Robert", "John", "Michael", "William", 
             "David", "Richard", "Joseph", "Thomas", "Charles",
@@ -163,23 +167,23 @@ public class ProyectoFuncionarios {
                 long randomMilis = ThreadLocalRandom.current().nextLong(startMilis, endMilis);
                 Date randomDate = new Date(randomMilis);
                 gobierno.Trabajador t = new gobierno.Trabajador(i, randomName, randomSurname, randomDate);
-                gobierno.addTrabajador(t);
+                gob.addTrabajador(t);
             }
         }catch (ParseException ex) {
             Logger.getLogger(ProyectoFuncionarios.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         // Crea contratos aleatorios entre los trabajadores y una reparticion al azar
-        Object[] items = gobierno.getReparticiones().toArray();
+        Object[] items = gob.getReparticiones().toArray();
         int indexContrato = 0;
         if (items.length > 0) {
-            for(gobierno.Trabajador t : gobierno.getTrabajadores()) {    
+            for(gobierno.Trabajador t : gob.getTrabajadores()) {    
                 
                 Object randomItem = items[ThreadLocalRandom.current().nextInt(items.length)];
 
                 gobierno.Reparticion r = (gobierno.Reparticion)randomItem;
                 gobierno.Contrato c = new gobierno.Contrato(indexContrato++, t.getId(), r.getId());
-                gobierno.addContrato(c);
+                gob.addContrato(c);
             }
             if (indexContrato == 0) {
                 System.out.println("No hay trabajadores!");

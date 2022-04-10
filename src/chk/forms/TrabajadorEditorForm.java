@@ -65,13 +65,23 @@ public final class TrabajadorEditorForm extends javax.swing.JDialog {
         setName("editorDialog"); // NOI18N
         setResizable(false);
         setType(java.awt.Window.Type.POPUP);
+        getContentPane().setLayout(new java.awt.GridBagLayout());
 
+        titlePanel.setMinimumSize(new java.awt.Dimension(162, 64));
+        titlePanel.setPreferredSize(new java.awt.Dimension(162, 64));
         titlePanel.setLayout(new java.awt.GridLayout(1, 0));
 
         titleLabel.setFont(titleLabel.getFont().deriveFont(titleLabel.getFont().getStyle() | java.awt.Font.BOLD, titleLabel.getFont().getSize()+8));
         titleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         titleLabel.setText("Editar Trabajador");
         titlePanel.add(titleLabel);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
+        getContentPane().add(titlePanel, gridBagConstraints);
 
         viewPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         viewPanel.setAutoscrolls(true);
@@ -170,6 +180,17 @@ public final class TrabajadorEditorForm extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
         viewPanel.add(fechaDeNacimientoDatePicker, gridBagConstraints);
 
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
+        getContentPane().add(viewPanel, gridBagConstraints);
+
+        buttonsPanel.setLayout(new java.awt.GridLayout(1, 0, 4, 4));
+
         backButton.setText("Revertir Cambios");
         backButton.setEnabled(false);
         backButton.addActionListener(new java.awt.event.ActionListener() {
@@ -177,6 +198,7 @@ public final class TrabajadorEditorForm extends javax.swing.JDialog {
                 backButtonActionPerformed(evt);
             }
         });
+        buttonsPanel.add(backButton);
 
         saveButton.setText("Guardar Cambios");
         saveButton.setEnabled(false);
@@ -185,45 +207,14 @@ public final class TrabajadorEditorForm extends javax.swing.JDialog {
                 saveButtonActionPerformed(evt);
             }
         });
+        buttonsPanel.add(saveButton);
 
-        javax.swing.GroupLayout buttonsPanelLayout = new javax.swing.GroupLayout(buttonsPanel);
-        buttonsPanel.setLayout(buttonsPanelLayout);
-        buttonsPanelLayout.setHorizontalGroup(
-            buttonsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(buttonsPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(backButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(saveButton)
-                .addContainerGap())
-        );
-        buttonsPanelLayout.setVerticalGroup(
-            buttonsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, buttonsPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(buttonsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(backButton)
-                    .addComponent(saveButton))
-                .addContainerGap())
-        );
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(titlePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(viewPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(buttonsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(titlePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(viewPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
+        getContentPane().add(buttonsPanel, gridBagConstraints);
 
         pack();
         setLocationRelativeTo(null);

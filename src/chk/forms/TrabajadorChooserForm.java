@@ -51,6 +51,7 @@ public final class TrabajadorChooserForm extends javax.swing.JDialog {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
         gobierno = new gobierno.Gobierno();
         reparticion = new gobierno.Reparticion();
@@ -60,19 +61,30 @@ public final class TrabajadorChooserForm extends javax.swing.JDialog {
         selectPanel = new javax.swing.JPanel();
         selectScrollPane = new javax.swing.JScrollPane();
         selectTree = new javax.swing.JTree();
+        addPanel = new javax.swing.JPanel();
         addButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Elegir Trabajador Existente");
         setModal(true);
         setType(java.awt.Window.Type.POPUP);
+        getContentPane().setLayout(new java.awt.GridBagLayout());
 
+        titlePanel.setMinimumSize(new java.awt.Dimension(251, 64));
+        titlePanel.setPreferredSize(new java.awt.Dimension(251, 64));
         titlePanel.setLayout(new java.awt.GridLayout(1, 0));
 
         titleLabel.setFont(titleLabel.getFont().deriveFont(titleLabel.getFont().getStyle() | java.awt.Font.BOLD, titleLabel.getFont().getSize()+8));
         titleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         titleLabel.setText("Elegir Trabajador Existente");
         titlePanel.add(titleLabel);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
+        getContentPane().add(titlePanel, gridBagConstraints);
 
         selectPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -92,18 +104,23 @@ public final class TrabajadorChooserForm extends javax.swing.JDialog {
         selectPanel.setLayout(selectPanelLayout);
         selectPanelLayout.setHorizontalGroup(
             selectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(selectPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(selectScrollPane)
-                .addContainerGap())
+            .addComponent(selectScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)
         );
         selectPanelLayout.setVerticalGroup(
             selectPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(selectPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(selectScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(selectScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
         );
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
+        getContentPane().add(selectPanel, gridBagConstraints);
+
+        addPanel.setLayout(new java.awt.GridLayout(1, 0, 4, 4));
 
         addButton.setText("Agregar");
         addButton.setEnabled(false);
@@ -112,28 +129,15 @@ public final class TrabajadorChooserForm extends javax.swing.JDialog {
                 addButtonActionPerformed(evt);
             }
         });
+        addPanel.add(addButton);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(titlePanel, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE)
-            .addComponent(selectPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(addButton)
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(titlePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(selectPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(addButton)
-                .addContainerGap())
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
+        getContentPane().add(addPanel, gridBagConstraints);
 
         pack();
         setLocationRelativeTo(null);
@@ -223,6 +227,7 @@ public final class TrabajadorChooserForm extends javax.swing.JDialog {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addButton;
+    private javax.swing.JPanel addPanel;
     private gobierno.Gobierno gobierno;
     private gobierno.Reparticion reparticion;
     private javax.swing.JPanel selectPanel;

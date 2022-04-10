@@ -38,8 +38,11 @@ public final class MainWindow extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
         gobierno = new gobierno.Gobierno();
+        titlePanel = new javax.swing.JPanel();
+        titleLabel = new javax.swing.JLabel();
         borderPanel = new javax.swing.JPanel();
         splitPanel = new javax.swing.JSplitPane();
         leftPanel = new javax.swing.JPanel();
@@ -61,15 +64,34 @@ public final class MainWindow extends javax.swing.JFrame {
         trabajadoresRemoveButton = new javax.swing.JButton();
         mainButtonsPanel = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
         jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Manejo de Funcionarios");
+        getContentPane().setLayout(new java.awt.GridBagLayout());
 
-        borderPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        titlePanel.setMinimumSize(new java.awt.Dimension(136, 64));
+        titlePanel.setPreferredSize(new java.awt.Dimension(1085, 64));
+        titlePanel.setLayout(new java.awt.GridLayout(1, 0));
+
+        titleLabel.setFont(titleLabel.getFont().deriveFont(titleLabel.getFont().getStyle() | java.awt.Font.BOLD, titleLabel.getFont().getSize()+8));
+        titleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        titleLabel.setText("Menu Principal");
+        titleLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        titlePanel.add(titleLabel);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
+        getContentPane().add(titlePanel, gridBagConstraints);
+
+        borderPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(4, 4, 4, 4));
         borderPanel.setLayout(new java.awt.GridLayout(1, 1, 4, 4));
 
-        splitPanel.setDividerLocation(256);
+        splitPanel.setDividerLocation(320);
 
         reparticionTitle.setText("Reparticiones");
 
@@ -140,7 +162,7 @@ public final class MainWindow extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(reparticionTitle)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(reparticionScrollPane)
+                .addComponent(reparticionScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 428, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(reparticionButtonsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -243,7 +265,7 @@ public final class MainWindow extends javax.swing.JFrame {
             .addGroup(rightPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(rightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(trabajadoresScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE)
+                    .addComponent(trabajadoresScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(rightPanelLayout.createSequentialGroup()
                         .addComponent(trabajadoresTitle)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -256,7 +278,7 @@ public final class MainWindow extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(trabajadoresTitle)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(trabajadoresScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 374, Short.MAX_VALUE)
+                .addComponent(trabajadoresScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 428, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(trabajadoresButtonsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -265,47 +287,48 @@ public final class MainWindow extends javax.swing.JFrame {
 
         borderPanel.add(splitPanel);
 
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        getContentPane().add(borderPanel, gridBagConstraints);
+
+        mainButtonsPanel.setPreferredSize(new java.awt.Dimension(381, 31));
+        mainButtonsPanel.setLayout(new java.awt.GridBagLayout());
+
         jButton1.setText("Cargar desde Base de Datos");
         jButton1.setEnabled(false);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
+        mainButtonsPanel.add(jButton1, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 5.0;
+        mainButtonsPanel.add(filler1, gridBagConstraints);
 
         jButton3.setText("Guardar en Base de Datos");
         jButton3.setEnabled(false);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
+        mainButtonsPanel.add(jButton3, gridBagConstraints);
 
-        javax.swing.GroupLayout mainButtonsPanelLayout = new javax.swing.GroupLayout(mainButtonsPanel);
-        mainButtonsPanel.setLayout(mainButtonsPanelLayout);
-        mainButtonsPanelLayout.setHorizontalGroup(
-            mainButtonsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(mainButtonsPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton3)
-                .addContainerGap())
-        );
-        mainButtonsPanelLayout.setVerticalGroup(
-            mainButtonsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainButtonsPanelLayout.createSequentialGroup()
-                .addGap(0, 20, Short.MAX_VALUE)
-                .addGroup(mainButtonsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton3))
-                .addGap(10, 10, 10))
-        );
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(mainButtonsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(borderPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 776, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(borderPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(mainButtonsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
+        getContentPane().add(mainButtonsPanel, gridBagConstraints);
 
         pack();
         setLocationRelativeTo(null);
@@ -519,6 +542,7 @@ public final class MainWindow extends javax.swing.JFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel borderPanel;
+    private javax.swing.Box.Filler filler1;
     private gobierno.Gobierno gobierno;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
@@ -533,6 +557,8 @@ public final class MainWindow extends javax.swing.JFrame {
     private javax.swing.JTree reparticionTree;
     private javax.swing.JPanel rightPanel;
     private javax.swing.JSplitPane splitPanel;
+    private javax.swing.JLabel titleLabel;
+    private javax.swing.JPanel titlePanel;
     private javax.swing.JButton trabajadoresAdd1Button;
     private javax.swing.JButton trabajadoresAdd2Button;
     private javax.swing.JPanel trabajadoresButtonsPanel;
