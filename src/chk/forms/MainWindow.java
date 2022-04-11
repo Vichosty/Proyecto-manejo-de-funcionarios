@@ -5,6 +5,12 @@
  */
 package chk.forms;
 
+import gobierno.Contrato;
+import gobierno.Contratos;
+import gobierno.Reparticion;
+import gobierno.Reparticiones;
+import gobierno.Trabajador;
+import gobierno.Trabajadores;
 import java.awt.Point;
 import java.awt.Rectangle;
 import javax.swing.JMenuItem;
@@ -30,9 +36,13 @@ public final class MainWindow extends javax.swing.JFrame {
      *
      * @param gobierno
      */
-    public MainWindow(gobierno.Gobierno gobierno) {
+    public MainWindow() {
+        trabajadores = Trabajadores.get();
+        reparticiones = Reparticiones.get();
+        contratos = Contratos.get();
+    
         initComponents();
-        setGobierno(gobierno);
+        reloadTree();
     }
 
     /**
@@ -45,7 +55,6 @@ public final class MainWindow extends javax.swing.JFrame {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
-        gobierno = new gobierno.Gobierno();
         titlePanel = new javax.swing.JPanel();
         titleLabel = new javax.swing.JLabel();
         borderPanel = new javax.swing.JPanel();
@@ -371,9 +380,9 @@ public final class MainWindow extends javax.swing.JFrame {
         DefaultMutableTreeNode selectedNode
                 = (DefaultMutableTreeNode) reparticionTree.getLastSelectedPathComponent();
 
-        gobierno.Reparticion r = null;
+        Reparticion r = null;
         if (selectedNode != null) {
-            r = (gobierno.Reparticion) selectedNode.getUserObject();
+            r = (Reparticion) selectedNode.getUserObject();
             reparticionEditButton.setEnabled(true);
             reparticionRemoveButton.setEnabled(true);
         } else {
@@ -394,14 +403,14 @@ public final class MainWindow extends javax.swing.JFrame {
             if (cell != null) {
                 int id = (int) (cell);
 
-                gobierno.Trabajador t = gobierno.getTrabajador(id);
+                Trabajador t = trabajadores.get(id);
                 if (t != null) {
                     TrabajadorEditorForm editor = new TrabajadorEditorForm(this, true, t);
                     editor.setVisible(true);
-                    gobierno.replaceTrabajador(id, editor.getTrabajador());
+                    trabajadores.modify(id, editor.getTrabajador());
 
                     // Obtener la reparticion, usando la lista de la izquierda
-                    gobierno.Reparticion r = getReparticionFromTree();
+                    Reparticion r = getReparticionFromTree();
                     reloadTable(r);
                 }
             }
@@ -429,15 +438,15 @@ public final class MainWindow extends javax.swing.JFrame {
         // Obtener el trabajador dada la id seleccionada
         int selectedRow = trabajadoresTable.getSelectedRow();
         int selectedId = (int) trabajadoresTable.getValueAt(selectedRow, 0);
-        gobierno.Trabajador t = gobierno.getTrabajador(selectedId);
+        Trabajador t = trabajadores.get(selectedId);
 
         // Editar el trabajador
         TrabajadorEditorForm editor = new TrabajadorEditorForm(this, true, t);
         editor.setVisible(true);
-        gobierno.replaceTrabajador(selectedId, editor.getTrabajador());
+        trabajadores.modify(selectedId, editor.getTrabajador());
 
         // Obtener la reparticion, usando la lista de la izquierda
-        gobierno.Reparticion r = getReparticionFromTree();
+        Reparticion r = getReparticionFromTree();
 
         reloadTable(r);
     }//GEN-LAST:event_trabajadoresEditButtonActionPerformed
@@ -450,47 +459,45 @@ public final class MainWindow extends javax.swing.JFrame {
             // Obtener el trabajador dada la id seleccionada
             int selectedRow = trabajadoresTable.getSelectedRow();
             int selectedId = (int) trabajadoresTable.getValueAt(selectedRow, 0);
-            gobierno.Trabajador t = gobierno.getTrabajador(selectedId);
+            Trabajador t = trabajadores.get(selectedId);
 
             // Obtener la reparticion, usando la lista de la izquierda
-            gobierno.Reparticion r = getReparticionFromTree();
+            Reparticion r = getReparticionFromTree();
 
             // Remover el contrato entre ambos (si existe)
-            gobierno.removeContrato(t.getId(), r.getId());
+            contratos.remove(t.getId(), r.getId());
 
             reloadTable(r);
         }
     }//GEN-LAST:event_trabajadoresRemoveButtonActionPerformed
 
     private void trabajadoresAdd1ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trabajadoresAdd1ButtonActionPerformed
-        // Creamos un nuevo trabajador y lo agregamos al gobierno.
+        // Creamos un nuevo trabajador y lo agregamos al gobierno
         TrabajadorEditorForm editor = new TrabajadorEditorForm(this, true, null);
         editor.setVisible(true);
-        gobierno.Trabajador t = editor.getTrabajador();
-        t.setId(gobierno.getMayorIdTrabajador() + 1);
-        gobierno.addTrabajador(t);
+        Trabajador t = editor.getTrabajador();
+        t.setId(trabajadores.getMayorId() + 1);
+        trabajadores.add(t);
 
         // Obtener la reparticion, usando la lista de la izquierda
-        gobierno.Reparticion r = getReparticionFromTree();
-
-        // Creamos un nuevo contrato y lo agregamos al gobierno.
-        gobierno.Contrato c = new gobierno.Contrato(gobierno.getMayorIdContrato() + 1, t.getId(), r.getId());
-        gobierno.addContrato(c);
+        Reparticion r = getReparticionFromTree();
+        
+        // Creamos un nuevo contrato y lo agregamos al gobierno
+        contratos.add(new Contrato(contratos.getMayorId() + 1, t.getId(), r.getId()));
 
         reloadTable(r);
     }//GEN-LAST:event_trabajadoresAdd1ButtonActionPerformed
 
     private void trabajadoresAdd2ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trabajadoresAdd2ButtonActionPerformed
         // Obtener la reparticion, usando la lista de la izquierda
-        gobierno.Reparticion r = getReparticionFromTree();
+        Reparticion r = getReparticionFromTree();
 
-        TrabajadorChooserForm form = new TrabajadorChooserForm(this, true, this.gobierno, r);
+        TrabajadorChooserForm form = new TrabajadorChooserForm(this, true, r);
         form.setVisible(true);
-        gobierno.Trabajador t = form.getTrabajador();
+        Trabajador t = form.getTrabajador();
         if (t != null && t.getId() >= 0) {
-            // Creamos un nuevo contrato y lo agregamos al gobierno.
-            gobierno.Contrato c = new gobierno.Contrato(gobierno.getMayorIdContrato() + 1, t.getId(), r.getId());
-            gobierno.addContrato(c);
+            // Creamos un nuevo contrato y lo agregamos al gobierno
+            contratos.add(new Contrato(contratos.getMayorId() + 1, t.getId(), r.getId()));
         }
 
         reloadTable(r);
@@ -500,22 +507,22 @@ public final class MainWindow extends javax.swing.JFrame {
         ReparticionEditorForm form = new ReparticionEditorForm(this, true, null);
         form.setVisible(true);
 
-        gobierno.Reparticion r = form.getReparticion();
-        r.setId(gobierno.getMayorIdReparticion() + 1);
-        gobierno.addReparticion(r);
+        Reparticion r = form.getReparticion();
+        r.setId(reparticiones.getMayorId() + 1);
+        reparticiones.add(r);
         reloadTree();
     }//GEN-LAST:event_reparticionAddButtonActionPerformed
 
     private void reparticionEditButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reparticionEditButtonActionPerformed
         // Obtener reparticion seleccionada
-        gobierno.Reparticion r = getReparticionFromTree();
+        Reparticion r = getReparticionFromTree();
 
         // Crear editor de reparticiones
         ReparticionEditorForm form = new ReparticionEditorForm(this, true, r);
         form.setVisible(true);
 
         // Reemplazar la reparticion con la nueva
-        gobierno.renameReparticion(r.getId(), form.getReparticion().getNombre());
+        reparticiones.modify(r.getId(), form.getReparticion().getNombre());
 
         reloadTree();
     }//GEN-LAST:event_reparticionEditButtonActionPerformed
@@ -525,8 +532,8 @@ public final class MainWindow extends javax.swing.JFrame {
         int respuesta = JOptionPane.showConfirmDialog(null,
                 "Estas seguro de que deseas eliminar esta reparticion?", "Cuidado", botones);
         if (respuesta == JOptionPane.YES_OPTION) {
-            gobierno.Reparticion r = getReparticionFromTree();
-            gobierno.removeReparticion(r.getId());
+            Reparticion r = getReparticionFromTree();
+            reparticiones.remove(r.getId());
 
             reloadTree();
         }
@@ -536,9 +543,10 @@ public final class MainWindow extends javax.swing.JFrame {
         DefaultMutableTreeNode treeRoot = new DefaultMutableTreeNode();
         // populate the nodes
         DefaultMutableTreeNode reparticionNode = null;
-        for (gobierno.Reparticion reparticion : gobierno.getReparticiones()) {
-            reparticionNode = new DefaultMutableTreeNode(reparticion.getNombre());
-            reparticionNode.setUserObject(reparticion);
+        for (int reparticionId : reparticiones.getIDs()) {
+            Reparticion r = reparticiones.get(reparticionId);
+            reparticionNode = new DefaultMutableTreeNode(r.getNombre());
+            reparticionNode.setUserObject(r);
             treeRoot.add(reparticionNode);
         }
 
@@ -546,11 +554,12 @@ public final class MainWindow extends javax.swing.JFrame {
         this.reparticionTree.setModel(treeModel);
     }
 
-    public void reloadTable(gobierno.Reparticion r) {
+    public void reloadTable(Reparticion r) {
         DefaultTableModel tableModel = (DefaultTableModel) trabajadoresTable.getModel();
         tableModel.setRowCount(0);
         if (r != null) {
-            for (gobierno.Trabajador t : gobierno.getTrabajadoresEnReparticion(r.getId())) {
+            for (int trabajadorId : contratos.getIDsByIdReparticion(r.getId())) {
+                Trabajador t = trabajadores.get(trabajadorId);
                 tableModel.addRow(new Object[]{
                     t.getId(),
                     t.getNombre(),
@@ -566,26 +575,19 @@ public final class MainWindow extends javax.swing.JFrame {
         }
     }
 
-    public gobierno.Reparticion getReparticionFromTree() {
+    public Reparticion getReparticionFromTree() {
         DefaultMutableTreeNode selectedNode
                 = (DefaultMutableTreeNode) reparticionTree.getLastSelectedPathComponent();
-        gobierno.Reparticion r = (gobierno.Reparticion) selectedNode.getUserObject();
+        Reparticion r = (Reparticion) selectedNode.getUserObject();
         return r;
     }
 
-    public gobierno.Gobierno getGobierno() {
-        return this.gobierno;
-    }
-
-    public void setGobierno(gobierno.Gobierno gobierno) {
-        this.gobierno = gobierno;
-        reloadTree();
-    }
-
+    private Trabajadores trabajadores;
+    private Reparticiones reparticiones;
+    private Contratos contratos;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel borderPanel;
     private javax.swing.Box.Filler filler1;
-    private gobierno.Gobierno gobierno;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JPanel leftPanel;

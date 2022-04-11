@@ -2,8 +2,6 @@
 
 <Form version="1.7" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
   <NonVisualComponents>
-    <Component class="gobierno.Gobierno" name="gobierno">
-    </Component>
     <Component class="gobierno.Reparticion" name="reparticion">
     </Component>
     <Component class="gobierno.Trabajador" name="trabajador">

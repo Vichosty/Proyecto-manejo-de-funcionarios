@@ -5,6 +5,12 @@
  */
 package chk.forms;
 
+import gobierno.Contrato;
+import gobierno.Contratos;
+import gobierno.Reparticion;
+import gobierno.Reparticiones;
+import gobierno.Trabajador;
+import gobierno.Trabajadores;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeSelectionModel;
@@ -18,10 +24,14 @@ public final class TrabajadorChooserForm extends javax.swing.JDialog {
     /**
      * Creates new form TrabajadorAddExistingForm
      */
-    public TrabajadorChooserForm(java.awt.Frame parent, boolean modal, gobierno.Gobierno gobierno, gobierno.Reparticion reparticion) {
+    public TrabajadorChooserForm(java.awt.Frame parent, boolean modal, Reparticion reparticion) {
         super(parent, modal);
+        
+        trabajadores = Trabajadores.get();
+        reparticiones = Reparticiones.get();
+        contratos = Contratos.get();
+        
         initComponents();
-        this.gobierno = gobierno;
         setReparticion(reparticion);
     }
 
@@ -35,7 +45,6 @@ public final class TrabajadorChooserForm extends javax.swing.JDialog {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
-        gobierno = new gobierno.Gobierno();
         reparticion = new gobierno.Reparticion();
         trabajador = new gobierno.Trabajador();
         titlePanel = new javax.swing.JPanel();
@@ -135,8 +144,8 @@ public final class TrabajadorChooserForm extends javax.swing.JDialog {
             DefaultMutableTreeNode selectedNode
                     = (DefaultMutableTreeNode) selectTree.getLastSelectedPathComponent();
             Object userObject = selectedNode.getUserObject();
-            if (userObject instanceof gobierno.Trabajador) {
-                gobierno.Trabajador t = (gobierno.Trabajador) userObject;
+            if (userObject instanceof Trabajador) {
+                Trabajador t = (Trabajador) userObject;
                 this.trabajador = t;
                 addButton.setEnabled(true);
                 // Check if double clicked
@@ -155,9 +164,12 @@ public final class TrabajadorChooserForm extends javax.swing.JDialog {
 
     public void reloadTree() {
         DefaultMutableTreeNode treeRoot = new DefaultMutableTreeNode();
+        
         // populate the nodes
         DefaultMutableTreeNode reparticionNode = null;
-        for (gobierno.Reparticion r : this.gobierno.getReparticiones()) {
+        for (int reparticionId : reparticiones.getIDs()) {
+            Reparticion r = reparticiones.get(reparticionId);
+            
             // Saltar el nodo si es de la reparticion a la que queremos agregar
             if (this.reparticion.equals(r)) {
                 continue;
@@ -167,18 +179,24 @@ public final class TrabajadorChooserForm extends javax.swing.JDialog {
             reparticionNode.setUserObject(r);
             treeRoot.add(reparticionNode);
 
-            // Agregar los trabajadores a ese nodo
+            // Agregar los trabajadores con contrato en esta reparticion al nodo
             DefaultMutableTreeNode trabajadorNode = null;
-            for (gobierno.Trabajador t : gobierno.getTrabajadoresEnReparticion(r.getId())) {
-
-                // Omitir los trabajadores que ya estan en ambas reparticiones
+            for (int contratoId : contratos.getIDsByIdReparticion(r.getId())) {
+                Contrato c = contratos.get(contratoId);
+                Trabajador t = trabajadores.get(c.getIdTrabajador());
+                
+                // Si en la lista de reparticiones donde este trabajador aparece
+                // se encuentra a la que estamos tratando de agregar, entonces
+                // ya esta en ambas.
                 boolean found = false;
-                for (gobierno.Contrato c : gobierno.getContratosDeTrabajador(t.getId())) {
-                    if (c.getIdReparticion() == this.reparticion.getId()) {
+                for(int contratoId2 : contratos.getIDsByIdTrabajador(t.getId())) {
+                    Contrato c2 = contratos.get(contratoId2);
+                    if (c2.getIdReparticion() == reparticion.getId()) {
                         found = true;
                         break;
                     }
                 }
+                
                 if (found) {
                     continue;
                 }
@@ -194,7 +212,8 @@ public final class TrabajadorChooserForm extends javax.swing.JDialog {
         treeRoot.add(reparticionNode);
 
         DefaultMutableTreeNode trabajadorNode = null;
-        for (gobierno.Trabajador t : gobierno.getTrabajadoresSinReparticion()) {
+        for (int trabajadorId : trabajadores.getIDsSinReparticion()) {
+            Trabajador t = trabajadores.get(trabajadorId);
             trabajadorNode = new DefaultMutableTreeNode(t.getNombreCompleto());
             trabajadorNode.setUserObject(t);
             reparticionNode.add(trabajadorNode);
@@ -213,10 +232,13 @@ public final class TrabajadorChooserForm extends javax.swing.JDialog {
         return this.trabajador;
     }
 
+    
+    private Trabajadores trabajadores;
+    private Reparticiones reparticiones;
+    private Contratos contratos;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addButton;
     private javax.swing.JPanel addPanel;
-    private gobierno.Gobierno gobierno;
     private gobierno.Reparticion reparticion;
     private javax.swing.JPanel selectPanel;
     private javax.swing.JScrollPane selectScrollPane;
