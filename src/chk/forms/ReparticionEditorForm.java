@@ -16,7 +16,7 @@ public final class ReparticionEditorForm extends javax.swing.JDialog {
      *
      * @param parent
      * @param modal
-     * @param trabajador
+     * @param reparticion
      */
     public ReparticionEditorForm(java.awt.Frame parent, boolean modal, gobierno.Reparticion reparticion) {
         super(parent, modal);
@@ -59,7 +59,6 @@ public final class ReparticionEditorForm extends javax.swing.JDialog {
         setModal(true);
         setName("editorDialog"); // NOI18N
         setResizable(false);
-        setType(java.awt.Window.Type.POPUP);
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         titlePanel.setMinimumSize(new java.awt.Dimension(168, 64));

@@ -1,4 +1,4 @@
-/* 
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -7,6 +7,7 @@ package proyectofuncionarios;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Level;
@@ -24,7 +25,9 @@ public class ProyectoFuncionarios {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        gobierno.Gobierno gob = new gobierno.Gobierno();
+        gobierno.Reparticiones reparticiones = gobierno.Reparticiones.get();
+        // gobierno.Trabajadores trabajadores = gobierno.Trabajadores.get();
+        // gobierno.Contratos contratos = gobierno.Contratos.get();
 
         // <editor-fold defaultstate="collapsed" desc="Cargar los datos de la BD">
         /*
@@ -70,45 +73,53 @@ public class ProyectoFuncionarios {
         };
 
         for (int index = 0; index < reparticionNames.length; ++index) {
-            gob.addReparticion(
-                    new gobierno.Reparticion(
-                            index + 1, reparticionNames[index], gobierno.EstadoReparticion.Normal
-                    )
-            );
+            reparticiones.add(new gobierno.Reparticion(
+                    reparticiones.getMayorId() + 1,
+                    reparticionNames[index],
+                    gobierno.EstadoReparticion.Normal
+            ));
         }
         //</editor-fold>
 
         // Crear varios trabajadores random
-        debugCrearDatosRandom(gob);
+        debugCrearDatosRandom();
 
         // <editor-fold defaultstate="collapsed" desc="Look and Feel">
         try {
             // Si FlatLaf esta instalado, agregalos a la lista y usa FlatLightLaf por defecto.
             javax.swing.UIManager.setLookAndFeel("com.formdev.flatlaf.FlatLightLaf");
-            
+
             UIManager.installLookAndFeel("FlatLightLaf", "com.formdev.flatlaf.FlatLightLaf");
             UIManager.installLookAndFeel("FlatDarkLaf", "com.formdev.flatlaf.FlatDarkLaf");
             UIManager.installLookAndFeel("FlatDarculaLaf", "com.formdev.flatlaf.FlatDarculaLaf");
-        } catch (javax.swing.UnsupportedLookAndFeelException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+        } catch (javax.swing.UnsupportedLookAndFeelException | 
+                ClassNotFoundException | 
+                InstantiationException | 
+                IllegalAccessException ex) {
             System.out.println("FlatLaf no esta instalado.");
             try {
                 // FlatLaf not found, intenta el de sistema.
                 javax.swing.UIManager.setLookAndFeel(
                         javax.swing.UIManager.getSystemLookAndFeelClassName()
                 );
-            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex1) {
+            } catch (ClassNotFoundException | 
+                    InstantiationException | 
+                    IllegalAccessException | 
+                    UnsupportedLookAndFeelException ex1) {
                 Logger.getLogger(ProyectoFuncionarios.class.getName()).log(Level.SEVERE, null, ex1);
             }
         }
         // </editor-fold>
 
-        // gob.printAll(gob, false);
-
-        chk.forms.MainWindow mainWindow = new chk.forms.MainWindow(gob);
+        chk.forms.MainWindow mainWindow = new chk.forms.MainWindow();
         mainWindow.setVisible(true);
     }
 
-    public static void debugCrearDatosRandom(gobierno.Gobierno gob) {
+    public static void debugCrearDatosRandom() {
+        gobierno.Trabajadores trabajadores = gobierno.Trabajadores.get();
+        gobierno.Reparticiones reparticiones = gobierno.Reparticiones.get();
+        gobierno.Contratos contratos = gobierno.Contratos.get();
+
         String[] commonNames = {
             "James", "Robert", "John", "Michael", "William",
             "David", "Richard", "Joseph", "Thomas", "Charles",
@@ -127,39 +138,49 @@ public class ProyectoFuncionarios {
             "Lee", "Perez", "Thompson", "White", "Harris",
             "Sanchez", "Clark", "Hall", "Allen", "Young"
         };
+        
+        ThreadLocalRandom random = ThreadLocalRandom.current();
 
         try {
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-            Date startDate = df.parse("1990-01-01");
-            Date endDate = df.parse("2010-01-01");
+            Date startDate = df.parse("1980-01-01");
+            Date endDate = df.parse("2005-01-01");
             long startMilis = startDate.getTime();
             long endMilis = endDate.getTime();
             for (int i = 1; i <= 50; ++i) {
-                String randomName = commonNames[ThreadLocalRandom.current().nextInt(commonNames.length)];
-                String randomSurname = commonSurnames[ThreadLocalRandom.current().nextInt(commonSurnames.length)];
+                int randomIndex = random.nextInt(commonNames.length);
+                String randomName = commonNames[randomIndex];
+                randomIndex = random.nextInt(commonSurnames.length);
+                String randomSurname = commonSurnames[randomIndex];
 
-                long randomMilis = ThreadLocalRandom.current().nextLong(startMilis, endMilis);
+                long randomMilis = random.nextLong(startMilis, endMilis);
                 Date randomDate = new Date(randomMilis);
-                gobierno.Trabajador t = new gobierno.Trabajador(i, randomName, randomSurname, randomDate);
-                gob.addTrabajador(t);
+                trabajadores.add(new gobierno.Trabajador(
+                        i, randomName, randomSurname, randomDate)
+                );
             }
         } catch (ParseException ex) {
             Logger.getLogger(ProyectoFuncionarios.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         // Crea contratos aleatorios entre los trabajadores y una reparticion al azar
-        Object[] items = gob.getReparticiones().toArray();
-        int indexContrato = 0;
-        if (items.length > 0) {
-            for (gobierno.Trabajador t : gob.getTrabajadores()) {
+        ArrayList<Integer> reparticionesIds = reparticiones.getIDs();
+        int added = 0;
+        if (!reparticionesIds.isEmpty()) {
+            for (int trabajadorId : trabajadores.getIDs()) {
+                gobierno.Trabajador t = trabajadores.get(trabajadorId);
 
-                Object randomItem = items[ThreadLocalRandom.current().nextInt(items.length)];
+                int randomId = reparticionesIds.get(
+                        random.nextInt(reparticionesIds.size())
+                );
 
-                gobierno.Reparticion r = (gobierno.Reparticion) randomItem;
-                gobierno.Contrato c = new gobierno.Contrato(indexContrato++, t.getId(), r.getId());
-                gob.addContrato(c);
+                gobierno.Reparticion r = reparticiones.get(randomId);
+                contratos.add(new gobierno.Contrato(
+                        contratos.getMayorId() + 1, t.getId(), r.getId())
+                );
+                ++added;
             }
-            if (indexContrato == 0) {
+            if (added == 0) {
                 System.out.println("No hay trabajadores!");
             }
         } else {
