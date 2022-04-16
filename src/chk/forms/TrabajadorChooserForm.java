@@ -11,6 +11,7 @@ import gobierno.Reparticion;
 import gobierno.Reparticiones;
 import gobierno.Trabajador;
 import gobierno.Trabajadores;
+import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeSelectionModel;
@@ -23,6 +24,9 @@ public final class TrabajadorChooserForm extends javax.swing.JDialog {
 
     /**
      * Creates new form TrabajadorAddExistingForm
+     * @param parent
+     * @param modal
+     * @param reparticion
      */
     public TrabajadorChooserForm(java.awt.Frame parent, boolean modal, Reparticion reparticion) {
         super(parent, modal);
@@ -134,14 +138,16 @@ public final class TrabajadorChooserForm extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void selectTreeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_selectTreeMouseClicked
-        int row = selectTree.getRowForLocation(evt.getX(), evt.getY());
+        JTree tree = (JTree)evt.getSource();
+        int row = tree.getRowForLocation(evt.getX(), evt.getY());
+        
         if (row == -1) {
-            selectTree.clearSelection();
+            tree.clearSelection();
             this.trabajador = null;
             addButton.setEnabled(false);
         } else {
             DefaultMutableTreeNode selectedNode
-                    = (DefaultMutableTreeNode) selectTree.getLastSelectedPathComponent();
+                    = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
             Object userObject = selectedNode.getUserObject();
             if (userObject instanceof Trabajador) {
                 Trabajador t = (Trabajador) userObject;
@@ -158,6 +164,7 @@ public final class TrabajadorChooserForm extends javax.swing.JDialog {
     }//GEN-LAST:event_selectTreeMouseClicked
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
+        System.out.println(evt.paramString());
         dispose();
     }//GEN-LAST:event_addButtonActionPerformed
 
@@ -165,7 +172,7 @@ public final class TrabajadorChooserForm extends javax.swing.JDialog {
         DefaultMutableTreeNode treeRoot = new DefaultMutableTreeNode();
         
         // populate the nodes
-        DefaultMutableTreeNode reparticionNode = null;
+        DefaultMutableTreeNode reparticionNode;
         for (int reparticionId : reparticiones.getIDs()) {
             Reparticion r = reparticiones.get(reparticionId);
             
@@ -179,7 +186,7 @@ public final class TrabajadorChooserForm extends javax.swing.JDialog {
             treeRoot.add(reparticionNode);
 
             // Agregar los trabajadores con contrato en esta reparticion al nodo
-            DefaultMutableTreeNode trabajadorNode = null;
+            DefaultMutableTreeNode trabajadorNode;
             for (int contratoId : contratos.getIDsByIdReparticion(r.getId())) {
                 Contrato c = contratos.get(contratoId);
                 Trabajador t = trabajadores.get(c.getIdTrabajador());
@@ -210,7 +217,7 @@ public final class TrabajadorChooserForm extends javax.swing.JDialog {
         reparticionNode = new DefaultMutableTreeNode("Sin Reparticion");
         treeRoot.add(reparticionNode);
 
-        DefaultMutableTreeNode trabajadorNode = null;
+        DefaultMutableTreeNode trabajadorNode;
         for (int trabajadorId : trabajadores.getIDsSinReparticion()) {
             Trabajador t = trabajadores.get(trabajadorId);
             trabajadorNode = new DefaultMutableTreeNode(t.getNombreCompleto());
@@ -232,9 +239,9 @@ public final class TrabajadorChooserForm extends javax.swing.JDialog {
     }
 
     
-    private Trabajadores trabajadores;
-    private Reparticiones reparticiones;
-    private Contratos contratos;
+    private final Trabajadores trabajadores;
+    private final Reparticiones reparticiones;
+    private final Contratos contratos;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addButton;
     private javax.swing.JPanel addPanel;

@@ -92,20 +92,25 @@ public class ProyectoFuncionarios {
             UIManager.installLookAndFeel("FlatLightLaf", "com.formdev.flatlaf.FlatLightLaf");
             UIManager.installLookAndFeel("FlatDarkLaf", "com.formdev.flatlaf.FlatDarkLaf");
             UIManager.installLookAndFeel("FlatDarculaLaf", "com.formdev.flatlaf.FlatDarculaLaf");
-        } catch (javax.swing.UnsupportedLookAndFeelException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+        } catch (javax.swing.UnsupportedLookAndFeelException | 
+                ClassNotFoundException | 
+                InstantiationException | 
+                IllegalAccessException ex) {
             System.out.println("FlatLaf no esta instalado.");
             try {
                 // FlatLaf not found, intenta el de sistema.
                 javax.swing.UIManager.setLookAndFeel(
                         javax.swing.UIManager.getSystemLookAndFeelClassName()
                 );
-            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex1) {
+            } catch (ClassNotFoundException | 
+                    InstantiationException | 
+                    IllegalAccessException | 
+                    UnsupportedLookAndFeelException ex1) {
                 Logger.getLogger(ProyectoFuncionarios.class.getName()).log(Level.SEVERE, null, ex1);
             }
         }
         // </editor-fold>
 
-        // gob.printAll(gob, false);
         chk.forms.MainWindow mainWindow = new chk.forms.MainWindow();
         mainWindow.setVisible(true);
     }
@@ -133,21 +138,26 @@ public class ProyectoFuncionarios {
             "Lee", "Perez", "Thompson", "White", "Harris",
             "Sanchez", "Clark", "Hall", "Allen", "Young"
         };
+        
+        ThreadLocalRandom random = ThreadLocalRandom.current();
 
         try {
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-            Date startDate = df.parse("1990-01-01");
-            Date endDate = df.parse("2010-01-01");
+            Date startDate = df.parse("1980-01-01");
+            Date endDate = df.parse("2005-01-01");
             long startMilis = startDate.getTime();
             long endMilis = endDate.getTime();
             for (int i = 1; i <= 50; ++i) {
-                String randomName = commonNames[ThreadLocalRandom.current().nextInt(commonNames.length)];
-                String randomSurname = commonSurnames[ThreadLocalRandom.current().nextInt(commonSurnames.length)];
+                int randomIndex = random.nextInt(commonNames.length);
+                String randomName = commonNames[randomIndex];
+                randomIndex = random.nextInt(commonSurnames.length);
+                String randomSurname = commonSurnames[randomIndex];
 
-                long randomMilis = ThreadLocalRandom.current().nextLong(startMilis, endMilis);
+                long randomMilis = random.nextLong(startMilis, endMilis);
                 Date randomDate = new Date(randomMilis);
-                gobierno.Trabajador t = new gobierno.Trabajador(i, randomName, randomSurname, randomDate);
-                trabajadores.add(t);
+                trabajadores.add(new gobierno.Trabajador(
+                        i, randomName, randomSurname, randomDate)
+                );
             }
         } catch (ParseException ex) {
             Logger.getLogger(ProyectoFuncionarios.class.getName()).log(Level.SEVERE, null, ex);
@@ -156,17 +166,18 @@ public class ProyectoFuncionarios {
         // Crea contratos aleatorios entre los trabajadores y una reparticion al azar
         ArrayList<Integer> reparticionesIds = reparticiones.getIDs();
         int added = 0;
-        if (reparticionesIds.size() > 0) {
+        if (!reparticionesIds.isEmpty()) {
             for (int trabajadorId : trabajadores.getIDs()) {
                 gobierno.Trabajador t = trabajadores.get(trabajadorId);
 
                 int randomId = reparticionesIds.get(
-                        ThreadLocalRandom.current().nextInt(reparticionesIds.size())
+                        random.nextInt(reparticionesIds.size())
                 );
 
                 gobierno.Reparticion r = reparticiones.get(randomId);
-                gobierno.Contrato c = new gobierno.Contrato(contratos.getMayorId() + 1, t.getId(), r.getId());
-                contratos.add(c);
+                contratos.add(new gobierno.Contrato(
+                        contratos.getMayorId() + 1, t.getId(), r.getId())
+                );
                 ++added;
             }
             if (added == 0) {

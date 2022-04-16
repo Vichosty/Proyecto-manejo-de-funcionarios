@@ -16,7 +16,7 @@ public final class ReparticionEditorForm extends javax.swing.JDialog {
      *
      * @param parent
      * @param modal
-     * @param trabajador
+     * @param reparticion
      */
     public ReparticionEditorForm(java.awt.Frame parent, boolean modal, gobierno.Reparticion reparticion) {
         super(parent, modal);
