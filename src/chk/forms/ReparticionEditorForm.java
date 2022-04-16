@@ -59,7 +59,6 @@ public final class ReparticionEditorForm extends javax.swing.JDialog {
         setModal(true);
         setName("editorDialog"); // NOI18N
         setResizable(false);
-        setType(java.awt.Window.Type.POPUP);
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         titlePanel.setMinimumSize(new java.awt.Dimension(168, 64));

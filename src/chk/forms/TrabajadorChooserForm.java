@@ -58,7 +58,6 @@ public final class TrabajadorChooserForm extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Elegir Trabajador Existente");
         setModal(true);
-        setType(java.awt.Window.Type.POPUP);
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         titlePanel.setMinimumSize(new java.awt.Dimension(251, 64));
