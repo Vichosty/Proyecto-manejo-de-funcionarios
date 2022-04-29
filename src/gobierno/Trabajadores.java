@@ -14,7 +14,7 @@ import java.util.HashMap;
  */
 public class Trabajadores {
     private static Trabajadores instance;
-    private HashMap<Integer, Trabajador> trabajadores;
+    private final HashMap<Integer, Trabajador> trabajadores;
     private int mayorId;
     
     private Trabajadores() {
@@ -47,7 +47,7 @@ public class Trabajadores {
         ArrayList<Integer> list = new ArrayList<>();
         Contratos cs = Contratos.get();
         for(Trabajador t : trabajadores.values()) {
-            if (cs.getIDsByIdTrabajador(t.getId()).size() > 0) { continue; }
+            if (!cs.getIDsByIdTrabajador(t.getId()).isEmpty()) { continue; }
             list.add(t.getId());
         }
         return list;

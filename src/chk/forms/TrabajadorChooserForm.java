@@ -185,28 +185,32 @@ public final class TrabajadorChooserForm extends javax.swing.JDialog {
             reparticionNode.setUserObject(r);
             treeRoot.add(reparticionNode);
 
+            /*
+                El siguiente codigo es practicamente igual al anterior, pero
+                esta version usa la doble-anidacion de Reparticiones->Reparticion->idTrabajadores
+                para obtener al potencial trabajador.
+            */
+            
             // Agregar los trabajadores con contrato en esta reparticion al nodo
             DefaultMutableTreeNode trabajadorNode;
-            for (int contratoId : contratos.getIDsByIdReparticion(r.getId())) {
-                Contrato c = contratos.get(contratoId);
-                Trabajador t = trabajadores.get(c.getIdTrabajador());
+            for(int trabajadorId : r.getIdsTrabajadores()) {
+                Trabajador t = trabajadores.get(trabajadorId);
                 
-                // Si en la lista de reparticiones donde este trabajador aparece
-                // se encuentra a la que estamos tratando de agregar, entonces
-                // ya esta en ambas.
+                // Obtener una lista de los contratos de este trabajador, para ver
+                // si es necesario omitirlo (ya esta en ambas, etc)
                 boolean found = false;
-                for(int contratoId2 : contratos.getIDsByIdTrabajador(t.getId())) {
-                    Contrato c2 = contratos.get(contratoId2);
-                    if (c2.getIdReparticion() == reparticion.getId()) {
-                        found = true;
+                for (int contratoId : contratos.getIDsByIdTrabajador(trabajadorId)) {
+                    Contrato c = contratos.get(contratoId);
+                    if (c.getIdReparticion() == reparticion.getId()) {
+                        found = true; 
                         break;
                     }
                 }
                 
-                if (found) {
-                    continue;
-                }
-
+                // Si encontramos aunque sea un contrato que incluya a la reparticion en el
+                // entonces el trabajador no es candidato para la lista.
+                if (found) { continue; }
+                
                 trabajadorNode = new DefaultMutableTreeNode(t.getNombreCompleto());
                 trabajadorNode.setUserObject(t);
                 reparticionNode.add(trabajadorNode);

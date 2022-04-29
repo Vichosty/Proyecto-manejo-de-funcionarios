@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package chk.forms;
+import gobierno.Reparticion;
 
 /**
  *
@@ -18,7 +19,7 @@ public final class ReparticionEditorForm extends javax.swing.JDialog {
      * @param modal
      * @param reparticion
      */
-    public ReparticionEditorForm(java.awt.Frame parent, boolean modal, gobierno.Reparticion reparticion) {
+    public ReparticionEditorForm(java.awt.Frame parent, boolean modal, Reparticion reparticion) {
         super(parent, modal);
         initComponents();
         if (reparticion != null) {
@@ -181,11 +182,11 @@ public final class ReparticionEditorForm extends javax.swing.JDialog {
         this.backButton.setEnabled(changedSomething);
     }
 
-    public gobierno.Reparticion getReparticion() {
+    public Reparticion getReparticion() {
         return this.reparticion;
     }
 
-    public void setReparticion(gobierno.Reparticion reparticion) {
+    public void setReparticion(Reparticion reparticion) {
         this.reparticion = reparticion;
         // Respalda el trabajador en caso de que no se quiera guardar cambios.
         reparticionSaved.setNombre(this.reparticion.getNombre());

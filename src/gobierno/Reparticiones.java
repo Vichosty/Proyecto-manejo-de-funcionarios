@@ -14,7 +14,7 @@ import java.util.HashMap;
  */
 public class Reparticiones {
     private static Reparticiones instance;
-    private HashMap<Integer, Reparticion> reparticiones;
+    private final HashMap<Integer, Reparticion> reparticiones;
     private int mayorId;
     
     private Reparticiones() {
@@ -47,7 +47,7 @@ public class Reparticiones {
         ArrayList<Integer> list = new ArrayList<>();
         Contratos cs = Contratos.get();
         for(Reparticion r : reparticiones.values()) {
-            if (cs.getIDsByIdReparticion(r.getId()).size() > 0) { continue; }
+            if (!cs.getIDsByIdReparticion(r.getId()).isEmpty()) { continue; }
             list.add(r.getId());
         }
         return list;

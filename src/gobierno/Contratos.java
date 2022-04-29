@@ -73,6 +73,11 @@ public class Contratos {
             if (c.getId() > mayorId) {
                 mayorId = c.getId();
             }
+            
+            // Al agregar, tambien agregar en la respectiva Reparticion
+            Reparticion r = Reparticiones.get().get(c.getIdReparticion());
+            r.addTrabajadorRef(c.getIdTrabajador());
+            
             return true;
         }
         return false;
@@ -80,6 +85,12 @@ public class Contratos {
     
     public Contrato remove(int id) {
         if (contratos.containsKey(id)) {
+            Contrato c = get(id);
+            
+            // Remover el trabajador de la reparticion
+            Reparticion r = Reparticiones.get().get(c.getIdReparticion());
+            r.removeTrabajadorById(c.getIdTrabajador());
+            
             return contratos.remove(id);
         }
         return null;
@@ -90,6 +101,10 @@ public class Contratos {
         for(int idContrato : getIDsByIdTrabajador(idTrabajador)) {
             Contrato c = get(idContrato);
             if (c.getIdReparticion() == idReparticion) {
+                // Remover el trabajador de la reparticion
+                Reparticion r = Reparticiones.get().get(c.getIdReparticion());
+                r.removeTrabajadorById(c.getIdTrabajador());
+                
                 contratos.remove(c.getId());
                 found = true;
             }
@@ -103,6 +118,11 @@ public class Contratos {
             Contrato c = get(idContrato);
             if (c.getIdTrabajador() == id) {
                 found = true;
+                
+                // Remover el trabajador de la reparticion
+                Reparticion r = Reparticiones.get().get(c.getIdReparticion());
+                r.removeTrabajadorById(c.getIdTrabajador());
+                
                 contratos.remove(idContrato);
             }
         }
@@ -118,6 +138,12 @@ public class Contratos {
                 contratos.remove(idContrato);
             }
         }
+        
+        Reparticion r = Reparticiones.get().get(id);
+        if (r != null) {
+            r.removeAll();
+        }
+        
         return found;
     }
     
