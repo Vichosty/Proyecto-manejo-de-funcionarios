@@ -5,14 +5,21 @@
  */
 package chk.forms;
 
+import chk.plugins.MessageBox;
 import gobierno.Contrato;
 import gobierno.Contratos;
 import gobierno.Reparticion;
 import gobierno.Reparticiones;
 import gobierno.Trabajador;
 import gobierno.Trabajadores;
+import java.awt.HeadlessException;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -77,9 +84,10 @@ public final class MainWindow extends javax.swing.JFrame {
         trabajadoresEditButton = new javax.swing.JButton();
         trabajadoresRemoveButton = new javax.swing.JButton();
         mainButtonsPanel = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        reportButton = new javax.swing.JButton();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
         jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
         menuBar = new javax.swing.JMenuBar();
         menuOptions = new javax.swing.JMenu();
         menuOptionsLaf = new javax.swing.JMenu();
@@ -315,14 +323,18 @@ public final class MainWindow extends javax.swing.JFrame {
         mainButtonsPanel.setPreferredSize(new java.awt.Dimension(381, 31));
         mainButtonsPanel.setLayout(new java.awt.GridBagLayout());
 
-        jButton1.setText("Cargar desde Base de Datos");
-        jButton1.setEnabled(false);
+        reportButton.setText("Generar Reporte");
+        reportButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reportButtonActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 1.0;
-        mainButtonsPanel.add(jButton1, gridBagConstraints);
+        mainButtonsPanel.add(reportButton, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -330,14 +342,13 @@ public final class MainWindow extends javax.swing.JFrame {
         gridBagConstraints.weightx = 5.0;
         mainButtonsPanel.add(filler1, gridBagConstraints);
 
-        jButton3.setText("Guardar en Base de Datos");
+        jButton3.setText("Cargar de Base de Datos");
         jButton3.setEnabled(false);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.weightx = 1.0;
-        mainButtonsPanel.add(jButton3, gridBagConstraints);
+        mainButtonsPanel.add(jButton3, new java.awt.GridBagConstraints());
+
+        jButton4.setText("Guardar en Base de Datos");
+        jButton4.setEnabled(false);
+        mainButtonsPanel.add(jButton4, new java.awt.GridBagConstraints());
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -546,6 +557,60 @@ public final class MainWindow extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_reparticionRemoveButtonActionPerformed
 
+    private void reportButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportButtonActionPerformed
+        try {
+            JFileChooser fileChooser = new JFileChooser();
+            if (fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+                StringBuilder sb = new StringBuilder();
+                
+                // Generate the report
+                sb.append("[Reparticiones]:\n");
+                Reparticiones rs = Reparticiones.get();
+                for(int reparticionId : rs.getIDs()) {
+                    Reparticion r = rs.get(reparticionId);
+                    sb.append("\t").append(r.getNombre()).append(":\n");
+                    for(int tIndex = 0; tIndex < r.getNumTrabajadores(); ++tIndex) {
+                        Trabajador t = r.getTrabajador(tIndex);
+                        sb.append("\t\t- [").append(t.getId()).append("]").append(t.getNombreCompleto()).append("\n");
+                    }
+                }
+                sb.append("\n");
+                
+                Trabajadores ts = Trabajadores.get();
+                sb.append("[Sin Reparticion]:\n");
+                for(int trabajadorId: ts.getIDsSinReparticion()) {
+                    Trabajador t = ts.get(trabajadorId);
+                    sb.append("\t- [").append(t.getId()).append("]").append(t.getNombreCompleto()).append("\n");
+                }
+                sb.append("\n");
+                
+                Contratos cs = Contratos.get();
+                sb.append("[Contratos]:\n");
+                for(int contratoId: cs.getIDs()) {
+                    Contrato c = cs.get(contratoId);
+                    Trabajador t = ts.get(c.getIdTrabajador());
+                    Reparticion r = rs.get(c.getIdReparticion());
+                    sb.append("\t- [").append(c.getIdTrabajador()).append("]")
+                            .append(t.getNombreCompleto())
+                            .append(" => [").append(c.getIdReparticion()).append("]")
+                            .append(r.getNombre())
+                            .append("\n");
+                }
+                sb.append("\n");
+                
+                
+                String report = sb.toString();
+                File file = fileChooser.getSelectedFile();
+                try (FileWriter writer = new FileWriter(file)) {
+                    writer.write(report);
+                    MessageBox.infoBox("Archivo '"+fileChooser.getName(file)+"' guardado con exito", "Generar Reporte");
+                }
+            }
+        } catch (IOException e) {
+            MessageBox.errorBox(e.getLocalizedMessage(), "IOException");
+        }
+    }//GEN-LAST:event_reportButtonActionPerformed
+
     public void reloadTree() {
         DefaultMutableTreeNode treeRoot = new DefaultMutableTreeNode();
         // populate the nodes
@@ -596,8 +661,8 @@ public final class MainWindow extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel borderPanel;
     private javax.swing.Box.Filler filler1;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JPanel leftPanel;
     private javax.swing.JPanel mainButtonsPanel;
     private javax.swing.JMenuBar menuBar;
@@ -610,6 +675,7 @@ public final class MainWindow extends javax.swing.JFrame {
     private javax.swing.JScrollPane reparticionScrollPane;
     private javax.swing.JLabel reparticionTitle;
     private javax.swing.JTree reparticionTree;
+    private javax.swing.JButton reportButton;
     private javax.swing.JPanel rightPanel;
     private javax.swing.JSplitPane splitPanel;
     private javax.swing.JLabel titleLabel;

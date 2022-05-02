@@ -16,7 +16,7 @@ public class Reparticion {
     private int id;
     private String nombre;
     private EstadoReparticion estado;
-    private ArrayList<Integer> idsTrabajadores;
+    private ArrayList<Trabajador> trabajadores;
 
     @Override
     public String toString() {
@@ -27,14 +27,14 @@ public class Reparticion {
         this.id = -1;
         this.nombre = "Nombre";
         this.estado = EstadoReparticion.Normal;
-        this.idsTrabajadores = new ArrayList<>();
+        this.trabajadores = new ArrayList<>();
     }
 
     public Reparticion(int id, String nombre, EstadoReparticion estado) {
         this.id = id;
         this.nombre = nombre;
         this.estado = estado;
-        this.idsTrabajadores = new ArrayList<>();
+        this.trabajadores = new ArrayList<>();
     }
 
     public Reparticion(int id, String nombre, String estadoString) {
@@ -67,9 +67,20 @@ public class Reparticion {
         this.nombre = nombre;
     }
 
+    public int getNumTrabajadores() {
+        return(this.trabajadores.size());
+    }
+    
+    public Trabajador getTrabajador(int index) {
+        if (index >= 0 && index < getNumTrabajadores()) {
+            return this.trabajadores.get(index);
+        }
+        return(null);
+    }
+    
     public ArrayList<Integer> getIdsTrabajadores() {
         ArrayList<Integer> result = new ArrayList<>();
-        for(int idTrabajador : idsTrabajadores) { result.add(idTrabajador); }
+        for(Trabajador t : trabajadores) { result.add(t.getId()); }
         return(result);
     }
     
@@ -77,17 +88,19 @@ public class Reparticion {
     // Sin crear un nuevo contrato (usado por Contratos para agregar una referencia)
     public boolean addTrabajadorRef(int id) {
         // Chequear si ya esta en la lista
-        for(int idTrabajador : idsTrabajadores) {
-            if (idTrabajador == id) { return(false); }
+        for(Trabajador trabajador : trabajadores) {
+            if (trabajador.getId() == id) { return(false); }
         }
         
-        return(idsTrabajadores.add(id));
+        Trabajador t = Trabajadores.get().get(id);
+        if (t != null)
+            return(trabajadores.add(t));
+        return(false);
     }
     
     public int findTrabajadorId(String nombre) {
         Trabajadores ts = Trabajadores.get();
-        for (int trabajadorId : idsTrabajadores) {
-            Trabajador t = ts.get(trabajadorId);
+        for (Trabajador t : trabajadores) {
             if (t.getNombre().equalsIgnoreCase(nombre)) {
                 return(t.getId());
             }
@@ -99,21 +112,21 @@ public class Reparticion {
     public boolean removeTrabajadorById(int id) {
         Contratos cs = Contratos.get();
         
-        ArrayList<Integer> found = new ArrayList<>();
+        ArrayList<Trabajador> found = new ArrayList<>();
         if (cs.remove(id, getId())) {
             // Removido con exito de los contratos, remover de aca tambien
-            for(int idTrabajador : idsTrabajadores) {
-                if (idTrabajador == id) { found.add(idTrabajador); }
+            for(Trabajador t : trabajadores) {
+                if (t.getId() == id) { found.add(t); }
             }
         }
         
-        return(idsTrabajadores.removeAll(found));
+        return(trabajadores.removeAll(found));
     }
     
     public boolean removeAll() {
-        if (idsTrabajadores.isEmpty()) { return(false); }
+        if (trabajadores.isEmpty()) { return(false); }
         
-        idsTrabajadores.clear();
+        trabajadores.clear();
         return(true);
     }
     
