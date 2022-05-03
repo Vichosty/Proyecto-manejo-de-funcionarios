@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="gobierno">
+  <ClassDiagramComponents>
+    <Class name="Contrato" package="gobierno" visibility="public" xPosition="20.0" yPosition="20.0">
+      <Fields>
+        <Field name="id" type="int" visibility="private"/>
+        <Field name="idTrabajador" type="int" visibility="private"/>
+        <Field name="idReparticion" type="int" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="int" name="id"/>
+          <Argument type="int" name="idTrabajador"/>
+          <Argument type="int" name="idReparticion"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getId" returnType="int" visibility="public"/>
+        <Method name="setId" returnType="void" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+        <Method name="getIdTrabajador" returnType="int" visibility="public"/>
+        <Method name="getIdReparticion" returnType="int" visibility="public"/>
+        <Method name="toString" returnType="String" visibility="public"/>
+        <Method name="getIconPath" returnType="String" visibility="public" isStatic="true"/>
+      </Methods>
+    </Class>
+    <Class name="Contratos" package="gobierno" visibility="public" xPosition="320.0" yPosition="20.0">
+      <Fields>
+        <Field name="instance" type="Contratos" visibility="private" isStatic="true"/>
+        <Field name="contratos" type="HashMap&lt;Integer, Contrato&gt;" visibility="private"/>
+        <Field name="mayorId" type="int" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="private"/>
+      </Constructors>
+      <Methods>
+        <Method name="get" returnType="Contratos" visibility="public" isStatic="true"/>
+        <Method name="get" returnType="Contrato" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+        <Method name="getIDs" returnType="ArrayList&lt;Integer&gt;" visibility="public"/>
+        <Method name="getIDsByIdTrabajador" returnType="ArrayList&lt;Integer&gt;" visibility="public">
+          <Argument type="int" name="idTrabajador"/>
+        </Method>
+        <Method name="getIDsByIdReparticion" returnType="ArrayList&lt;Integer&gt;" visibility="public">
+          <Argument type="int" name="idReparticion"/>
+        </Method>
+        <Method name="add" returnType="boolean" visibility="public">
+          <Argument type="Contrato" name="c"/>
+        </Method>
+        <Method name="remove" returnType="Contrato" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+        <Method name="remove" returnType="boolean" visibility="public">
+          <Argument type="int" name="idTrabajador"/>
+          <Argument type="int" name="idReparticion"/>
+        </Method>
+        <Method name="removeByIdTrabajador" returnType="boolean" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+        <Method name="removeByIdReparticion" returnType="boolean" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+        <Method name="getMayorId" returnType="int" visibility="public"/>
+      </Methods>
+    </Class>
+    <Enum name="EstadoReparticion" package="gobierno" visibility="public" xPosition="620.0" yPosition="20.0">
+      <Literals>
+        <Literal name="Normal"/>
+        <Literal name="Deficit"/>
+        <Literal name="Superavit"/>
+      </Literals>
+    </Enum>
+    <Class name="Reparticion" package="gobierno" visibility="public" xPosition="920.0" yPosition="20.0">
+      <Fields>
+        <Field name="id" type="int" visibility="private"/>
+        <Field name="nombre" type="String" visibility="private"/>
+        <Field name="estado" type="EstadoReparticion" visibility="private"/>
+        <Field name="trabajadores" type="ArrayList&lt;Trabajador&gt;" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="int" name="id"/>
+          <Argument type="String" name="nombre"/>
+          <Argument type="EstadoReparticion" name="estado"/>
+        </Constructor>
+        <Constructor visibility="public">
+          <Argument type="int" name="id"/>
+          <Argument type="String" name="nombre"/>
+          <Argument type="String" name="estadoString"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="toString" returnType="String" visibility="public"/>
+        <Method name="getId" returnType="int" visibility="public"/>
+        <Method name="setId" returnType="void" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+        <Method name="getNombre" returnType="String" visibility="public"/>
+        <Method name="setNombre" returnType="void" visibility="public">
+          <Argument type="String" name="nombre"/>
+        </Method>
+        <Method name="getNumTrabajadores" returnType="int" visibility="public"/>
+        <Method name="getTrabajador" returnType="Trabajador" visibility="public">
+          <Argument type="int" name="index"/>
+        </Method>
+        <Method name="getIdsTrabajadores" returnType="ArrayList&lt;Integer&gt;" visibility="public"/>
+        <Method name="addTrabajadorRef" returnType="boolean" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+        <Method name="findTrabajadorId" returnType="int" visibility="public">
+          <Argument type="String" name="nombre"/>
+        </Method>
+        <Method name="removeTrabajadorById" returnType="boolean" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+        <Method name="removeAll" returnType="boolean" visibility="public"/>
+        <Method name="getEstado" returnType="EstadoReparticion" visibility="public"/>
+        <Method name="getIconPath" returnType="String" visibility="public" isStatic="true"/>
+      </Methods>
+    </Class>
+    <Class name="Reparticiones" package="gobierno" visibility="public" xPosition="1220.0" yPosition="20.0">
+      <Fields>
+        <Field name="instance" type="Reparticiones" visibility="private" isStatic="true"/>
+        <Field name="reparticiones" type="HashMap&lt;Integer, Reparticion&gt;" visibility="private" isFinal="true"/>
+        <Field name="mayorId" type="int" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="private"/>
+      </Constructors>
+      <Methods>
+        <Method name="get" returnType="Reparticiones" visibility="public" isStatic="true"/>
+        <Method name="get" returnType="Reparticion" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+        <Method name="getIDs" returnType="ArrayList&lt;Integer&gt;" visibility="public"/>
+        <Method name="getIDsSinTrabajadores" returnType="ArrayList&lt;Integer&gt;" visibility="public"/>
+        <Method name="add" returnType="boolean" visibility="public">
+          <Argument type="Reparticion" name="r"/>
+        </Method>
+        <Method name="remove" returnType="Reparticion" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+        <Method name="modify" returnType="boolean" visibility="public">
+          <Argument type="int" name="id"/>
+          <Argument type="String" name="nombre"/>
+        </Method>
+        <Method name="modify" returnType="boolean" visibility="public">
+          <Argument type="int" name="id"/>
+          <Argument type="Reparticion" name="r"/>
+        </Method>
+        <Method name="findByName" returnType="ArrayList&lt;Integer&gt;" visibility="public">
+          <Argument type="String" name="nombre"/>
+        </Method>
+        <Method name="getMayorId" returnType="int" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Trabajador" package="gobierno" visibility="public" isFinal="true" xPosition="1520.0" yPosition="20.0">
+      <Fields>
+        <Field name="id" type="int" visibility="private"/>
+        <Field name="nombre" type="String" visibility="private"/>
+        <Field name="apellido" type="String" visibility="private"/>
+        <Field name="fechaDeNacimientoAsString" type="String" visibility="private"/>
+        <Field name="fechaDeNacimiento" type="Date" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="int" name="id"/>
+          <Argument type="String" name="nombre"/>
+          <Argument type="String" name="apellido"/>
+          <Argument type="Date" name="fechaDeNacimiento"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getId" returnType="int" visibility="public"/>
+        <Method name="setId" returnType="void" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+        <Method name="getNombre" returnType="String" visibility="public"/>
+        <Method name="getNombreCompleto" returnType="String" visibility="public"/>
+        <Method name="setNombre" returnType="void" visibility="public">
+          <Argument type="String" name="nombre"/>
+        </Method>
+        <Method name="getApellido" returnType="String" visibility="public"/>
+        <Method name="setApellido" returnType="void" visibility="public">
+          <Argument type="String" name="apellido"/>
+        </Method>
+        <Method name="getFechaDeNacimientoAsString" returnType="String" visibility="public"/>
+        <Method name="getFechaDeNacimiento" returnType="Date" visibility="public"/>
+        <Method name="setFechaDeNacimiento" returnType="void" visibility="public">
+          <Argument type="Date" name="fechaDeNacimiento"/>
+        </Method>
+        <Method name="getIconPath" returnType="String" visibility="public" isStatic="true"/>
+      </Methods>
+    </Class>
+    <Class name="Trabajadores" package="gobierno" visibility="public" xPosition="1820.0" yPosition="20.0">
+      <Fields>
+        <Field name="instance" type="Trabajadores" visibility="private" isStatic="true"/>
+        <Field name="trabajadores" type="HashMap&lt;Integer, Trabajador&gt;" visibility="private" isFinal="true"/>
+        <Field name="mayorId" type="int" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="private"/>
+      </Constructors>
+      <Methods>
+        <Method name="get" returnType="Trabajadores" visibility="public" isStatic="true"/>
+        <Method name="get" returnType="Trabajador" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+        <Method name="getIDs" returnType="ArrayList&lt;Integer&gt;" visibility="public"/>
+        <Method name="getIDsSinReparticion" returnType="ArrayList&lt;Integer&gt;" visibility="public"/>
+        <Method name="add" returnType="boolean" visibility="public">
+          <Argument type="Trabajador" name="t"/>
+        </Method>
+        <Method name="remove" returnType="Trabajador" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+        <Method name="modify" returnType="boolean" visibility="public">
+          <Argument type="int" name="id"/>
+          <Argument type="String" name="nombre"/>
+          <Argument type="String" name="apellido"/>
+          <Argument type="java.util.Date" name="fechaDeNacimiento"/>
+        </Method>
+        <Method name="modify" returnType="boolean" visibility="public">
+          <Argument type="int" name="id"/>
+          <Argument type="Trabajador" name="t"/>
+        </Method>
+        <Method name="findByName" returnType="ArrayList&lt;Integer&gt;" visibility="public">
+          <Argument type="String" name="nombre"/>
+        </Method>
+        <Method name="getMayorId" returnType="int" visibility="public"/>
+      </Methods>
+    </Class>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations>
+    <UseRelation source="gobierno.Contratos" target="gobierno.Contrato" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="gobierno.Reparticion" target="gobierno.Trabajador" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="gobierno.Reparticion" target="gobierno.Reparticion" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="instance" source="gobierno.Reparticiones" target="gobierno.Reparticiones" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="gobierno.Contratos" target="gobierno.Contratos" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="contratos" source="gobierno.Contratos" target="gobierno.Contrato" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="HashMap&lt;Integer, Contrato&gt;"/>
+    <UseRelation source="gobierno.Trabajadores" target="gobierno.Trabajador" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="estado" source="gobierno.Reparticion" target="gobierno.EstadoReparticion" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="gobierno.Reparticiones" target="gobierno.Reparticiones" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="instance" source="gobierno.Contratos" target="gobierno.Contratos" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="trabajadores" source="gobierno.Trabajadores" target="gobierno.Trabajador" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="HashMap&lt;Integer, Trabajador&gt;"/>
+    <HasRelation name="reparticiones" source="gobierno.Reparticiones" target="gobierno.Reparticion" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="HashMap&lt;Integer, Reparticion&gt;"/>
+    <HasRelation name="trabajadores" source="gobierno.Reparticion" target="gobierno.Trabajador" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="ArrayList&lt;Trabajador&gt;"/>
+    <HasRelation name="instance" source="gobierno.Trabajadores" target="gobierno.Trabajadores" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="gobierno.Trabajadores" target="gobierno.Trabajadores" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="gobierno.Reparticiones" target="gobierno.Reparticion" sourceCardinality="1..1" targetCardinality="1..1"/>
+  </ClassDiagramRelations>
+</ClassDiagram>
