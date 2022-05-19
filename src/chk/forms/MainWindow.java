@@ -12,13 +12,11 @@ import gobierno.Reparticion;
 import gobierno.Reparticiones;
 import gobierno.Trabajador;
 import gobierno.Trabajadores;
-import java.awt.HeadlessException;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
 import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
@@ -31,6 +29,8 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeNode;
+import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
 /**
@@ -74,6 +74,7 @@ public final class MainWindow extends javax.swing.JFrame {
         reparticionAddButton = new javax.swing.JButton();
         reparticionEditButton = new javax.swing.JButton();
         reparticionRemoveButton = new javax.swing.JButton();
+        reparticionSearchTextbox = new javax.swing.JTextField();
         rightPanel = new javax.swing.JPanel();
         trabajadoresTitle = new javax.swing.JLabel();
         trabajadoresScrollPane = new javax.swing.JScrollPane();
@@ -83,6 +84,7 @@ public final class MainWindow extends javax.swing.JFrame {
         trabajadoresAdd2Button = new javax.swing.JButton();
         trabajadoresEditButton = new javax.swing.JButton();
         trabajadoresRemoveButton = new javax.swing.JButton();
+        trabajadoresSearchTextbox = new javax.swing.JTextField();
         mainButtonsPanel = new javax.swing.JPanel();
         reportButton = new javax.swing.JButton();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
@@ -167,6 +169,13 @@ public final class MainWindow extends javax.swing.JFrame {
         });
         reparticionButtonsPanel.add(reparticionRemoveButton);
 
+        reparticionSearchTextbox.getDocument().addDocumentListener(new chk.plugins.SimpleDocumentListener() {
+            @Override
+            public void update(javax.swing.event.DocumentEvent e) {
+                filterReparticiones();
+            }
+        });
+
         javax.swing.GroupLayout leftPanelLayout = new javax.swing.GroupLayout(leftPanel);
         leftPanel.setLayout(leftPanelLayout);
         leftPanelLayout.setHorizontalGroup(
@@ -177,17 +186,20 @@ public final class MainWindow extends javax.swing.JFrame {
                     .addComponent(reparticionScrollPane)
                     .addGroup(leftPanelLayout.createSequentialGroup()
                         .addComponent(reparticionTitle)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(reparticionSearchTextbox)))
                 .addContainerGap())
-            .addComponent(reparticionButtonsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(reparticionButtonsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
         );
         leftPanelLayout.setVerticalGroup(
             leftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(leftPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(reparticionTitle)
+                .addGroup(leftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(reparticionTitle)
+                    .addComponent(reparticionSearchTextbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(reparticionScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 402, Short.MAX_VALUE)
+                .addComponent(reparticionScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 369, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(reparticionButtonsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -283,6 +295,14 @@ public final class MainWindow extends javax.swing.JFrame {
         });
         trabajadoresButtonsPanel.add(trabajadoresRemoveButton);
 
+        trabajadoresSearchTextbox.setEnabled(false);
+        trabajadoresSearchTextbox.getDocument().addDocumentListener(new chk.plugins.SimpleDocumentListener() {
+            @Override
+            public void update(javax.swing.event.DocumentEvent e) {
+                filterTrabajadores();
+            }
+        });
+
         javax.swing.GroupLayout rightPanelLayout = new javax.swing.GroupLayout(rightPanel);
         rightPanel.setLayout(rightPanelLayout);
         rightPanelLayout.setHorizontalGroup(
@@ -290,10 +310,11 @@ public final class MainWindow extends javax.swing.JFrame {
             .addGroup(rightPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(rightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(trabajadoresScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(trabajadoresScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 734, Short.MAX_VALUE)
                     .addGroup(rightPanelLayout.createSequentialGroup()
                         .addComponent(trabajadoresTitle)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(353, 353, 353)
+                        .addComponent(trabajadoresSearchTextbox)))
                 .addContainerGap())
             .addComponent(trabajadoresButtonsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -301,9 +322,11 @@ public final class MainWindow extends javax.swing.JFrame {
             rightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(rightPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(trabajadoresTitle)
+                .addGroup(rightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(trabajadoresTitle)
+                    .addComponent(trabajadoresSearchTextbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(trabajadoresScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 402, Short.MAX_VALUE)
+                .addComponent(trabajadoresScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 369, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(trabajadoresButtonsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -436,6 +459,8 @@ public final class MainWindow extends javax.swing.JFrame {
         
         int row = tree.getClosestRowForLocation(x, y);
         Rectangle bounds = tree.getRowBounds(row);
+        if (bounds == null) { return; }
+        
         // Si cliqueamos arriba o abajo del rectangulo, desactiva la seleccion
         if (y < bounds.y || y > bounds.y + bounds.height) {
             row = -1;
@@ -612,27 +637,64 @@ public final class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_reportButtonActionPerformed
 
     public void reloadTree() {
+        String filterStr = reparticionSearchTextbox.getText();
+        
+        Reparticion savedR = getReparticionFromTree(reparticionTree);
+        DefaultMutableTreeNode savedNode = null;
+        
         DefaultMutableTreeNode treeRoot = new DefaultMutableTreeNode();
         // populate the nodes
         DefaultMutableTreeNode reparticionNode;
         for (int reparticionId : reparticiones.getIDs()) {
             Reparticion r = reparticiones.get(reparticionId);
+            
+            // Check if the name includes the filterStr
+            if (!filterStr.isEmpty()) {
+                if (!r.getNombre().contains(filterStr)) {
+                    continue;
+                }
+            }
+            
             reparticionNode = new DefaultMutableTreeNode(r.getNombre());
             reparticionNode.setUserObject(r);
             treeRoot.add(reparticionNode);
+            
+            // If the new node is the same as the last selected node,
+            // keep it selected
+            if (savedR != null && r.getId() == savedR.getId()) {
+                savedNode = reparticionNode;
+            }
         }
-
+        
         DefaultTreeModel treeModel = new DefaultTreeModel(treeRoot);
         this.reparticionTree.setModel(treeModel);
+        
+        if (savedNode != null) {
+            TreePath savedPath = new TreePath(savedNode.getPath());
+            reparticionTree.setSelectionPath(savedPath);
+        }
+        
+        savedR = getReparticionFromTree(reparticionTree);
+        reloadTable(savedR);
     }
 
     public void reloadTable(Reparticion r) {
-        DefaultTableModel tableModel = (DefaultTableModel) trabajadoresTable.getModel();
+        String filterStr = trabajadoresSearchTextbox.getText();
+        
+        DefaultTableModel tableModel = (DefaultTableModel) trabajadoresTable.getModel();  
         tableModel.setRowCount(0);
         if (r != null) {
             for (int contratoId : contratos.getIDsByIdReparticion(r.getId())) {
                 Contrato c = contratos.get(contratoId);
                 Trabajador t = trabajadores.get(c.getIdTrabajador());
+                
+                // Filter the table if the filterStr is not empty
+                if (!filterStr.isEmpty()) {
+                    if (!t.getNombreCompleto().contains(filterStr)) {
+                        continue;
+                    }
+                }
+                
                 tableModel.addRow(new Object[]{
                     t.getId(),
                     t.getNombre(),
@@ -642,17 +704,33 @@ public final class MainWindow extends javax.swing.JFrame {
             }
             trabajadoresAdd1Button.setEnabled(true);
             trabajadoresAdd2Button.setEnabled(true);
+            trabajadoresSearchTextbox.setEnabled(true);
         } else {
             trabajadoresAdd1Button.setEnabled(false);
             trabajadoresAdd2Button.setEnabled(false);
+            trabajadoresSearchTextbox.setEnabled(false);
         }
     }
 
     public Reparticion getReparticionFromTree(JTree tree) {
         DefaultMutableTreeNode selectedNode
                 = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
+        if (selectedNode == null) { return null; }
+        
         Reparticion r = (Reparticion) selectedNode.getUserObject();
         return r;
+    }
+    
+    public void filterReparticiones() {
+        reloadTree();
+    }
+    
+    public void filterTrabajadores() {
+        // Obtener la reparticion, usando la lista de la izquierda
+        Reparticion r = getReparticionFromTree(reparticionTree);
+        if (r != null) {
+            reloadTable(r);
+        }
     }
 
     private final Trabajadores trabajadores;
@@ -673,6 +751,7 @@ public final class MainWindow extends javax.swing.JFrame {
     private javax.swing.JButton reparticionEditButton;
     private javax.swing.JButton reparticionRemoveButton;
     private javax.swing.JScrollPane reparticionScrollPane;
+    private javax.swing.JTextField reparticionSearchTextbox;
     private javax.swing.JLabel reparticionTitle;
     private javax.swing.JTree reparticionTree;
     private javax.swing.JButton reportButton;
@@ -686,6 +765,7 @@ public final class MainWindow extends javax.swing.JFrame {
     private javax.swing.JButton trabajadoresEditButton;
     private javax.swing.JButton trabajadoresRemoveButton;
     private javax.swing.JScrollPane trabajadoresScrollPane;
+    private javax.swing.JTextField trabajadoresSearchTextbox;
     private javax.swing.JTable trabajadoresTable;
     private javax.swing.JLabel trabajadoresTitle;
     // End of variables declaration//GEN-END:variables
