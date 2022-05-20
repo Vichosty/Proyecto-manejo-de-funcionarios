@@ -5,6 +5,7 @@
  */
 package chk.forms;
 
+import gobierno.*;
 /**
  *
  * @author chkp
@@ -48,8 +49,11 @@ public final class TrabajadorEditorForm extends javax.swing.JDialog {
         nombreText = new javax.swing.JTextField();
         apellidoLabel = new javax.swing.JLabel();
         apellidoText = new javax.swing.JTextField();
-        fechaDeNacimientoLabel = new javax.swing.JLabel();
+        GeneroLabel = new javax.swing.JLabel();
         fechaDeNacimientoDatePicker = new org.jdesktop.swingx.JXDatePicker();
+        fechaDeNacimientoLabel1 = new javax.swing.JLabel();
+        fechaDeNacimientoLabel2 = new javax.swing.JLabel();
+        cajaGenero = new javax.swing.JComboBox<>();
         buttonsPanel = new javax.swing.JPanel();
         backButton = new javax.swing.JButton();
         saveButton = new javax.swing.JButton();
@@ -151,10 +155,10 @@ public final class TrabajadorEditorForm extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
         viewPanel.add(apellidoText, gridBagConstraints);
 
-        fechaDeNacimientoLabel.setText("Fecha de Nacimiento");
+        GeneroLabel.setText("Género");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.ipadx = 4;
         gridBagConstraints.ipady = 4;
@@ -162,7 +166,7 @@ public final class TrabajadorEditorForm extends javax.swing.JDialog {
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
-        viewPanel.add(fechaDeNacimientoLabel, gridBagConstraints);
+        viewPanel.add(GeneroLabel, gridBagConstraints);
 
         fechaDeNacimientoDatePicker.setDate(trabajador.getFechaDeNacimiento());
         fechaDeNacimientoDatePicker.addActionListener(new java.awt.event.ActionListener() {
@@ -179,6 +183,48 @@ public final class TrabajadorEditorForm extends javax.swing.JDialog {
         gridBagConstraints.weightx = 3.0;
         gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
         viewPanel.add(fechaDeNacimientoDatePicker, gridBagConstraints);
+
+        fechaDeNacimientoLabel1.setText("Fecha de Nacimiento");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 4;
+        gridBagConstraints.ipady = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
+        viewPanel.add(fechaDeNacimientoLabel1, gridBagConstraints);
+
+        fechaDeNacimientoLabel2.setText("Fecha de Nacimiento");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 4;
+        gridBagConstraints.ipady = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
+        viewPanel.add(fechaDeNacimientoLabel2, gridBagConstraints);
+
+        cajaGenero.setModel(new javax.swing.DefaultComboBoxModel(Genero.values()));
+        cajaGenero.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cajaGeneroActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 1;
+        gridBagConstraints.ipady = 1;
+        gridBagConstraints.weightx = 3.0;
+        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
+        viewPanel.add(cajaGenero, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -230,6 +276,7 @@ public final class TrabajadorEditorForm extends javax.swing.JDialog {
         this.trabajador.setNombre(this.trabajadorSaved.getNombre());
         this.trabajador.setApellido(this.trabajadorSaved.getApellido());
         this.trabajador.setFechaDeNacimiento(this.trabajadorSaved.getFechaDeNacimiento());
+        this.trabajador.setGenero(this.trabajadorSaved.getGenero());
 
         nombreText.setText(this.trabajador.getNombre());
         apellidoText.setText(this.trabajador.getApellido());
@@ -241,6 +288,16 @@ public final class TrabajadorEditorForm extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_saveButtonActionPerformed
 
+    private void cajaGeneroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cajaGeneroActionPerformed
+        
+        if(evt.getSource()== cajaGenero){
+            this.trabajador.setGenero((Genero)cajaGenero.getSelectedItem());
+            this.checkForChanges();
+        }
+    }//GEN-LAST:event_cajaGeneroActionPerformed
+
+
+    
     public void checkForChanges() {
         boolean changedSomething = false;
         if (!this.trabajador.getNombre().equals(this.trabajadorSaved.getNombre())) {
@@ -249,8 +306,10 @@ public final class TrabajadorEditorForm extends javax.swing.JDialog {
             changedSomething = true;
         } else if (!this.trabajador.getFechaDeNacimiento().equals(this.trabajadorSaved.getFechaDeNacimiento())) {
             changedSomething = true;
+        } else if(!this.trabajador.getGenero().equals(this.trabajadorSaved.getGenero())) {
+            changedSomething = true;
         }
-
+        
         // Check if the inputs are empty
         if (this.trabajador.getNombre().isEmpty() || this.trabajador.getApellido().isEmpty()) {
             changedSomething = false;
@@ -270,20 +329,25 @@ public final class TrabajadorEditorForm extends javax.swing.JDialog {
         trabajadorSaved.setNombre(this.trabajador.getNombre());
         trabajadorSaved.setApellido(this.trabajador.getApellido());
         trabajadorSaved.setFechaDeNacimiento(this.trabajador.getFechaDeNacimiento());
-
+        trabajadorSaved.setGenero(this.trabajador.getGenero());
+        
         // Actualiza los widgets
         this.nombreText.setText(this.trabajador.getNombre());
         this.apellidoText.setText(this.trabajador.getApellido());
         this.fechaDeNacimientoDatePicker.setDate(this.trabajador.getFechaDeNacimiento());
+        this.cajaGenero.setSelectedItem(this.trabajador.getGenero());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel GeneroLabel;
     private javax.swing.JLabel apellidoLabel;
     private javax.swing.JTextField apellidoText;
     private javax.swing.JButton backButton;
     private javax.swing.JPanel buttonsPanel;
+    private javax.swing.JComboBox<String> cajaGenero;
     private org.jdesktop.swingx.JXDatePicker fechaDeNacimientoDatePicker;
-    private javax.swing.JLabel fechaDeNacimientoLabel;
+    private javax.swing.JLabel fechaDeNacimientoLabel1;
+    private javax.swing.JLabel fechaDeNacimientoLabel2;
     private javax.swing.JLabel nombreLabel;
     private javax.swing.JTextField nombreText;
     private javax.swing.JButton saveButton;

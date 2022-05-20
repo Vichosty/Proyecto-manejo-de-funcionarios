@@ -20,12 +20,14 @@ public final class Trabajador {
     private String apellido;
     private String fechaDeNacimientoAsString;
     private Date fechaDeNacimiento;
-
+    private Genero genero;
+    
     public Trabajador() {
         this.id = -1;
         this.nombre = "Nombre";
         this.apellido = "Apellido";
         setFechaDeNacimiento(new Date(System.currentTimeMillis()));
+        setGenero(Genero.Desconocido);
     }
 
     public Trabajador(int id, String nombre, String apellido, Date fechaDeNacimiento) {
@@ -33,6 +35,7 @@ public final class Trabajador {
         this.nombre = nombre;
         this.apellido = apellido;
         setFechaDeNacimiento(fechaDeNacimiento);
+        this.genero = genero;
     }
 
     public int getId() {
@@ -82,4 +85,15 @@ public final class Trabajador {
     public static String getIconPath() {
         return "icons/trabajador.png";
     }
+    
+    public Genero getGenero(){
+        if (genero == null){
+            setGenero(Genero.Desconocido);
+        }
+        return genero;
+    }
+    
+    public void setGenero(Genero genero){
+        this.genero = genero;
+    }  
 }

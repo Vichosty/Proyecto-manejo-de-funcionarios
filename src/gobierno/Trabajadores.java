@@ -78,12 +78,13 @@ public class Trabajadores {
         return null;
     }
     
-    public boolean modify(int id, String nombre, String apellido, java.util.Date fechaDeNacimiento) {
+    public boolean modify(int id, String nombre, String apellido, java.util.Date fechaDeNacimiento, Genero genero) {
         if (this.trabajadores.containsKey(id)) {
             Trabajador orig = trabajadores.get(id);
             orig.setNombre(nombre);
             orig.setApellido(apellido);
             orig.setFechaDeNacimiento(fechaDeNacimiento);
+            orig.setGenero(genero);
             return true;
         }
         return false;
@@ -91,7 +92,7 @@ public class Trabajadores {
     
     public boolean modify(int id, Trabajador t) {
         if (t != null) {
-            return modify(id, t.getNombre(), t.getApellido(), t.getFechaDeNacimiento());
+            return modify(id, t.getNombre(), t.getApellido(), t.getFechaDeNacimiento(),t.getGenero());
         }
         return false;
     }
