@@ -8,6 +8,7 @@ package chk.forms;
 import chk.plugins.MessageBox;
 import gobierno.Contrato;
 import gobierno.Contratos;
+import gobierno.Genero;
 import gobierno.Reparticion;
 import gobierno.Reparticiones;
 import gobierno.Trabajador;
@@ -29,7 +30,6 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
@@ -93,6 +93,13 @@ public final class MainWindow extends javax.swing.JFrame {
         menuBar = new javax.swing.JMenuBar();
         menuOptions = new javax.swing.JMenu();
         menuOptionsLaf = new javax.swing.JMenu();
+        showMenu = new javax.swing.JMenu();
+        showMaleCheckBox = new javax.swing.JCheckBoxMenuItem();
+        showFemaleCheckBox = new javax.swing.JCheckBoxMenuItem();
+        showOtherCheckBox = new javax.swing.JCheckBoxMenuItem();
+        showSeparator = new javax.swing.JMenuItem();
+        showPermanentCheckBox = new javax.swing.JCheckBoxMenuItem();
+        showTemporaryCheckBox = new javax.swing.JCheckBoxMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Manejo de Funcionarios");
@@ -189,7 +196,7 @@ public final class MainWindow extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(reparticionSearchTextbox)))
                 .addContainerGap())
-            .addComponent(reparticionButtonsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
+            .addComponent(reparticionButtonsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         leftPanelLayout.setVerticalGroup(
             leftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -310,7 +317,7 @@ public final class MainWindow extends javax.swing.JFrame {
             .addGroup(rightPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(rightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(trabajadoresScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 734, Short.MAX_VALUE)
+                    .addComponent(trabajadoresScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(rightPanelLayout.createSequentialGroup()
                         .addComponent(trabajadoresTitle)
                         .addGap(353, 353, 353)
@@ -400,6 +407,48 @@ public final class MainWindow extends javax.swing.JFrame {
             menuOptionsLaf.add(item);
         }
         menuOptions.add(menuOptionsLaf);
+
+        showMenu.setText("Mostrar");
+
+        showMaleCheckBox.setSelected(isShowMales());
+        showMaleCheckBox.setText("Hombres");
+        showMaleCheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showMaleCheckBoxActionPerformed(evt);
+            }
+        });
+        showMenu.add(showMaleCheckBox);
+
+        showFemaleCheckBox.setSelected(isShowFemales());
+        showFemaleCheckBox.setText("Mujeres");
+        showFemaleCheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showFemaleCheckBoxActionPerformed(evt);
+            }
+        });
+        showMenu.add(showFemaleCheckBox);
+
+        showOtherCheckBox.setSelected(isShowOthers());
+        showOtherCheckBox.setText("Otros");
+        showOtherCheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showOtherCheckBoxActionPerformed(evt);
+            }
+        });
+        showMenu.add(showOtherCheckBox);
+
+        showSeparator.setEnabled(false);
+        showMenu.add(showSeparator);
+
+        showPermanentCheckBox.setSelected(isShowPermanents());
+        showPermanentCheckBox.setText("Permanentes");
+        showMenu.add(showPermanentCheckBox);
+
+        showTemporaryCheckBox.setSelected(isShowTemporaries());
+        showTemporaryCheckBox.setText("Temporeros");
+        showMenu.add(showTemporaryCheckBox);
+
+        menuOptions.add(showMenu);
 
         menuBar.add(menuOptions);
 
@@ -636,6 +685,21 @@ public final class MainWindow extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_reportButtonActionPerformed
 
+    private void showMaleCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showMaleCheckBoxActionPerformed
+        setShowMales(showMaleCheckBox.isSelected());
+        reloadTable(getReparticionFromTree(reparticionTree));
+    }//GEN-LAST:event_showMaleCheckBoxActionPerformed
+
+    private void showFemaleCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showFemaleCheckBoxActionPerformed
+        setShowFemales(showFemaleCheckBox.isSelected());
+        reloadTable(getReparticionFromTree(reparticionTree));
+    }//GEN-LAST:event_showFemaleCheckBoxActionPerformed
+
+    private void showOtherCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showOtherCheckBoxActionPerformed
+        setShowOthers(showOtherCheckBox.isSelected());
+        reloadTable(getReparticionFromTree(reparticionTree));
+    }//GEN-LAST:event_showOtherCheckBoxActionPerformed
+
     public void reloadTree() {
         String filterStr = reparticionSearchTextbox.getText();
         
@@ -688,6 +752,11 @@ public final class MainWindow extends javax.swing.JFrame {
                 Contrato c = contratos.get(contratoId);
                 Trabajador t = trabajadores.get(c.getIdTrabajador());
                 
+                // Skip based on config
+                if (!showMales && t.getGenero() == Genero.Hombre) { continue; }
+                if (!showFemales && t.getGenero() == Genero.Mujer) { continue; }
+                if (!showOthers && t.getGenero() == Genero.Otro) { continue; }
+                
                 // Filter the table if the filterStr is not empty
                 if (!filterStr.isEmpty()) {
                     if (!t.getNombreCompleto().contains(filterStr)) {
@@ -734,6 +803,53 @@ public final class MainWindow extends javax.swing.JFrame {
         }
     }
 
+    
+    public boolean isShowMales() {
+        return showMales;
+    }
+
+    public void setShowMales(boolean showMales) {
+        this.showMales = showMales;
+    }
+
+    public boolean isShowFemales() {
+        return showFemales;
+    }
+
+    public void setShowFemales(boolean showFemales) {
+        this.showFemales = showFemales;
+    }
+
+    public boolean isShowOthers() {
+        return showOthers;
+    }
+
+    public void setShowOthers(boolean showOthers) {
+        this.showOthers = showOthers;
+    }
+
+    public boolean isShowPermanents() {
+        return showPermanents;
+    }
+
+    public void setShowPermanents(boolean showPermanents) {
+        this.showPermanents = showPermanents;
+    }
+
+    public boolean isShowTemporaries() {
+        return showTemporaries;
+    }
+
+    public void setShowTemporaries(boolean showTemporaries) {
+        this.showTemporaries = showTemporaries;
+    }
+    
+    private boolean showMales = true;
+    private boolean showFemales = true;
+    private boolean showOthers = true;
+    private boolean showPermanents = true;
+    private boolean showTemporaries = true;
+    
     private final Trabajadores trabajadores;
     private final Reparticiones reparticiones;
     private final Contratos contratos;
@@ -757,6 +873,13 @@ public final class MainWindow extends javax.swing.JFrame {
     private javax.swing.JTree reparticionTree;
     private javax.swing.JButton reportButton;
     private javax.swing.JPanel rightPanel;
+    private javax.swing.JCheckBoxMenuItem showFemaleCheckBox;
+    private javax.swing.JCheckBoxMenuItem showMaleCheckBox;
+    private javax.swing.JMenu showMenu;
+    private javax.swing.JCheckBoxMenuItem showOtherCheckBox;
+    private javax.swing.JCheckBoxMenuItem showPermanentCheckBox;
+    private javax.swing.JMenuItem showSeparator;
+    private javax.swing.JCheckBoxMenuItem showTemporaryCheckBox;
     private javax.swing.JSplitPane splitPanel;
     private javax.swing.JLabel titleLabel;
     private javax.swing.JPanel titlePanel;

@@ -13,5 +13,6 @@ package gobierno;
 public enum Genero {
     Desconocido,
     Hombre, 
-    Mujer  
+    Mujer,
+    Otro
 }

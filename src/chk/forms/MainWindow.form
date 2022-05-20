@@ -17,6 +17,67 @@
                 <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="UIManager.LookAndFeelInfo[] lookAndFeels = UIManager.getInstalledLookAndFeels();&#xa;for (UIManager.LookAndFeelInfo lookAndFeelInfo : lookAndFeels) {&#xa;    JMenuItem item = new JMenuItem(lookAndFeelInfo.getName());&#xa;    item.addActionListener(event -&gt; {&#xa;        try {&#xa;            // Set the look and feel for the frame and update the UI&#xa;            // to use a new selected look and feel.&#xa;            UIManager.setLookAndFeel(lookAndFeelInfo.getClassName());&#xa;            SwingUtilities.updateComponentTreeUI(this);&#xa;        } catch (Exception e) {&#xa;            e.printStackTrace();&#xa;        }&#xa;    });&#xa;    menuOptionsLaf.add(item);&#xa;}"/>
               </AuxValues>
             </Menu>
+            <Menu class="javax.swing.JMenu" name="showMenu">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Mostrar"/>
+              </Properties>
+              <SubComponents>
+                <MenuItem class="javax.swing.JCheckBoxMenuItem" name="showMaleCheckBox">
+                  <Properties>
+                    <Property name="selected" type="boolean" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="isShowMales()" type="code"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Hombres"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="showMaleCheckBoxActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JCheckBoxMenuItem" name="showFemaleCheckBox">
+                  <Properties>
+                    <Property name="selected" type="boolean" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="isShowFemales()" type="code"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Mujeres"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="showFemaleCheckBoxActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JCheckBoxMenuItem" name="showOtherCheckBox">
+                  <Properties>
+                    <Property name="selected" type="boolean" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="isShowOthers()" type="code"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Otros"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="showOtherCheckBoxActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="showSeparator">
+                  <Properties>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
+                </MenuItem>
+                <MenuItem class="javax.swing.JCheckBoxMenuItem" name="showPermanentCheckBox">
+                  <Properties>
+                    <Property name="selected" type="boolean" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="isShowPermanents()" type="code"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Permanentes"/>
+                  </Properties>
+                </MenuItem>
+                <MenuItem class="javax.swing.JCheckBoxMenuItem" name="showTemporaryCheckBox">
+                  <Properties>
+                    <Property name="selected" type="boolean" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="isShowTemporaries()" type="code"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Temporeros"/>
+                  </Properties>
+                </MenuItem>
+              </SubComponents>
+            </Menu>
           </SubComponents>
         </Menu>
       </SubComponents>
@@ -130,7 +191,7 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
-                      <Component id="reparticionButtonsPanel" alignment="0" pref="318" max="32767" attributes="0"/>
+                      <Component id="reparticionButtonsPanel" alignment="0" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
@@ -247,7 +308,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="trabajadoresScrollPane" pref="734" max="32767" attributes="0"/>
+                              <Component id="trabajadoresScrollPane" pref="0" max="32767" attributes="0"/>
                               <Group type="102" attributes="0">
                                   <Component id="trabajadoresTitle" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="353" max="-2" attributes="0"/>

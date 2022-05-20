@@ -87,12 +87,15 @@ public class ProyectoFuncionarios {
 
         // <editor-fold defaultstate="collapsed" desc="Look and Feel">
         try {
+            System.setProperty("apple.laf.useScreenMenuBar", "true");
+            
             // Si FlatLaf esta instalado, agregalos a la lista y usa FlatLightLaf por defecto.
             javax.swing.UIManager.setLookAndFeel("com.formdev.flatlaf.FlatLightLaf");
 
             UIManager.installLookAndFeel("FlatLightLaf", "com.formdev.flatlaf.FlatLightLaf");
             UIManager.installLookAndFeel("FlatDarkLaf", "com.formdev.flatlaf.FlatDarkLaf");
             UIManager.installLookAndFeel("FlatDarculaLaf", "com.formdev.flatlaf.FlatDarculaLaf");
+            
         } catch (javax.swing.UnsupportedLookAndFeelException | 
                 ClassNotFoundException | 
                 InstantiationException | 
