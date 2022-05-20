@@ -50,7 +50,6 @@ public final class TrabajadorChooserForm extends javax.swing.JDialog {
         java.awt.GridBagConstraints gridBagConstraints;
 
         reparticion = new gobierno.Reparticion();
-        trabajador = new gobierno.Trabajador();
         titlePanel = new javax.swing.JPanel();
         titleLabel = new javax.swing.JLabel();
         selectPanel = new javax.swing.JPanel();
@@ -242,6 +241,7 @@ public final class TrabajadorChooserForm extends javax.swing.JDialog {
     }
 
     
+    private Trabajador trabajador = null;
     private final Trabajadores trabajadores;
     private final Reparticiones reparticiones;
     private final Contratos contratos;
@@ -254,6 +254,5 @@ public final class TrabajadorChooserForm extends javax.swing.JDialog {
     private javax.swing.JTree selectTree;
     private javax.swing.JLabel titleLabel;
     private javax.swing.JPanel titlePanel;
-    private gobierno.Trabajador trabajador;
     // End of variables declaration//GEN-END:variables
 }

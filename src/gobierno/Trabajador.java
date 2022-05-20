@@ -13,7 +13,7 @@ import java.util.Date;
  *
  * @author chkp
  */
-public class Trabajador {
+public abstract class Trabajador {
 
     private int id;
     private String nombre;

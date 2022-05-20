@@ -19,14 +19,40 @@ public final class TrabajadorEditorForm extends javax.swing.JDialog {
      * @param modal
      * @param trabajador
      */
-    public TrabajadorEditorForm(java.awt.Frame parent, boolean modal, gobierno.Trabajador trabajador) {
+    public TrabajadorEditorForm(java.awt.Frame parent, boolean modal, gobierno.Trabajador trabajador, boolean isPermanent) {
         super(parent, modal);
-        initComponents();
+        if (isPermanent) {
+            trabajadorSaved = new TrabajadorPermanente();
+        } else {
+            trabajadorSaved = new TrabajadorTemporero();
+        }
+        
         if (trabajador != null) {
             setTrabajador(trabajador);
+        }
+        
+        initComponents();
+        
+        if (trabajador != null) {
+            if (isPermanent) {
+                titleLabel.setText("Editar Trabajador Permanente");
+                setTitle("Editar Trabajador Permanente");
+            } else {
+                titleLabel.setText("Editar Trabajador Temporero");
+                setTitle("Editar Trabajador Temporero");
+            }
         } else {
-            titleLabel.setText("Crear Trabajador");
-            setTitle("Crear Trabajador");
+            if (isPermanent) {
+                titleLabel.setText("Crear Trabajador Permanente");
+                setTitle("Crear Trabajador Permanente");
+                setTrabajador(new TrabajadorPermanente());
+            } else {
+                titleLabel.setText("Crear Trabajador Temporero");
+                setTitle("Crear Trabajador Temporero");
+                setTrabajador(new TrabajadorTemporero());
+            }
+            
+            setTrabajador(trabajador);
         }
     }
 
@@ -40,10 +66,6 @@ public final class TrabajadorEditorForm extends javax.swing.JDialog {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
-        trabajador = new gobierno.Trabajador();
-        trabajadorSaved = new gobierno.Trabajador();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
         titlePanel = new javax.swing.JPanel();
         titleLabel = new javax.swing.JLabel();
         viewPanel = new javax.swing.JPanel();
@@ -59,19 +81,6 @@ public final class TrabajadorEditorForm extends javax.swing.JDialog {
         buttonsPanel = new javax.swing.JPanel();
         backButton = new javax.swing.JButton();
         saveButton = new javax.swing.JButton();
-
-        trabajador.setApellido("");
-        trabajador.setNombre("");
-
-        trabajadorSaved.setApellido("");
-        trabajadorSaved.setNombre("");
-
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane1.setViewportView(jList1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Editor de Trabajador");
@@ -341,12 +350,16 @@ public final class TrabajadorEditorForm extends javax.swing.JDialog {
         trabajadorSaved.setGenero(this.trabajador.getGenero());
         
         // Actualiza los widgets
-        this.nombreText.setText(this.trabajador.getNombre());
-        this.apellidoText.setText(this.trabajador.getApellido());
-        this.fechaDeNacimientoDatePicker.setDate(this.trabajador.getFechaDeNacimiento());
-        this.cajaGenero.setSelectedItem(this.trabajador.getGenero());
+        if (this.nombreText != null) {
+            this.nombreText.setText(this.trabajador.getNombre());
+            this.apellidoText.setText(this.trabajador.getApellido());
+            this.fechaDeNacimientoDatePicker.setDate(this.trabajador.getFechaDeNacimiento());
+            this.cajaGenero.setSelectedItem(this.trabajador.getGenero());
+        }
     }
 
+    private Trabajador trabajador = null;
+    private Trabajador trabajadorSaved = null;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel GeneroLabel;
     private javax.swing.JLabel apellidoLabel;
@@ -357,15 +370,11 @@ public final class TrabajadorEditorForm extends javax.swing.JDialog {
     private org.jdesktop.swingx.JXDatePicker fechaDeNacimientoDatePicker;
     private javax.swing.JLabel fechaDeNacimientoLabel1;
     private javax.swing.JLabel fechaDeNacimientoLabel2;
-    private javax.swing.JList<String> jList1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel nombreLabel;
     private javax.swing.JTextField nombreText;
     private javax.swing.JButton saveButton;
     private javax.swing.JLabel titleLabel;
     private javax.swing.JPanel titlePanel;
-    private gobierno.Trabajador trabajador;
-    private gobierno.Trabajador trabajadorSaved;
     private javax.swing.JPanel viewPanel;
     // End of variables declaration//GEN-END:variables
 }

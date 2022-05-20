@@ -13,6 +13,10 @@ import java.util.Date;
 public final class TrabajadorTemporero extends Trabajador {
     private Date fechaTerminoDeContrato;
     
+    public TrabajadorTemporero() {
+        super();
+    }
+    
     public TrabajadorTemporero(int id, String nombre, String apellido, Genero genero, Date fechaDeNacimiento, Date fechaTerminoContrato) {
         super(id, nombre, apellido, genero, fechaDeNacimiento);
         fechaTerminoContrato = fechaTerminoContrato;

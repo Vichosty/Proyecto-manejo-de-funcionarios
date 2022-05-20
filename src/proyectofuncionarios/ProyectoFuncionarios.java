@@ -165,14 +165,9 @@ public class ProyectoFuncionarios {
                 long randomMilis = random.nextLong(startMilis, endMilis);
                 Date randomDate = new Date(randomMilis);
                 
-                int randomType = random.nextInt(3);
+                int randomType = random.nextInt(2);
                 switch (randomType) {
                     case 0:
-                        gobierno.Trabajador t = new gobierno.Trabajador(
-                                i, randomName, randomSurname, gender, randomDate);
-                        trabajadores.add(t);
-                        break;
-                    case 1:
                         gobierno.TrabajadorPermanente tp = new gobierno.TrabajadorPermanente(
                                 i, randomName, randomSurname, gender, randomDate);
                         trabajadores.add(tp);

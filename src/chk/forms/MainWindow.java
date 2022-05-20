@@ -486,7 +486,8 @@ public final class MainWindow extends javax.swing.JFrame {
 
                 Trabajador t = trabajadores.get(id);
                 if (t != null) {
-                    TrabajadorEditorForm editor = new TrabajadorEditorForm(this, true, t);
+                    boolean isPermanent = t instanceof gobierno.TrabajadorPermanente;
+                    TrabajadorEditorForm editor = new TrabajadorEditorForm(this, true, t, isPermanent);
                     editor.setVisible(true);
                     trabajadores.modify(id, editor.getTrabajador());
 
@@ -531,7 +532,8 @@ public final class MainWindow extends javax.swing.JFrame {
         Trabajador t = trabajadores.get(selectedId);
 
         // Editar el trabajador
-        TrabajadorEditorForm editor = new TrabajadorEditorForm(this, true, t);
+        boolean isPermanent = t instanceof gobierno.TrabajadorPermanente;
+        TrabajadorEditorForm editor = new TrabajadorEditorForm(this, true, t, isPermanent);
         editor.setVisible(true);
         trabajadores.modify(selectedId, editor.getTrabajador());
 
@@ -566,7 +568,7 @@ public final class MainWindow extends javax.swing.JFrame {
 
     private void trabajadoresAdd1ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trabajadoresAdd1ButtonActionPerformed
         // Creamos un nuevo trabajador y lo agregamos al gobierno
-        TrabajadorEditorForm editor = new TrabajadorEditorForm(this, true, null);
+        TrabajadorEditorForm editor = new TrabajadorEditorForm(this, true, null, true);
         editor.setVisible(true);
         Trabajador t = editor.getTrabajador();
         t.setId(trabajadores.getMayorId() + 1);

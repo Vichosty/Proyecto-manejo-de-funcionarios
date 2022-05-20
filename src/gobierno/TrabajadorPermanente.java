@@ -12,6 +12,10 @@ import java.util.Date;
  */
 public final class TrabajadorPermanente extends Trabajador {
     
+    public TrabajadorPermanente() {
+        super();
+    }
+    
     public TrabajadorPermanente(int id, String nombre, String apellido, Genero genero, Date fechaDeNacimiento) {
         super(id, nombre, apellido, genero, fechaDeNacimiento);
     }
