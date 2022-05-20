@@ -23,19 +23,19 @@ public final class Trabajador {
     private Genero genero;
     
     public Trabajador() {
-        this.id = -1;
-        this.nombre = "Nombre";
-        this.apellido = "Apellido";
+        setId(-1);
+        setNombre("Nombre");
+        setApellido("Apellido");
         setFechaDeNacimiento(new Date(System.currentTimeMillis()));
         setGenero(Genero.Desconocido);
     }
 
-    public Trabajador(int id, String nombre, String apellido, Date fechaDeNacimiento) {
-        this.id = id;
-        this.nombre = nombre;
-        this.apellido = apellido;
+    public Trabajador(int id, String nombre, String apellido, Genero genero, Date fechaDeNacimiento) {
+        setId(id);
+        setNombre(nombre);
+        setApellido(apellido);
         setFechaDeNacimiento(fechaDeNacimiento);
-        this.genero = genero;
+        setGenero(genero);
     }
 
     public int getId() {
@@ -81,9 +81,9 @@ public final class Trabajador {
             this.fechaDeNacimientoAsString = df.format(this.fechaDeNacimiento);
         }
     }
-
-    public static String getIconPath() {
-        return "icons/trabajador.png";
+    
+    public String getGeneroAsString() {
+        return genero.toString();
     }
     
     public Genero getGenero(){
@@ -95,5 +95,9 @@ public final class Trabajador {
     
     public void setGenero(Genero genero){
         this.genero = genero;
-    }  
+    }
+    
+    public static String getIconPath() {
+        return "icons/trabajador.png";
+    }
 }

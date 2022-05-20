@@ -5,6 +5,7 @@
  */
 package proyectofuncionarios;
 
+import gobierno.Genero;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -141,6 +142,7 @@ public class ProyectoFuncionarios {
         
         ThreadLocalRandom random = ThreadLocalRandom.current();
 
+        // Genero[] posiblesGeneros = Genero.values();
         try {
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
             Date startDate = df.parse("1980-01-01");
@@ -150,13 +152,18 @@ public class ProyectoFuncionarios {
             for (int i = 1; i <= 50; ++i) {
                 int randomIndex = random.nextInt(commonNames.length);
                 String randomName = commonNames[randomIndex];
+                
+                Genero gender = Genero.Hombre;
+                if (randomIndex > 20) { gender = Genero.Mujer; }
+                
                 randomIndex = random.nextInt(commonSurnames.length);
                 String randomSurname = commonSurnames[randomIndex];
-
+                
                 long randomMilis = random.nextLong(startMilis, endMilis);
                 Date randomDate = new Date(randomMilis);
+                
                 trabajadores.add(new gobierno.Trabajador(
-                        i, randomName, randomSurname, randomDate)
+                        i, randomName, randomSurname, gender, randomDate)
                 );
             }
         } catch (ParseException ex) {
