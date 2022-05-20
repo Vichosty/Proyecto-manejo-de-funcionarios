@@ -42,6 +42,8 @@ public final class TrabajadorEditorForm extends javax.swing.JDialog {
 
         trabajador = new gobierno.Trabajador();
         trabajadorSaved = new gobierno.Trabajador();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList<>();
         titlePanel = new javax.swing.JPanel();
         titleLabel = new javax.swing.JLabel();
         viewPanel = new javax.swing.JPanel();
@@ -63,6 +65,13 @@ public final class TrabajadorEditorForm extends javax.swing.JDialog {
 
         trabajadorSaved.setApellido("");
         trabajadorSaved.setNombre("");
+
+        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane1.setViewportView(jList1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Editor de Trabajador");
@@ -220,7 +229,7 @@ public final class TrabajadorEditorForm extends javax.swing.JDialog {
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 1;
+        gridBagConstraints.ipadx = 4;
         gridBagConstraints.ipady = 1;
         gridBagConstraints.weightx = 3.0;
         gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
@@ -348,6 +357,8 @@ public final class TrabajadorEditorForm extends javax.swing.JDialog {
     private org.jdesktop.swingx.JXDatePicker fechaDeNacimientoDatePicker;
     private javax.swing.JLabel fechaDeNacimientoLabel1;
     private javax.swing.JLabel fechaDeNacimientoLabel2;
+    private javax.swing.JList<String> jList1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel nombreLabel;
     private javax.swing.JTextField nombreText;
     private javax.swing.JButton saveButton;
