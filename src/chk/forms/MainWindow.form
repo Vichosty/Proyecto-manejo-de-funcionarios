@@ -307,17 +307,13 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="trabajadoresScrollPane" pref="0" max="32767" attributes="0"/>
-                              <Group type="102" attributes="0">
-                                  <Component id="trabajadoresTitle" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="353" max="-2" attributes="0"/>
-                                  <Component id="trabajadoresSearchTextbox" max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
+                          <Component id="trabajadoresTitle" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="353" max="-2" attributes="0"/>
+                          <Component id="trabajadoresSearchTextbox" pref="416" max="32767" attributes="0"/>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Component id="trabajadoresButtonsPanel" alignment="0" max="32767" attributes="0"/>
+                      <Component id="trabajadoresScrollPane" alignment="1" pref="0" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
@@ -353,12 +349,13 @@
                       <Properties>
                         <Property name="autoCreateRowSorter" type="boolean" value="true"/>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                          <Table columnCount="5" rowCount="0">
+                          <Table columnCount="6" rowCount="0">
                             <Column editable="false" title="ID" type="java.lang.Integer"/>
                             <Column editable="false" title="Nombre" type="java.lang.String"/>
                             <Column editable="false" title="Apellido" type="java.lang.String"/>
                             <Column editable="false" title="Genero" type="java.lang.String"/>
                             <Column editable="false" title="Fecha de Nacimiento" type="java.lang.String"/>
+                            <Column editable="true" title="Tipo" type="java.lang.String"/>
                           </Table>
                         </Property>
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor" postCode="trabajadoresTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {&#xa;    @Override&#xa;    public void valueChanged(ListSelectionEvent event) {&#xa;        if (trabajadoresTable.getSelectedRow() &gt; -1) {&#xa;            trabajadoresEditButton.setEnabled(true);&#xa;            trabajadoresRemoveButton.setEnabled(true);&#xa;        } else {&#xa;            trabajadoresEditButton.setEnabled(false);&#xa;            trabajadoresRemoveButton.setEnabled(false);&#xa;        }&#xa;    }&#xa;});">

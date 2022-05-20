@@ -165,9 +165,26 @@ public class ProyectoFuncionarios {
                 long randomMilis = random.nextLong(startMilis, endMilis);
                 Date randomDate = new Date(randomMilis);
                 
-                trabajadores.add(new gobierno.Trabajador(
-                        i, randomName, randomSurname, gender, randomDate)
-                );
+                int randomType = random.nextInt(3);
+                switch (randomType) {
+                    case 0:
+                        gobierno.Trabajador t = new gobierno.Trabajador(
+                                i, randomName, randomSurname, gender, randomDate);
+                        trabajadores.add(t);
+                        break;
+                    case 1:
+                        gobierno.TrabajadorPermanente tp = new gobierno.TrabajadorPermanente(
+                                i, randomName, randomSurname, gender, randomDate);
+                        trabajadores.add(tp);
+                        break;
+                    default:
+                        long randomMilis2 = random.nextLong(randomMilis, endMilis);
+                        Date randomDate2 = new Date(randomMilis2);
+                        gobierno.TrabajadorTemporero tt = new gobierno.TrabajadorTemporero(
+                                i, randomName, randomSurname, gender, randomDate, randomDate2);
+                        trabajadores.add(tt);
+                        break;
+                }
             }
         } catch (ParseException ex) {
             Logger.getLogger(ProyectoFuncionarios.class.getName()).log(Level.SEVERE, null, ex);

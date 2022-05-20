@@ -13,7 +13,7 @@ import java.util.Date;
  *
  * @author chkp
  */
-public final class Trabajador {
+public class Trabajador {
 
     private int id;
     private String nombre;
@@ -95,6 +95,10 @@ public final class Trabajador {
     
     public void setGenero(Genero genero){
         this.genero = genero;
+    }
+    
+    public String getTipo() {
+        return "Trabajador";
     }
     
     public static String getIconPath() {

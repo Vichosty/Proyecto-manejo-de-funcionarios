@@ -221,14 +221,14 @@ public final class MainWindow extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Nombre", "Apellido", "Genero", "Fecha de Nacimiento"
+                "ID", "Nombre", "Apellido", "Genero", "Fecha de Nacimiento", "Tipo"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -316,14 +316,12 @@ public final class MainWindow extends javax.swing.JFrame {
             rightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(rightPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(rightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(trabajadoresScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addGroup(rightPanelLayout.createSequentialGroup()
-                        .addComponent(trabajadoresTitle)
-                        .addGap(353, 353, 353)
-                        .addComponent(trabajadoresSearchTextbox)))
+                .addComponent(trabajadoresTitle)
+                .addGap(353, 353, 353)
+                .addComponent(trabajadoresSearchTextbox, javax.swing.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE)
                 .addContainerGap())
             .addComponent(trabajadoresButtonsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(trabajadoresScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
         rightPanelLayout.setVerticalGroup(
             rightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -769,7 +767,8 @@ public final class MainWindow extends javax.swing.JFrame {
                     t.getNombre(),
                     t.getApellido(),
                     t.getGeneroAsString(),
-                    t.getFechaDeNacimientoAsString()
+                    t.getFechaDeNacimientoAsString(),
+                    t.getTipo()
                 });
             }
             trabajadoresAdd1Button.setEnabled(true);
