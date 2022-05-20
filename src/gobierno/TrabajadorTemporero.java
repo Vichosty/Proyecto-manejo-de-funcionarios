@@ -21,4 +21,8 @@ public final class TrabajadorTemporero extends Trabajador {
     @Override public String getTipo() {
         return "Temporero";
     }
+    
+    public static String getIconPath() {
+        return "icons/employee.png";
+    }
 }

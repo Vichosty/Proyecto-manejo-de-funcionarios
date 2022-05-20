@@ -19,6 +19,7 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 public class CustomTreeCellRenderer extends DefaultTreeCellRenderer {
     private final ImageIcon reparticionIcon;
     private final ImageIcon trabajadorIcon;
+    private final ImageIcon trabajadorPermanenteIcon;
     private final ImageIcon contratoIcon;
 
     public CustomTreeCellRenderer() {
@@ -26,6 +27,7 @@ public class CustomTreeCellRenderer extends DefaultTreeCellRenderer {
         
         reparticionIcon = new ImageIcon(new ImageIcon(gobierno.Reparticion.getIconPath()).getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
         trabajadorIcon = new ImageIcon(new ImageIcon(gobierno.Trabajador.getIconPath()).getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
+        trabajadorPermanenteIcon = new ImageIcon(new ImageIcon(gobierno.TrabajadorPermanente.getIconPath()).getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
         contratoIcon = new ImageIcon(new ImageIcon(gobierno.Contrato.getIconPath()).getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
     }
 
@@ -42,7 +44,11 @@ public class CustomTreeCellRenderer extends DefaultTreeCellRenderer {
             setText(reparticion.getNombre());
         } else if (userObject instanceof gobierno.Trabajador) {
             gobierno.Trabajador trabajador = (gobierno.Trabajador)userObject;
-            setIcon(trabajadorIcon);
+            if (trabajador instanceof gobierno.TrabajadorPermanente) {
+                setIcon(trabajadorPermanenteIcon);
+            } else {
+                setIcon(trabajadorIcon);
+            }
             setText(trabajador.getNombreCompleto());
         } else if (userObject instanceof gobierno.Contrato) {
             gobierno.Contrato contrato = (gobierno.Contrato)userObject;

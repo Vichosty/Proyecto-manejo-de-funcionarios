@@ -89,7 +89,7 @@ public class Contratos {
             
             // Remover el trabajador de la reparticion
             Reparticion r = Reparticiones.get().get(c.getIdReparticion());
-            r.removeTrabajadorById(c.getIdTrabajador());
+            r.removeTrabajadorById(c.getIdTrabajador(), true);
             
             return contratos.remove(id);
         }
@@ -103,7 +103,7 @@ public class Contratos {
             if (c.getIdReparticion() == idReparticion) {
                 // Remover el trabajador de la reparticion
                 Reparticion r = Reparticiones.get().get(c.getIdReparticion());
-                r.removeTrabajadorById(c.getIdTrabajador());
+                r.removeTrabajadorById(c.getIdTrabajador(), false);
                 
                 contratos.remove(c.getId());
                 found = true;
@@ -121,7 +121,7 @@ public class Contratos {
                 
                 // Remover el trabajador de la reparticion
                 Reparticion r = Reparticiones.get().get(c.getIdReparticion());
-                r.removeTrabajadorById(c.getIdTrabajador());
+                r.removeTrabajadorById(c.getIdTrabajador(), true);
                 
                 contratos.remove(idContrato);
             }

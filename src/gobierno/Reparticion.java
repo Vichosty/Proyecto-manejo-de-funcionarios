@@ -109,11 +109,16 @@ public class Reparticion {
         return(-1);
     }
     
-    public boolean removeTrabajadorById(int id) {
+    public boolean removeTrabajadorById(int id, boolean removeFromContratos) {
         Contratos cs = Contratos.get();
         
         ArrayList<Trabajador> found = new ArrayList<>();
-        if (cs.remove(id, getId())) {
+        boolean removed = true;
+        if (removeFromContratos) {
+            removed = cs.remove(id, getId());
+        }
+        
+        if (removed) {
             // Removido con exito de los contratos, remover de aca tambien
             for(Trabajador t : trabajadores) {
                 if (t.getId() == id) { found.add(t); }
@@ -145,6 +150,6 @@ public class Reparticion {
     // TODO: findTrabajador, etc. (para no tener que usar directamente al gobierno.)
     
     public static String getIconPath() {
-        return "icons/reparticion.png";
+        return "icons/company.png";
     }
 }

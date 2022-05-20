@@ -49,6 +49,6 @@ public class Contrato {
     }
     
     public static String getIconPath() {
-        return "icons/contrato.png";
+        return "icons/contract.png";
     }
 }

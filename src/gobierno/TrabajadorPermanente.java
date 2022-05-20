@@ -19,4 +19,8 @@ public final class TrabajadorPermanente extends Trabajador {
     @Override public String getTipo() {
         return "Permanente";
     }
+    
+    public static String getIconPath() {
+        return "icons/permanent.png";
+    }
 }

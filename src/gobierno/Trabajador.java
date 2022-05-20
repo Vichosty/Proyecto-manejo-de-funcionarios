@@ -102,6 +102,6 @@ public class Trabajador {
     }
     
     public static String getIconPath() {
-        return "icons/trabajador.png";
+        return "icons/employee.png";
     }
 }

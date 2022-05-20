@@ -164,7 +164,6 @@ public final class TrabajadorChooserForm extends javax.swing.JDialog {
     }//GEN-LAST:event_selectTreeMouseClicked
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
-        System.out.println(evt.paramString());
         dispose();
     }//GEN-LAST:event_addButtonActionPerformed
 

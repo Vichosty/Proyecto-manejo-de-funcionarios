@@ -515,7 +515,12 @@ public final class MainWindow extends javax.swing.JFrame {
         
         if (row == -1) {
             tree.clearSelection();
+            reparticionRemoveButton.setEnabled(false);
+            reparticionEditButton.setEnabled(false);
             reloadTable(null);
+        } else {
+            reparticionRemoveButton.setEnabled(true);
+            reparticionEditButton.setEnabled(true);
         }
     }//GEN-LAST:event_reparticionTreeMouseClicked
 
@@ -616,19 +621,29 @@ public final class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_reparticionEditButtonActionPerformed
 
     private void reparticionRemoveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reparticionRemoveButtonActionPerformed
+        if (reparticionTree.getModel().getChildCount(reparticionTree.getModel().getRoot()) <= 0) { return; }
+        Reparticion r = getReparticionFromTree(reparticionTree);
+        if (r == null) { return; }
+        
         int config = JOptionPane.YES_NO_OPTION;
         int response = JOptionPane.showConfirmDialog(null,
                 "Estas seguro de que deseas eliminar esta reparticion?", 
                 "Cuidado", 
                 config);
         if (response == JOptionPane.YES_OPTION) {
-            Reparticion r = getReparticionFromTree(reparticionTree);
             reparticiones.remove(r.getId());
-
             reloadTree();
+            reparticionRemoveButton.setEnabled(false);
+            reparticionEditButton.setEnabled(false);
         }
     }//GEN-LAST:event_reparticionRemoveButtonActionPerformed
 
+    private void appendTrabajadorStr(StringBuilder sb, Trabajador t, int depth) {
+        for(int i = 0; i < depth; ++i) { sb.append('\t'); }
+        sb.append("[").append(t.getTipo()).append("][").append(t.getId()).append("]")
+                .append(t.getNombreCompleto()).append("\n");
+    }
+    
     private void reportButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportButtonActionPerformed
         try {
             JFileChooser fileChooser = new JFileChooser();
@@ -643,7 +658,7 @@ public final class MainWindow extends javax.swing.JFrame {
                     sb.append("\t").append(r.getNombre()).append(":\n");
                     for(int tIndex = 0; tIndex < r.getNumTrabajadores(); ++tIndex) {
                         Trabajador t = r.getTrabajador(tIndex);
-                        sb.append("\t\t- [").append(t.getId()).append("]").append(t.getNombreCompleto()).append("\n");
+                        appendTrabajadorStr(sb, t, 2);
                     }
                 }
                 sb.append("\n");
@@ -652,7 +667,7 @@ public final class MainWindow extends javax.swing.JFrame {
                 sb.append("[Sin Reparticion]:\n");
                 for(int trabajadorId: ts.getIDsSinReparticion()) {
                     Trabajador t = ts.get(trabajadorId);
-                    sb.append("\t- [").append(t.getId()).append("]").append(t.getNombreCompleto()).append("\n");
+                    appendTrabajadorStr(sb, t, 1);
                 }
                 sb.append("\n");
                 
