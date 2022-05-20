@@ -90,7 +90,7 @@
         <Component class="javax.swing.JTextField" name="nombreText">
           <Properties>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection component="trabajador" name="nombre" type="property"/>
+              <Connection code="trabajador.getNombre()" type="code"/>
             </Property>
           </Properties>
           <AuxValues>
@@ -115,7 +115,7 @@
         <Component class="javax.swing.JTextField" name="apellidoText">
           <Properties>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection component="trabajador" name="apellido" type="property"/>
+              <Connection code="trabajador.getApellido()" type="code"/>
             </Property>
           </Properties>
           <AuxValues>
@@ -140,7 +140,7 @@
         <Component class="org.jdesktop.swingx.JXDatePicker" name="fechaDeNacimientoDatePicker">
           <Properties>
             <Property name="date" type="java.util.Date" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection component="trabajador" name="fechaDeNacimiento" type="property"/>
+              <Connection code="trabajador.getFechaDeNacimiento()" type="code"/>
             </Property>
           </Properties>
           <Events>
@@ -176,6 +176,9 @@
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="new javax.swing.DefaultComboBoxModel(Genero.values())" type="code"/>
+            </Property>
+            <Property name="selectedItem" type="java.lang.Object" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="trabajador.getGenero()" type="code"/>
             </Property>
           </Properties>
           <Events>

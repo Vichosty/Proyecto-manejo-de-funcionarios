@@ -229,6 +229,7 @@ public final class TrabajadorEditorForm extends javax.swing.JDialog {
         viewPanel.add(fechaDeNacimientoLabel2, gridBagConstraints);
 
         cajaGenero.setModel(new javax.swing.DefaultComboBoxModel(Genero.values()));
+        cajaGenero.setSelectedItem(trabajador.getGenero());
         cajaGenero.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cajaGeneroActionPerformed(evt);
