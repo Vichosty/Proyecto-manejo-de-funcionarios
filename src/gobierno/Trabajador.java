@@ -13,7 +13,7 @@ import java.util.Date;
  *
  * @author chkp
  */
-public abstract class Trabajador {
+public abstract class Trabajador implements Imprimible {
 
     private int id;
     private String nombre;
@@ -103,5 +103,11 @@ public abstract class Trabajador {
     
     public static String getIconPath() {
         return "icons/employee.png";
+    }
+    
+    @Override
+    public void imprimir(StringBuilder sb) {
+        sb.append("[").append(this.getTipo()).append("][").append(this.getId()).append("] ")
+                .append(this.getNombreCompleto()).append("\n");
     }
 }

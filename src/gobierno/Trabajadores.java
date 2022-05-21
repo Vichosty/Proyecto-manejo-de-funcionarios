@@ -12,7 +12,7 @@ import java.util.HashMap;
  *
  * @author chkp
  */
-public class Trabajadores {
+public class Trabajadores implements Imprimible {
     private static Trabajadores instance;
     private final HashMap<Integer, Trabajador> trabajadores;
     private int mayorId;
@@ -109,5 +109,16 @@ public class Trabajadores {
     
     public int getMayorId() {
         return this.mayorId;
+    }
+
+    @Override
+    public void imprimir(StringBuilder sb) {
+        sb.append("[Sin Reparticion]:\n");
+        for(int trabajadorId: this.getIDsSinReparticion()) {
+            Trabajador t = this.get(trabajadorId);
+            sb.append('\t');
+            t.imprimir(sb);
+        }
+        sb.append('\n');
     }
 }

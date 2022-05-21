@@ -639,12 +639,6 @@ public final class MainWindow extends javax.swing.JFrame {
             reparticionEditButton.setEnabled(false);
         }
     }//GEN-LAST:event_reparticionRemoveButtonActionPerformed
-
-    private void appendTrabajadorStr(StringBuilder sb, Trabajador t, int depth) {
-        for(int i = 0; i < depth; ++i) { sb.append('\t'); }
-        sb.append("[").append(t.getTipo()).append("][").append(t.getId()).append("]")
-                .append(t.getNombreCompleto()).append("\n");
-    }
     
     private void reportButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportButtonActionPerformed
         try {
@@ -652,41 +646,9 @@ public final class MainWindow extends javax.swing.JFrame {
             if (fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
                 StringBuilder sb = new StringBuilder();
                 
-                // Generate the report
-                sb.append("[Reparticiones]:\n");
-                Reparticiones rs = Reparticiones.get();
-                for(int reparticionId : rs.getIDs()) {
-                    Reparticion r = rs.get(reparticionId);
-                    sb.append("\t").append(r.getNombre()).append(":\n");
-                    for(int tIndex = 0; tIndex < r.getNumTrabajadores(); ++tIndex) {
-                        Trabajador t = r.getTrabajador(tIndex);
-                        appendTrabajadorStr(sb, t, 2);
-                    }
-                }
-                sb.append("\n");
-                
-                Trabajadores ts = Trabajadores.get();
-                sb.append("[Sin Reparticion]:\n");
-                for(int trabajadorId: ts.getIDsSinReparticion()) {
-                    Trabajador t = ts.get(trabajadorId);
-                    appendTrabajadorStr(sb, t, 1);
-                }
-                sb.append("\n");
-                
-                Contratos cs = Contratos.get();
-                sb.append("[Contratos]:\n");
-                for(int contratoId: cs.getIDs()) {
-                    Contrato c = cs.get(contratoId);
-                    Trabajador t = ts.get(c.getIdTrabajador());
-                    Reparticion r = rs.get(c.getIdReparticion());
-                    sb.append("\t- [").append(c.getIdTrabajador()).append("]")
-                            .append(t.getNombreCompleto())
-                            .append(" => [").append(c.getIdReparticion()).append("]")
-                            .append(r.getNombre())
-                            .append("\n");
-                }
-                sb.append("\n");
-                
+                reparticiones.imprimir(sb);
+                trabajadores.imprimir(sb);
+                contratos.imprimir(sb);
                 
                 String report = sb.toString();
                 File file = fileChooser.getSelectedFile();

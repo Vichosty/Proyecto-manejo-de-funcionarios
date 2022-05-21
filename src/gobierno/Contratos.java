@@ -12,7 +12,7 @@ import java.util.HashMap;
  *
  * @author chkp
  */
-public class Contratos {
+public class Contratos implements Imprimible{
     private static Contratos instance;
     private HashMap<Integer, Contrato> contratos;
     private int mayorId;
@@ -149,5 +149,24 @@ public class Contratos {
     
     public int getMayorId() {
         return this.mayorId;
+    }
+
+    @Override
+    public void imprimir(StringBuilder sb) {
+        Trabajadores ts = Trabajadores.get();
+        Reparticiones rs = Reparticiones.get();
+        
+        sb.append("[Contratos]:\n");
+        for(int contratoId: this.getIDs()) {
+            Contrato c = this.get(contratoId);
+            Trabajador t = ts.get(c.getIdTrabajador());
+            Reparticion r = rs.get(c.getIdReparticion());
+            sb.append("\t- [").append(c.getIdTrabajador()).append("]")
+                    .append(t.getNombreCompleto())
+                    .append(" => [").append(c.getIdReparticion()).append("]")
+                    .append(r.getNombre())
+                    .append("\n");
+        }
+        sb.append('\n');
     }
 }
