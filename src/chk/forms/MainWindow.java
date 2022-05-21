@@ -12,6 +12,8 @@ import gobierno.Genero;
 import gobierno.Reparticion;
 import gobierno.Reparticiones;
 import gobierno.Trabajador;
+import gobierno.TrabajadorPermanente;
+import gobierno.TrabajadorTemporero;
 import gobierno.Trabajadores;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -440,10 +442,20 @@ public final class MainWindow extends javax.swing.JFrame {
 
         showPermanentCheckBox.setSelected(isShowPermanents());
         showPermanentCheckBox.setText("Permanentes");
+        showPermanentCheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showPermanentCheckBoxActionPerformed(evt);
+            }
+        });
         showMenu.add(showPermanentCheckBox);
 
         showTemporaryCheckBox.setSelected(isShowTemporaries());
         showTemporaryCheckBox.setText("Temporeros");
+        showTemporaryCheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showTemporaryCheckBoxActionPerformed(evt);
+            }
+        });
         showMenu.add(showTemporaryCheckBox);
 
         menuOptions.add(showMenu);
@@ -677,6 +689,16 @@ public final class MainWindow extends javax.swing.JFrame {
         reloadTable(getReparticionFromTree(reparticionTree));
     }//GEN-LAST:event_showOtherCheckBoxActionPerformed
 
+    private void showPermanentCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showPermanentCheckBoxActionPerformed
+        setShowPermanents(showPermanentCheckBox.isSelected());
+        reloadTable(getReparticionFromTree(reparticionTree));
+    }//GEN-LAST:event_showPermanentCheckBoxActionPerformed
+
+    private void showTemporaryCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showTemporaryCheckBoxActionPerformed
+        setShowTemporaries(showTemporaryCheckBox.isSelected());
+        reloadTable(getReparticionFromTree(reparticionTree));
+    }//GEN-LAST:event_showTemporaryCheckBoxActionPerformed
+
     public void reloadTree() {
         String filterStr = reparticionSearchTextbox.getText();
         
@@ -727,12 +749,18 @@ public final class MainWindow extends javax.swing.JFrame {
         if (r != null) {
             for (int contratoId : contratos.getIDsByIdReparticion(r.getId())) {
                 Contrato c = contratos.get(contratoId);
+                if (c == null) { continue; }
+                
                 Trabajador t = trabajadores.get(c.getIdTrabajador());
+                if (t == null) { continue; }
                 
                 // Skip based on config
                 if (!showMales && t.getGenero() == Genero.Hombre) { continue; }
                 if (!showFemales && t.getGenero() == Genero.Mujer) { continue; }
                 if (!showOthers && t.getGenero() == Genero.Otro) { continue; }
+                
+                if (!showPermanents && t instanceof TrabajadorPermanente) { continue; }
+                if (!showTemporaries && t instanceof TrabajadorTemporero) { continue; }
                 
                 // Filter the table if the filterStr is not empty
                 if (!filterStr.isEmpty()) {

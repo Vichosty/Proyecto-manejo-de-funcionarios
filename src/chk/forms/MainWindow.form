@@ -67,6 +67,9 @@
                     </Property>
                     <Property name="text" type="java.lang.String" value="Permanentes"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="showPermanentCheckBoxActionPerformed"/>
+                  </Events>
                 </MenuItem>
                 <MenuItem class="javax.swing.JCheckBoxMenuItem" name="showTemporaryCheckBox">
                   <Properties>
@@ -75,6 +78,9 @@
                     </Property>
                     <Property name="text" type="java.lang.String" value="Temporeros"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="showTemporaryCheckBoxActionPerformed"/>
+                  </Events>
                 </MenuItem>
               </SubComponents>
             </Menu>
