@@ -4,6 +4,11 @@
   <ClassDiagramComponents>
     <Class name="MainWindow" package="chk.forms" visibility="public" isFinal="true" xPosition="20.0" yPosition="20.0">
       <Fields>
+        <Field name="showMales" type="boolean" visibility="private"/>
+        <Field name="showFemales" type="boolean" visibility="private"/>
+        <Field name="showOthers" type="boolean" visibility="private"/>
+        <Field name="showPermanents" type="boolean" visibility="private"/>
+        <Field name="showTemporaries" type="boolean" visibility="private"/>
         <Field name="trabajadores" type="Trabajadores" visibility="private" isFinal="true"/>
         <Field name="reparticiones" type="Reparticiones" visibility="private" isFinal="true"/>
         <Field name="contratos" type="Contratos" visibility="private" isFinal="true"/>
@@ -21,10 +26,18 @@
         <Field name="reparticionEditButton" type="javax.swing.JButton" visibility="private"/>
         <Field name="reparticionRemoveButton" type="javax.swing.JButton" visibility="private"/>
         <Field name="reparticionScrollPane" type="javax.swing.JScrollPane" visibility="private"/>
+        <Field name="reparticionSearchTextbox" type="javax.swing.JTextField" visibility="private"/>
         <Field name="reparticionTitle" type="javax.swing.JLabel" visibility="private"/>
         <Field name="reparticionTree" type="javax.swing.JTree" visibility="private"/>
         <Field name="reportButton" type="javax.swing.JButton" visibility="private"/>
         <Field name="rightPanel" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="showFemaleCheckBox" type="javax.swing.JCheckBoxMenuItem" visibility="private"/>
+        <Field name="showMaleCheckBox" type="javax.swing.JCheckBoxMenuItem" visibility="private"/>
+        <Field name="showMenu" type="javax.swing.JMenu" visibility="private"/>
+        <Field name="showOtherCheckBox" type="javax.swing.JCheckBoxMenuItem" visibility="private"/>
+        <Field name="showPermanentCheckBox" type="javax.swing.JCheckBoxMenuItem" visibility="private"/>
+        <Field name="showSeparator" type="javax.swing.JMenuItem" visibility="private"/>
+        <Field name="showTemporaryCheckBox" type="javax.swing.JCheckBoxMenuItem" visibility="private"/>
         <Field name="splitPanel" type="javax.swing.JSplitPane" visibility="private"/>
         <Field name="titleLabel" type="javax.swing.JLabel" visibility="private"/>
         <Field name="titlePanel" type="javax.swing.JPanel" visibility="private"/>
@@ -34,6 +47,7 @@
         <Field name="trabajadoresEditButton" type="javax.swing.JButton" visibility="private"/>
         <Field name="trabajadoresRemoveButton" type="javax.swing.JButton" visibility="private"/>
         <Field name="trabajadoresScrollPane" type="javax.swing.JScrollPane" visibility="private"/>
+        <Field name="trabajadoresSearchTextbox" type="javax.swing.JTextField" visibility="private"/>
         <Field name="trabajadoresTable" type="javax.swing.JTable" visibility="private"/>
         <Field name="trabajadoresTitle" type="javax.swing.JLabel" visibility="private"/>
       </Fields>
@@ -76,12 +90,49 @@ void" visibility="private"/>
         <Method name="reportButtonActionPerformed" returnType="void" visibility="private">
           <Argument type="java.awt.event.ActionEvent" name="evt"/>
         </Method>
+        <Method name="showMaleCheckBoxActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="showFemaleCheckBoxActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="showOtherCheckBoxActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="showPermanentCheckBoxActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="showTemporaryCheckBoxActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
         <Method name="reloadTree" returnType="void" visibility="public"/>
         <Method name="reloadTable" returnType="void" visibility="public">
           <Argument type="Reparticion" name="r"/>
         </Method>
         <Method name="getReparticionFromTree" returnType="Reparticion" visibility="public">
           <Argument type="JTree" name="tree"/>
+        </Method>
+        <Method name="filterReparticiones" returnType="void" visibility="public"/>
+        <Method name="filterTrabajadores" returnType="void" visibility="public"/>
+        <Method name="isShowMales" returnType="boolean" visibility="public"/>
+        <Method name="setShowMales" returnType="void" visibility="public">
+          <Argument type="boolean" name="showMales"/>
+        </Method>
+        <Method name="isShowFemales" returnType="boolean" visibility="public"/>
+        <Method name="setShowFemales" returnType="void" visibility="public">
+          <Argument type="boolean" name="showFemales"/>
+        </Method>
+        <Method name="isShowOthers" returnType="boolean" visibility="public"/>
+        <Method name="setShowOthers" returnType="void" visibility="public">
+          <Argument type="boolean" name="showOthers"/>
+        </Method>
+        <Method name="isShowPermanents" returnType="boolean" visibility="public"/>
+        <Method name="setShowPermanents" returnType="void" visibility="public">
+          <Argument type="boolean" name="showPermanents"/>
+        </Method>
+        <Method name="isShowTemporaries" returnType="boolean" visibility="public"/>
+        <Method name="setShowTemporaries" returnType="void" visibility="public">
+          <Argument type="boolean" name="showTemporaries"/>
         </Method>
       </Methods>
     </Class>
@@ -123,6 +174,7 @@ void" visibility="private"/>
     </Class>
     <Class name="TrabajadorChooserForm" package="chk.forms" visibility="public" isFinal="true" xPosition="620.0" yPosition="20.0">
       <Fields>
+        <Field name="trabajador" type="Trabajador" visibility="private"/>
         <Field name="trabajadores" type="Trabajadores" visibility="private" isFinal="true"/>
         <Field name="reparticiones" type="Reparticiones" visibility="private" isFinal="true"/>
         <Field name="contratos" type="Contratos" visibility="private" isFinal="true"/>
@@ -134,7 +186,6 @@ void" visibility="private"/>
         <Field name="selectTree" type="javax.swing.JTree" visibility="private"/>
         <Field name="titleLabel" type="javax.swing.JLabel" visibility="private"/>
         <Field name="titlePanel" type="javax.swing.JPanel" visibility="private"/>
-        <Field name="trabajador" type="gobierno.Trabajador" visibility="private"/>
       </Fields>
       <Constructors>
         <Constructor visibility="public">
@@ -161,19 +212,22 @@ void" visibility="private"/>
     </Class>
     <Class name="TrabajadorEditorForm" package="chk.forms" visibility="public" isFinal="true" xPosition="920.0" yPosition="20.0">
       <Fields>
+        <Field name="trabajador" type="Trabajador" visibility="private"/>
+        <Field name="trabajadorSaved" type="Trabajador" visibility="private"/>
+        <Field name="GeneroLabel" type="javax.swing.JLabel" visibility="private"/>
         <Field name="apellidoLabel" type="javax.swing.JLabel" visibility="private"/>
         <Field name="apellidoText" type="javax.swing.JTextField" visibility="private"/>
         <Field name="backButton" type="javax.swing.JButton" visibility="private"/>
         <Field name="buttonsPanel" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="cajaGenero" type="javax.swing.JComboBox&lt;String&gt;" visibility="private"/>
         <Field name="fechaDeNacimientoDatePicker" type="org.jdesktop.swingx.JXDatePicker" visibility="private"/>
-        <Field name="fechaDeNacimientoLabel" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="fechaDeNacimientoLabel1" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="fechaDeNacimientoLabel2" type="javax.swing.JLabel" visibility="private"/>
         <Field name="nombreLabel" type="javax.swing.JLabel" visibility="private"/>
         <Field name="nombreText" type="javax.swing.JTextField" visibility="private"/>
         <Field name="saveButton" type="javax.swing.JButton" visibility="private"/>
         <Field name="titleLabel" type="javax.swing.JLabel" visibility="private"/>
         <Field name="titlePanel" type="javax.swing.JPanel" visibility="private"/>
-        <Field name="trabajador" type="gobierno.Trabajador" visibility="private"/>
-        <Field name="trabajadorSaved" type="gobierno.Trabajador" visibility="private"/>
         <Field name="viewPanel" type="javax.swing.JPanel" visibility="private"/>
       </Fields>
       <Constructors>
@@ -181,6 +235,7 @@ void" visibility="private"/>
           <Argument type="java.awt.Frame" name="parent"/>
           <Argument type="boolean" name="modal"/>
           <Argument type="gobierno.Trabajador" name="trabajador"/>
+          <Argument type="boolean" name="isPermanent"/>
         </Constructor>
       </Constructors>
       <Methods>
@@ -195,6 +250,9 @@ void" visibility="private"/>
         <Method name="saveButtonActionPerformed" returnType="void" visibility="private">
           <Argument type="java.awt.event.ActionEvent" name="evt"/>
         </Method>
+        <Method name="cajaGeneroActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
         <Method name="checkForChanges" returnType="void" visibility="public"/>
         <Method name="getTrabajador" returnType="gobierno.Trabajador" visibility="public"/>
         <Method name="setTrabajador" returnType="void" visibility="public">
@@ -206,6 +264,7 @@ void" visibility="private"/>
       <Fields>
         <Field name="reparticionIcon" type="ImageIcon" visibility="private" isFinal="true"/>
         <Field name="trabajadorIcon" type="ImageIcon" visibility="private" isFinal="true"/>
+        <Field name="trabajadorPermanenteIcon" type="ImageIcon" visibility="private" isFinal="true"/>
         <Field name="contratoIcon" type="ImageIcon" visibility="private" isFinal="true"/>
       </Fields>
       <Constructors>
@@ -316,6 +375,9 @@ void" visibility="private"/>
           <Argument type="int" name="id"/>
         </Method>
         <Method name="getMayorId" returnType="int" visibility="public"/>
+        <Method name="imprimir" returnType="void" visibility="public">
+          <Argument type="StringBuilder" name="sb"/>
+        </Method>
       </Methods>
     </Class>
     <Enum name="EstadoReparticion" package="gobierno" visibility="public" xPosition="320.0" yPosition="420.0">
@@ -325,7 +387,22 @@ void" visibility="private"/>
         <Literal name="Superavit"/>
       </Literals>
     </Enum>
-    <Class name="Reparticion" package="gobierno" visibility="public" xPosition="620.0" yPosition="420.0">
+    <Enum name="Genero" package="gobierno" visibility="public" xPosition="620.0" yPosition="420.0">
+      <Literals>
+        <Literal name="Desconocido"/>
+        <Literal name="Hombre"/>
+        <Literal name="Mujer"/>
+        <Literal name="Otro"/>
+      </Literals>
+    </Enum>
+    <Interface name="Imprimible" package="gobierno" visibility="public" xPosition="920.0" yPosition="420.0">
+      <Methods>
+        <Method name="imprimir" returnType="void" visibility="public">
+          <Argument type="StringBuilder" name="sb"/>
+        </Method>
+      </Methods>
+    </Interface>
+    <Class name="Reparticion" package="gobierno" visibility="public" xPosition="1220.0" yPosition="420.0">
       <Fields>
         <Field name="id" type="int" visibility="private"/>
         <Field name="nombre" type="String" visibility="private"/>
@@ -368,13 +445,14 @@ void" visibility="private"/>
         </Method>
         <Method name="removeTrabajadorById" returnType="boolean" visibility="public">
           <Argument type="int" name="id"/>
+          <Argument type="boolean" name="removeFromContratos"/>
         </Method>
         <Method name="removeAll" returnType="boolean" visibility="public"/>
         <Method name="getEstado" returnType="EstadoReparticion" visibility="public"/>
         <Method name="getIconPath" returnType="String" visibility="public" isStatic="true"/>
       </Methods>
     </Class>
-    <Class name="Reparticiones" package="gobierno" visibility="public" xPosition="920.0" yPosition="420.0">
+    <Class name="Reparticiones" package="gobierno" visibility="public" xPosition="1520.0" yPosition="420.0">
       <Fields>
         <Field name="instance" type="Reparticiones" visibility="private" isStatic="true"/>
         <Field name="reparticiones" type="HashMap&lt;Integer, Reparticion&gt;" visibility="private" isFinal="true"/>
@@ -408,15 +486,19 @@ void" visibility="private"/>
           <Argument type="String" name="nombre"/>
         </Method>
         <Method name="getMayorId" returnType="int" visibility="public"/>
+        <Method name="imprimir" returnType="void" visibility="public">
+          <Argument type="StringBuilder" name="sb"/>
+        </Method>
       </Methods>
     </Class>
-    <Class name="Trabajador" package="gobierno" visibility="public" isFinal="true" xPosition="1220.0" yPosition="420.0">
+    <Class name="Trabajador" package="gobierno" visibility="public" isAbstract="true" xPosition="1820.0" yPosition="420.0">
       <Fields>
         <Field name="id" type="int" visibility="private"/>
         <Field name="nombre" type="String" visibility="private"/>
         <Field name="apellido" type="String" visibility="private"/>
         <Field name="fechaDeNacimientoAsString" type="String" visibility="private"/>
         <Field name="fechaDeNacimiento" type="Date" visibility="private"/>
+        <Field name="genero" type="Genero" visibility="private"/>
       </Fields>
       <Constructors>
         <Constructor visibility="public"/>
@@ -424,6 +506,7 @@ void" visibility="private"/>
           <Argument type="int" name="id"/>
           <Argument type="String" name="nombre"/>
           <Argument type="String" name="apellido"/>
+          <Argument type="Genero" name="genero"/>
           <Argument type="Date" name="fechaDeNacimiento"/>
         </Constructor>
       </Constructors>
@@ -446,10 +529,19 @@ void" visibility="private"/>
         <Method name="setFechaDeNacimiento" returnType="void" visibility="public">
           <Argument type="Date" name="fechaDeNacimiento"/>
         </Method>
+        <Method name="getGeneroAsString" returnType="String" visibility="public"/>
+        <Method name="getGenero" returnType="Genero" visibility="public"/>
+        <Method name="setGenero" returnType="void" visibility="public">
+          <Argument type="Genero" name="genero"/>
+        </Method>
+        <Method name="getTipo" returnType="String" visibility="public"/>
         <Method name="getIconPath" returnType="String" visibility="public" isStatic="true"/>
+        <Method name="imprimir" returnType="void" visibility="public">
+          <Argument type="StringBuilder" name="sb"/>
+        </Method>
       </Methods>
     </Class>
-    <Class name="Trabajadores" package="gobierno" visibility="public" xPosition="1520.0" yPosition="420.0">
+    <Class name="Trabajadores" package="gobierno" visibility="public" xPosition="2120.0" yPosition="420.0">
       <Fields>
         <Field name="instance" type="Trabajadores" visibility="private" isStatic="true"/>
         <Field name="trabajadores" type="HashMap&lt;Integer, Trabajador&gt;" visibility="private" isFinal="true"/>
@@ -476,6 +568,7 @@ void" visibility="private"/>
           <Argument type="String" name="nombre"/>
           <Argument type="String" name="apellido"/>
           <Argument type="java.util.Date" name="fechaDeNacimiento"/>
+          <Argument type="Genero" name="genero"/>
         </Method>
         <Method name="modify" returnType="boolean" visibility="public">
           <Argument type="int" name="id"/>
@@ -485,9 +578,49 @@ void" visibility="private"/>
           <Argument type="String" name="nombre"/>
         </Method>
         <Method name="getMayorId" returnType="int" visibility="public"/>
+        <Method name="imprimir" returnType="void" visibility="public">
+          <Argument type="StringBuilder" name="sb"/>
+        </Method>
       </Methods>
     </Class>
-    <Class name="ProyectoFuncionarios" package="proyectofuncionarios" visibility="public" xPosition="1820.0" yPosition="420.0">
+    <Class name="TrabajadorPermanente" package="gobierno" visibility="public" isFinal="true" xPosition="20.0" yPosition="820.0">
+      <Fields/>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="int" name="id"/>
+          <Argument type="String" name="nombre"/>
+          <Argument type="String" name="apellido"/>
+          <Argument type="Genero" name="genero"/>
+          <Argument type="Date" name="fechaDeNacimiento"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getTipo" returnType="String" visibility="public"/>
+        <Method name="getIconPath" returnType="String" visibility="public" isStatic="true"/>
+      </Methods>
+    </Class>
+    <Class name="TrabajadorTemporero" package="gobierno" visibility="public" isFinal="true" xPosition="320.0" yPosition="820.0">
+      <Fields>
+        <Field name="fechaTerminoDeContrato" type="Date" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="int" name="id"/>
+          <Argument type="String" name="nombre"/>
+          <Argument type="String" name="apellido"/>
+          <Argument type="Genero" name="genero"/>
+          <Argument type="Date" name="fechaDeNacimiento"/>
+          <Argument type="Date" name="fechaTerminoContrato"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getTipo" returnType="String" visibility="public"/>
+        <Method name="getIconPath" returnType="String" visibility="public" isStatic="true"/>
+      </Methods>
+    </Class>
+    <Class name="ProyectoFuncionarios" package="proyectofuncionarios" visibility="public" xPosition="620.0" yPosition="820.0">
       <Fields/>
       <Constructors/>
       <Methods>
@@ -499,32 +632,44 @@ void" visibility="private"/>
     </Class>
   </ClassDiagramComponents>
   <ClassDiagramRelations>
-    <HasRelation name="estado" source="gobierno.Reparticion" target="gobierno.EstadoReparticion" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="reparticiones" source="chk.forms.MainWindow" target="gobierno.Reparticiones" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="trabajadores" source="chk.forms.TrabajadorChooserForm" target="gobierno.Trabajadores" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="gobierno.Reparticion" target="gobierno.Reparticion" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="chk.forms.TrabajadorEditorForm" target="gobierno.Trabajador" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="chk.forms.MainWindow" target="gobierno.Reparticion" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="trabajadorSaved" source="chk.forms.TrabajadorEditorForm" target="gobierno.Trabajador" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="trabajadores" source="gobierno.Reparticion" target="gobierno.Trabajador" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="ArrayList&lt;Trabajador&gt;"/>
+    <HasRelation name="instance" source="gobierno.Trabajadores" target="gobierno.Trabajadores" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="gobierno.Reparticiones" target="gobierno.Reparticiones" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="trabajadores" source="gobierno.Trabajadores" target="gobierno.Trabajador" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="HashMap&lt;Integer, Trabajador&gt;"/>
+    <HasRelation name="reparticiones" source="chk.forms.TrabajadorChooserForm" target="gobierno.Reparticiones" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="gobierno.TrabajadorPermanente" target="gobierno.Trabajador"/>
+    <UseRelation source="chk.forms.TrabajadorChooserForm" target="gobierno.Reparticion" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="contratos" source="chk.forms.TrabajadorChooserForm" target="gobierno.Contratos" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="gobierno.Reparticiones" target="gobierno.Imprimible"/>
+    <HasRelation name="instance" source="gobierno.Reparticiones" target="gobierno.Reparticiones" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="gobierno.Contratos" target="gobierno.Imprimible"/>
+    <HasRelation name="genero" source="gobierno.Trabajador" target="gobierno.Genero" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="chk.forms.ReparticionEditorForm" target="gobierno.Reparticion" sourceCardinality="1..1" targetCardinality="1..1"/>
     <UseRelation source="gobierno.Reparticion" target="gobierno.Trabajador" sourceCardinality="1..1" targetCardinality="1..1"/>
     <HasRelation name="reparticiones" source="gobierno.Reparticiones" target="gobierno.Reparticion" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="HashMap&lt;Integer, Reparticion&gt;"/>
-    <UseRelation source="gobierno.Reparticion" target="gobierno.Reparticion" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="instance" source="gobierno.Reparticiones" target="gobierno.Reparticiones" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
     <UseRelation source="gobierno.Trabajadores" target="gobierno.Trabajadores" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="chk.forms.TrabajadorEditorForm" target="gobierno.Trabajador" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="gobierno.Trabajadores" target="gobierno.Trabajador" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="gobierno.TrabajadorTemporero" target="gobierno.Trabajador"/>
     <HasRelation name="contratos" source="chk.forms.MainWindow" target="gobierno.Contratos" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="contratos" source="chk.forms.TrabajadorChooserForm" target="gobierno.Contratos" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="chk.forms.TrabajadorChooserForm" target="gobierno.Trabajador" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="gobierno.Contratos" target="gobierno.Contratos" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="instance" source="gobierno.Trabajadores" target="gobierno.Trabajadores" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="reparticiones" source="chk.forms.MainWindow" target="gobierno.Reparticiones" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="trabajadores" source="gobierno.Reparticion" target="gobierno.Trabajador" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="ArrayList&lt;Trabajador&gt;"/>
-    <UseRelation source="chk.forms.MainWindow" target="gobierno.Reparticion" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="instance" source="gobierno.Contratos" target="gobierno.Contratos" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="chk.forms.TrabajadorChooserForm" target="gobierno.Reparticion" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="gobierno.Reparticiones" target="gobierno.Reparticiones" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="gobierno.Reparticiones" target="gobierno.Reparticion" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="trabajadores" source="gobierno.Trabajadores" target="gobierno.Trabajador" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="HashMap&lt;Integer, Trabajador&gt;"/>
-    <HasRelation name="contratos" source="gobierno.Contratos" target="gobierno.Contrato" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="HashMap&lt;Integer, Contrato&gt;"/>
-    <HasRelation name="trabajadores" source="chk.forms.MainWindow" target="gobierno.Trabajadores" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="chk.forms.ReparticionEditorForm" target="gobierno.Reparticion" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="reparticiones" source="chk.forms.TrabajadorChooserForm" target="gobierno.Reparticiones" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
     <UseRelation source="gobierno.Contratos" target="gobierno.Contrato" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="trabajadores" source="chk.forms.TrabajadorChooserForm" target="gobierno.Trabajadores" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="gobierno.Reparticiones" target="gobierno.Reparticion" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="gobierno.Trabajador" target="gobierno.Imprimible"/>
+    <UseRelation source="gobierno.Contratos" target="gobierno.Contratos" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="gobierno.Trabajadores" target="gobierno.Genero" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="estado" source="gobierno.Reparticion" target="gobierno.EstadoReparticion" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="chk.forms.TrabajadorChooserForm" target="gobierno.Trabajador" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="trabajadores" source="chk.forms.MainWindow" target="gobierno.Trabajadores" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="gobierno.Trabajadores" target="gobierno.Imprimible"/>
+    <UseRelation source="gobierno.Trabajador" target="gobierno.Genero" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="instance" source="gobierno.Contratos" target="gobierno.Contratos" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="trabajador" source="chk.forms.TrabajadorChooserForm" target="gobierno.Trabajador" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="trabajador" source="chk.forms.TrabajadorEditorForm" target="gobierno.Trabajador" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="gobierno.Trabajadores" target="gobierno.Trabajador" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="contratos" source="gobierno.Contratos" target="gobierno.Contrato" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="HashMap&lt;Integer, Contrato&gt;"/>
   </ClassDiagramRelations>
 </ClassDiagram>
