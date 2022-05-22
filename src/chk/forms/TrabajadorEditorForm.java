@@ -29,6 +29,12 @@ public final class TrabajadorEditorForm extends javax.swing.JDialog {
         
         if (trabajador != null) {
             setTrabajador(trabajador);
+        } else {
+            if (isPermanent) {
+                this.trabajador = new TrabajadorPermanente();
+            } else {
+                this.trabajador = new TrabajadorTemporero();
+            }
         }
         
         initComponents();
@@ -45,14 +51,14 @@ public final class TrabajadorEditorForm extends javax.swing.JDialog {
             if (isPermanent) {
                 titleLabel.setText("Crear Trabajador Permanente");
                 setTitle("Crear Trabajador Permanente");
-                setTrabajador(new TrabajadorPermanente());
+                // setTrabajador(new TrabajadorPermanente());
             } else {
                 titleLabel.setText("Crear Trabajador Temporero");
                 setTitle("Crear Trabajador Temporero");
-                setTrabajador(new TrabajadorTemporero());
+                // setTrabajador(new TrabajadorTemporero());
             }
             
-            setTrabajador(trabajador);
+            // setTrabajador(this.trabajador);
         }
     }
 

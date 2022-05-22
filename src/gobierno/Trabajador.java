@@ -24,8 +24,8 @@ public abstract class Trabajador implements Imprimible {
     
     public Trabajador() {
         setId(-1);
-        setNombre("Nombre");
-        setApellido("Apellido");
+        setNombre("");
+        setApellido("");
         setFechaDeNacimiento(new Date(System.currentTimeMillis()));
         setGenero(Genero.Desconocido);
     }
