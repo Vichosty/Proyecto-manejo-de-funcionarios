@@ -11,6 +11,8 @@ import gobierno.Contratos;
 import gobierno.Genero;
 import gobierno.Reparticion;
 import gobierno.Reparticiones;
+import gobierno.ReporteFile;
+import gobierno.ReporteGUI;
 import gobierno.Trabajador;
 import gobierno.TrabajadorPermanente;
 import gobierno.TrabajadorTemporero;
@@ -102,6 +104,8 @@ public final class MainWindow extends javax.swing.JFrame {
         showSeparator = new javax.swing.JMenuItem();
         showPermanentCheckBox = new javax.swing.JCheckBoxMenuItem();
         showTemporaryCheckBox = new javax.swing.JCheckBoxMenuItem();
+        reportMenu = new javax.swing.JMenu();
+        reportToFileCheckBox = new javax.swing.JCheckBoxMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Manejo de Funcionarios");
@@ -460,6 +464,19 @@ public final class MainWindow extends javax.swing.JFrame {
 
         menuOptions.add(showMenu);
 
+        reportMenu.setText("Reportar");
+
+        reportToFileCheckBox.setSelected(true);
+        reportToFileCheckBox.setText("Reportar a Archivo");
+        reportToFileCheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reportToFileCheckBoxActionPerformed(evt);
+            }
+        });
+        reportMenu.add(reportToFileCheckBox);
+
+        menuOptions.add(reportMenu);
+
         menuBar.add(menuOptions);
 
         setJMenuBar(menuBar);
@@ -653,25 +670,14 @@ public final class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_reparticionRemoveButtonActionPerformed
     
     private void reportButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportButtonActionPerformed
-        try {
-            JFileChooser fileChooser = new JFileChooser();
-            if (fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
-                StringBuilder sb = new StringBuilder();
-                
-                reparticiones.imprimir(sb);
-                trabajadores.imprimir(sb);
-                contratos.imprimir(sb);
-                
-                String report = sb.toString();
-                File file = fileChooser.getSelectedFile();
-                try (FileWriter writer = new FileWriter(file)) {
-                    writer.write(report);
-                    MessageBox.infoBox("Archivo '"+fileChooser.getName(file)+"' guardado con exito", "Generar Reporte");
-                }
-            }
-        } catch (IOException e) {
-            MessageBox.errorBox(e.getLocalizedMessage(), "IOException");
+        if (isReportToFile()) {
+            // Reportar a archivo
+            new ReporteFile().reportar(this);
+        } else {
+            // Reportar a GUI
+            new ReporteGUI().reportar(this);
         }
+        
     }//GEN-LAST:event_reportButtonActionPerformed
 
     private void showMaleCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showMaleCheckBoxActionPerformed
@@ -698,6 +704,11 @@ public final class MainWindow extends javax.swing.JFrame {
         setShowTemporaries(showTemporaryCheckBox.isSelected());
         reloadTable(getReparticionFromTree(reparticionTree));
     }//GEN-LAST:event_showTemporaryCheckBoxActionPerformed
+
+    private void reportToFileCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportToFileCheckBoxActionPerformed
+        // TODO add your handling code here:
+        setReportToFile(reportToFileCheckBox.isSelected());
+    }//GEN-LAST:event_reportToFileCheckBoxActionPerformed
 
     public void reloadTree() {
         String filterStr = reparticionSearchTextbox.getText();
@@ -849,6 +860,19 @@ public final class MainWindow extends javax.swing.JFrame {
     public void setShowTemporaries(boolean showTemporaries) {
         this.showTemporaries = showTemporaries;
     }
+
+    public boolean isReportToFile() {
+        return reportToFile;
+    }
+
+    public void setReportToFile(boolean reportToFile) {
+        this.reportToFile = reportToFile;
+    }
+    
+    
+    
+    // private ReporteKind reportKind = true;
+    private boolean reportToFile = true;
     
     private boolean showMales = true;
     private boolean showFemales = true;
@@ -878,6 +902,8 @@ public final class MainWindow extends javax.swing.JFrame {
     private javax.swing.JLabel reparticionTitle;
     private javax.swing.JTree reparticionTree;
     private javax.swing.JButton reportButton;
+    private javax.swing.JMenu reportMenu;
+    private javax.swing.JCheckBoxMenuItem reportToFileCheckBox;
     private javax.swing.JPanel rightPanel;
     private javax.swing.JCheckBoxMenuItem showFemaleCheckBox;
     private javax.swing.JCheckBoxMenuItem showMaleCheckBox;
