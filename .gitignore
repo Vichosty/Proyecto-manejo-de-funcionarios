@@ -6,3 +6,5 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
+.DS_Store
+UMLDiagrams/.DS_Store
