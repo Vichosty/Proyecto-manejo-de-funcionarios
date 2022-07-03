@@ -8,6 +8,9 @@ import javax.swing.JOptionPane;
 
 /**
  *
+ * Por alguna razon, esto no viene incluido con Swing pese a ser extremadamente simple.
+ * Basicamente es un MessageBox(...) en Windows.
+ * 
  * @author chk
  */
 public class MessageBox {

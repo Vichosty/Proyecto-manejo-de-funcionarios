@@ -6,6 +6,8 @@ package gobierno;
 
 /**
  *
+ * Interfaz usada por clases que desean poder ser impresas en los reportes.
+ * 
  * @author chk
  */
 public interface Imprimible {

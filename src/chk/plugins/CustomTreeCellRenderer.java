@@ -14,6 +14,13 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 
 /**
  *
+ * Esta clase se encarga de mostrar nuestras distintas clases cuando son agregadas
+ * a un JTree.
+ * 
+ * Esta clase es necesaria, ya que por defecto Java no es capaz de recibir
+ * un Object en el modelo del JTree y automaticamente mostrar un icono distinto
+ * basado en la clase del Object.
+ * 
  * @author chkp
  */
 public class CustomTreeCellRenderer extends DefaultTreeCellRenderer {

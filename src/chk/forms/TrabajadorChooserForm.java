@@ -18,6 +18,16 @@ import javax.swing.tree.TreeSelectionModel;
 
 /**
  *
+ * Este form recibe una reparticion y muestra todos los trabajadores que NO
+ * pertenezcan a este, luego permite al usuario seleccionar uno y lo retorna.
+ * 
+ * Si ningun trabajador es seleccionado, getTrabajador retorna null.
+ * 
+ * uso: TrabajadorChooserForm tcf = new TrabajadorChooserForm(parent, true, r);
+ *      tcf.setVisible(true);
+ *      Trabajador t = tcf.getTrabajador();
+ *      // ...
+ * 
  * @author chkp
  */
 public final class TrabajadorChooserForm extends javax.swing.JDialog {

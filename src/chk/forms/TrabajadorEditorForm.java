@@ -8,6 +8,15 @@ package chk.forms;
 import gobierno.*;
 /**
  *
+ * Este form crea un nuevo Trabajador, le asigna los valores del pasado por parametro
+ * y luego al retornar al form parent, este puede reemplazar el existente por la
+ * version modificada aca.
+ * 
+ * uso: TrabajadorEditorForm t = new TrabajadorEditorForm(parent, true, trabajadorOld, true);
+ *      t.setVisible(true);
+ *      trabajadorOld = t.getTrabajador(); // Esto reemplaza el trabajador con el modificado.
+ *      // ...
+ * 
  * @author chkp
  */
 public final class TrabajadorEditorForm extends javax.swing.JDialog {
@@ -18,6 +27,7 @@ public final class TrabajadorEditorForm extends javax.swing.JDialog {
      * @param parent
      * @param modal
      * @param trabajador
+     * @param isPermanent
      */
     public TrabajadorEditorForm(java.awt.Frame parent, boolean modal, gobierno.Trabajador trabajador, boolean isPermanent) {
         super(parent, modal);
