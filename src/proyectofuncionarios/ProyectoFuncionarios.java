@@ -88,28 +88,28 @@ public class ProyectoFuncionarios {
         // <editor-fold defaultstate="collapsed" desc="Look and Feel">
         try {
             System.setProperty("apple.laf.useScreenMenuBar", "true");
-            
+
             // Si FlatLaf esta instalado, agregalos a la lista y usa FlatLightLaf por defecto.
             javax.swing.UIManager.setLookAndFeel("com.formdev.flatlaf.FlatLightLaf");
 
             UIManager.installLookAndFeel("FlatLightLaf", "com.formdev.flatlaf.FlatLightLaf");
             UIManager.installLookAndFeel("FlatDarkLaf", "com.formdev.flatlaf.FlatDarkLaf");
             UIManager.installLookAndFeel("FlatDarculaLaf", "com.formdev.flatlaf.FlatDarculaLaf");
-            
-        } catch (javax.swing.UnsupportedLookAndFeelException | 
-                ClassNotFoundException | 
-                InstantiationException | 
-                IllegalAccessException ex) {
+
+        } catch (javax.swing.UnsupportedLookAndFeelException
+                | ClassNotFoundException
+                | InstantiationException
+                | IllegalAccessException ex) {
             System.out.println("FlatLaf no esta instalado.");
             try {
                 // FlatLaf not found, intenta el de sistema.
                 javax.swing.UIManager.setLookAndFeel(
                         javax.swing.UIManager.getSystemLookAndFeelClassName()
                 );
-            } catch (ClassNotFoundException | 
-                    InstantiationException | 
-                    IllegalAccessException | 
-                    UnsupportedLookAndFeelException ex1) {
+            } catch (ClassNotFoundException
+                    | InstantiationException
+                    | IllegalAccessException
+                    | UnsupportedLookAndFeelException ex1) {
                 Logger.getLogger(ProyectoFuncionarios.class.getName()).log(Level.SEVERE, null, ex1);
             }
         }
@@ -142,7 +142,7 @@ public class ProyectoFuncionarios {
             "Lee", "Perez", "Thompson", "White", "Harris",
             "Sanchez", "Clark", "Hall", "Allen", "Young"
         };
-        
+
         ThreadLocalRandom random = ThreadLocalRandom.current();
 
         // Genero[] posiblesGeneros = Genero.values();
@@ -155,16 +155,18 @@ public class ProyectoFuncionarios {
             for (int i = 1; i <= 50; ++i) {
                 int randomIndex = random.nextInt(commonNames.length);
                 String randomName = commonNames[randomIndex];
-                
+
                 Genero gender = Genero.Hombre;
-                if (randomIndex > 20) { gender = Genero.Mujer; }
-                
+                if (randomIndex > 20) {
+                    gender = Genero.Mujer;
+                }
+
                 randomIndex = random.nextInt(commonSurnames.length);
                 String randomSurname = commonSurnames[randomIndex];
-                
+
                 long randomMilis = random.nextLong(startMilis, endMilis);
                 Date randomDate = new Date(randomMilis);
-                
+
                 int randomType = random.nextInt(2);
                 switch (randomType) {
                     case 0:

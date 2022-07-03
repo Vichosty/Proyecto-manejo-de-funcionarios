@@ -21,7 +21,7 @@ public abstract class Trabajador implements Imprimible {
     private String fechaDeNacimientoAsString;
     private Date fechaDeNacimiento;
     private Genero genero;
-    
+
     public Trabajador() {
         setId(-1);
         setNombre("");
@@ -81,30 +81,30 @@ public abstract class Trabajador implements Imprimible {
             this.fechaDeNacimientoAsString = df.format(this.fechaDeNacimiento);
         }
     }
-    
+
     public String getGeneroAsString() {
         return genero.toString();
     }
-    
-    public Genero getGenero(){
-        if (genero == null){
+
+    public Genero getGenero() {
+        if (genero == null) {
             setGenero(Genero.Desconocido);
         }
         return genero;
     }
-    
-    public void setGenero(Genero genero){
+
+    public void setGenero(Genero genero) {
         this.genero = genero;
     }
-    
+
     public String getTipo() {
         return "Trabajador";
     }
-    
+
     public static String getIconPath() {
         return "icons/employee.png";
     }
-    
+
     @Override
     public void imprimir(StringBuilder sb) {
         sb.append("[").append(this.getTipo()).append("][").append(this.getId()).append("] ")

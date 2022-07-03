@@ -8,20 +8,18 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * Por alguna razon, esto no viene incluido con Swing pese a ser extremadamente simple.
- * Basicamente es un MessageBox(...) en Windows.
- * 
+ * Por alguna razon, esto no viene incluido con Swing pese a ser extremadamente
+ * simple. Basicamente es un MessageBox(...) en Windows.
+ *
  * @author chk
  */
 public class MessageBox {
-    public static void infoBox(String msg, String titleBar)
-    {
+
+    public static void infoBox(String msg, String titleBar) {
         JOptionPane.showMessageDialog(null, msg, "Info: " + titleBar, JOptionPane.INFORMATION_MESSAGE);
     }
-    
-    public static void errorBox(String msg, String titleBar)
-    {
+
+    public static void errorBox(String msg, String titleBar) {
         JOptionPane.showMessageDialog(null, msg, "Error: " + titleBar, JOptionPane.ERROR_MESSAGE);
     }
 }
-

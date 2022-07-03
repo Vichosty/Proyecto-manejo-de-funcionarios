@@ -11,21 +11,23 @@ import java.util.Date;
  * @author chk
  */
 public final class TrabajadorTemporero extends Trabajador {
+
     private Date fechaTerminoDeContrato;
-    
+
     public TrabajadorTemporero() {
         super();
     }
-    
+
     public TrabajadorTemporero(int id, String nombre, String apellido, Genero genero, Date fechaDeNacimiento, Date fechaTerminoContrato) {
         super(id, nombre, apellido, genero, fechaDeNacimiento);
         fechaTerminoContrato = fechaTerminoContrato;
     }
-    
-    @Override public String getTipo() {
+
+    @Override
+    public String getTipo() {
         return "Temporero";
     }
-    
+
     public static String getIconPath() {
         return "icons/employee.png";
     }

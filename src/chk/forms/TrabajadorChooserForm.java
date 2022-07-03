@@ -20,31 +20,30 @@ import javax.swing.tree.TreeSelectionModel;
  *
  * Este form recibe una reparticion y muestra todos los trabajadores que NO
  * pertenezcan a este, luego permite al usuario seleccionar uno y lo retorna.
- * 
+ *
  * Si ningun trabajador es seleccionado, getTrabajador retorna null.
- * 
+ *
  * uso: TrabajadorChooserForm tcf = new TrabajadorChooserForm(parent, true, r);
- *      tcf.setVisible(true);
- *      Trabajador t = tcf.getTrabajador();
- *      // ...
- * 
+ * tcf.setVisible(true); Trabajador t = tcf.getTrabajador(); // ...
+ *
  * @author chkp
  */
 public final class TrabajadorChooserForm extends javax.swing.JDialog {
 
     /**
      * Creates new form TrabajadorAddExistingForm
+     *
      * @param parent
      * @param modal
      * @param reparticion
      */
     public TrabajadorChooserForm(java.awt.Frame parent, boolean modal, Reparticion reparticion) {
         super(parent, modal);
-        
+
         trabajadores = Trabajadores.get();
         reparticiones = Reparticiones.get();
         contratos = Contratos.get();
-        
+
         initComponents();
         setReparticion(reparticion);
     }
@@ -147,9 +146,9 @@ public final class TrabajadorChooserForm extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void selectTreeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_selectTreeMouseClicked
-        JTree tree = (JTree)evt.getSource();
+        JTree tree = (JTree) evt.getSource();
         int row = tree.getRowForLocation(evt.getX(), evt.getY());
-        
+
         if (row == -1) {
             tree.clearSelection();
             this.trabajador = null;
@@ -178,12 +177,12 @@ public final class TrabajadorChooserForm extends javax.swing.JDialog {
 
     public void reloadTree() {
         DefaultMutableTreeNode treeRoot = new DefaultMutableTreeNode();
-        
+
         // populate the nodes
         DefaultMutableTreeNode reparticionNode;
         for (int reparticionId : reparticiones.getIDs()) {
             Reparticion r = reparticiones.get(reparticionId);
-            
+
             // Saltar el nodo si es de la reparticion a la que queremos agregar
             if (this.reparticion.equals(r)) {
                 continue;
@@ -197,28 +196,29 @@ public final class TrabajadorChooserForm extends javax.swing.JDialog {
                 El siguiente codigo es practicamente igual al anterior, pero
                 esta version usa la doble-anidacion de Reparticiones->Reparticion->idTrabajadores
                 para obtener al potencial trabajador.
-            */
-            
+             */
             // Agregar los trabajadores con contrato en esta reparticion al nodo
             DefaultMutableTreeNode trabajadorNode;
-            for(int trabajadorId : r.getIdsTrabajadores()) {
+            for (int trabajadorId : r.getIdsTrabajadores()) {
                 Trabajador t = trabajadores.get(trabajadorId);
-                
+
                 // Obtener una lista de los contratos de este trabajador, para ver
                 // si es necesario omitirlo (ya esta en ambas, etc)
                 boolean found = false;
                 for (int contratoId : contratos.getIDsByIdTrabajador(trabajadorId)) {
                     Contrato c = contratos.get(contratoId);
                     if (c.getIdReparticion() == reparticion.getId()) {
-                        found = true; 
+                        found = true;
                         break;
                     }
                 }
-                
+
                 // Si encontramos aunque sea un contrato que incluya a la reparticion en el
                 // entonces el trabajador no es candidato para la lista.
-                if (found) { continue; }
-                
+                if (found) {
+                    continue;
+                }
+
                 trabajadorNode = new DefaultMutableTreeNode(t.getNombreCompleto());
                 trabajadorNode.setUserObject(t);
                 reparticionNode.add(trabajadorNode);
@@ -250,7 +250,6 @@ public final class TrabajadorChooserForm extends javax.swing.JDialog {
         return this.trabajador;
     }
 
-    
     private Trabajador trabajador = null;
     private final Trabajadores trabajadores;
     private final Reparticiones reparticiones;

@@ -5,7 +5,6 @@
  */
 package chk.forms;
 
-import chk.plugins.MessageBox;
 import gobierno.Contrato;
 import gobierno.Contratos;
 import gobierno.Genero;
@@ -19,10 +18,6 @@ import gobierno.TrabajadorTemporero;
 import gobierno.Trabajadores;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -51,7 +46,7 @@ public final class MainWindow extends javax.swing.JFrame {
         trabajadores = Trabajadores.get();
         reparticiones = Reparticiones.get();
         contratos = Contratos.get();
-    
+
         initComponents();
         reloadTree();
     }
@@ -489,7 +484,7 @@ public final class MainWindow extends javax.swing.JFrame {
         // Get the selected item name
         DefaultMutableTreeNode selectedNode
                 = (DefaultMutableTreeNode) evt.getPath().getLastPathComponent();
-                
+
         Reparticion r = null;
         if (selectedNode != null) {
             r = (Reparticion) selectedNode.getUserObject();
@@ -504,10 +499,10 @@ public final class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_reparticionTreeValueChanged
 
     /**
-     * 
+     *
      * Selecciona el trabajador en la Tabla de la derecha.
-     * 
-     * @param evt 
+     *
+     * @param evt
      */
     private void trabajadoresTableMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_trabajadoresTableMousePressed
         JTable table = (JTable) evt.getSource();
@@ -535,26 +530,28 @@ public final class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_trabajadoresTableMousePressed
 
     /**
-     * 
+     *
      * Selecciona la reparticion a editar/observar en el arbol de la izquierda.
-     * 
-     * @param evt 
+     *
+     * @param evt
      */
     private void reparticionTreeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reparticionTreeMouseClicked
-        JTree tree = (JTree)evt.getSource();
-        
+        JTree tree = (JTree) evt.getSource();
+
         int x = evt.getX();
         int y = evt.getY();
-        
+
         int row = tree.getClosestRowForLocation(x, y);
         Rectangle bounds = tree.getRowBounds(row);
-        if (bounds == null) { return; }
-        
+        if (bounds == null) {
+            return;
+        }
+
         // Si cliqueamos arriba o abajo del rectangulo, desactiva la seleccion
         if (y < bounds.y || y > bounds.y + bounds.height) {
             row = -1;
         }
-        
+
         if (row == -1) {
             tree.clearSelection();
             reparticionRemoveButton.setEnabled(false);
@@ -567,10 +564,10 @@ public final class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_reparticionTreeMouseClicked
 
     /**
-     * 
+     *
      * Crea el form de edicion de trabajador si uno esta seleccionado.
-     * 
-     * @param evt 
+     *
+     * @param evt
      */
     private void trabajadoresEditButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trabajadoresEditButtonActionPerformed
         // Obtener el trabajador dada la id seleccionada
@@ -591,19 +588,19 @@ public final class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_trabajadoresEditButtonActionPerformed
 
     /**
-     * 
+     *
      * Remueve un trabajador de su respectiva reparticion si este se encuentra
      * seleccionado.
-     * 
-     * @param evt 
+     *
+     * @param evt
      */
     private void trabajadoresRemoveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trabajadoresRemoveButtonActionPerformed
         int config = JOptionPane.YES_NO_OPTION;
         int response = JOptionPane.showConfirmDialog(null,
-                "Estas seguro de que deseas eliminar este contrato?", 
-                "Cuidado", 
+                "Estas seguro de que deseas eliminar este contrato?",
+                "Cuidado",
                 config);
-        
+
         if (response == JOptionPane.YES_OPTION) {
             // Obtener el trabajador dada la id seleccionada
             int selectedRow = trabajadoresTable.getSelectedRow();
@@ -621,10 +618,10 @@ public final class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_trabajadoresRemoveButtonActionPerformed
 
     /**
-     * 
+     *
      * Agrega un nuevo trabajador a la reparticion seleccionada.
-     * 
-     * @param evt 
+     *
+     * @param evt
      */
     private void trabajadoresAdd1ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trabajadoresAdd1ButtonActionPerformed
         // Creamos un nuevo trabajador y lo agregamos al gobierno
@@ -636,7 +633,7 @@ public final class MainWindow extends javax.swing.JFrame {
 
         // Obtener la reparticion, usando la lista de la izquierda
         Reparticion r = getReparticionFromTree(reparticionTree);
-        
+
         // Creamos un nuevo contrato y lo agregamos al gobierno
         contratos.add(new Contrato(contratos.getMayorId() + 1, t.getId(), r.getId()));
 
@@ -644,10 +641,10 @@ public final class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_trabajadoresAdd1ButtonActionPerformed
 
     /**
-     * 
+     *
      * Agrega un trabajador existente de otra reparticion a la seleccionada.
-     * 
-     * @param evt 
+     *
+     * @param evt
      */
     private void trabajadoresAdd2ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trabajadoresAdd2ButtonActionPerformed
         // Obtener la reparticion, usando la lista de la izquierda
@@ -665,10 +662,10 @@ public final class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_trabajadoresAdd2ButtonActionPerformed
 
     /**
-     * 
+     *
      * Crea una nueva reparticion y la agrega al arbol de la izquierda.
-     * 
-     * @param evt 
+     *
+     * @param evt
      */
     private void reparticionAddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reparticionAddButtonActionPerformed
         ReparticionEditorForm form = new ReparticionEditorForm(this, true, null);
@@ -681,10 +678,10 @@ public final class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_reparticionAddButtonActionPerformed
 
     /**
-     * 
+     *
      * Cambia el nombre de la reparticion seleccionada.
-     * 
-     * @param evt 
+     *
+     * @param evt
      */
     private void reparticionEditButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reparticionEditButtonActionPerformed
         // Obtener reparticion seleccionada
@@ -701,21 +698,25 @@ public final class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_reparticionEditButtonActionPerformed
 
     /**
-     * 
-     * Remueve la reparticion seleccionada, eliminando todos los contratos
-     * que la incluyan.
-     * 
-     * @param evt 
+     *
+     * Remueve la reparticion seleccionada, eliminando todos los contratos que
+     * la incluyan.
+     *
+     * @param evt
      */
     private void reparticionRemoveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reparticionRemoveButtonActionPerformed
-        if (reparticionTree.getModel().getChildCount(reparticionTree.getModel().getRoot()) <= 0) { return; }
+        if (reparticionTree.getModel().getChildCount(reparticionTree.getModel().getRoot()) <= 0) {
+            return;
+        }
         Reparticion r = getReparticionFromTree(reparticionTree);
-        if (r == null) { return; }
-        
+        if (r == null) {
+            return;
+        }
+
         int config = JOptionPane.YES_NO_OPTION;
         int response = JOptionPane.showConfirmDialog(null,
-                "Estas seguro de que deseas eliminar esta reparticion?", 
-                "Cuidado", 
+                "Estas seguro de que deseas eliminar esta reparticion?",
+                "Cuidado",
                 config);
         if (response == JOptionPane.YES_OPTION) {
             reparticiones.remove(r.getId());
@@ -724,13 +725,13 @@ public final class MainWindow extends javax.swing.JFrame {
             reparticionEditButton.setEnabled(false);
         }
     }//GEN-LAST:event_reparticionRemoveButtonActionPerformed
-    
+
     /**
-     * 
-     * Genera un reporte en el formato deseado, el cual puede ser un archivo o 
+     *
+     * Genera un reporte en el formato deseado, el cual puede ser un archivo o
      * una ventana de GUI, donde el texto puede ser posteriormente copiado.
-     * 
-     * @param evt 
+     *
+     * @param evt
      */
     private void reportButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportButtonActionPerformed
         if (isReportToFile()) {
@@ -740,7 +741,7 @@ public final class MainWindow extends javax.swing.JFrame {
             // Reportar a GUI
             new ReporteGUI().reportar(this);
         }
-        
+
     }//GEN-LAST:event_reportButtonActionPerformed
 
     private void showMaleCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showMaleCheckBoxActionPerformed
@@ -774,90 +775,104 @@ public final class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_reportToFileCheckBoxActionPerformed
 
     /**
-     * 
+     *
      * Resetea el arbol de reparticiones a su estado neutro, luego agrega tantos
      * elementos como reparticiones validas. Esto tambien resetea la tabla.
-     * 
+     *
      */
     public void reloadTree() {
         String filterStr = reparticionSearchTextbox.getText();
-        
+
         Reparticion savedR = getReparticionFromTree(reparticionTree);
         DefaultMutableTreeNode savedNode = null;
-        
+
         DefaultMutableTreeNode treeRoot = new DefaultMutableTreeNode();
         // populate the nodes
         DefaultMutableTreeNode reparticionNode;
         for (int reparticionId : reparticiones.getIDs()) {
             Reparticion r = reparticiones.get(reparticionId);
-            
+
             // Check if the name includes the filterStr
             if (!filterStr.isEmpty()) {
                 if (!r.getNombre().contains(filterStr)) {
                     continue;
                 }
             }
-            
+
             reparticionNode = new DefaultMutableTreeNode(r.getNombre());
             reparticionNode.setUserObject(r);
             treeRoot.add(reparticionNode);
-            
+
             // If the new node is the same as the last selected node,
             // keep it selected
             if (savedR != null && r.getId() == savedR.getId()) {
                 savedNode = reparticionNode;
             }
         }
-        
+
         DefaultTreeModel treeModel = new DefaultTreeModel(treeRoot);
         this.reparticionTree.setModel(treeModel);
-        
+
         if (savedNode != null) {
             TreePath savedPath = new TreePath(savedNode.getPath());
             reparticionTree.setSelectionPath(savedPath);
         }
-        
+
         savedR = getReparticionFromTree(reparticionTree);
         reloadTable(savedR);
     }
 
     /**
-     * 
-     * Dada una reparticion r, rellena la tabla de la derecha con los trabajadores
-     * pertenecientes a esta.
-     * 
+     *
+     * Dada una reparticion r, rellena la tabla de la derecha con los
+     * trabajadores pertenecientes a esta.
+     *
      * Esta funcion filtra la tabla con las opciones del menu->mostrar.
-     * 
-     * @param r 
+     *
+     * @param r
      */
     public void reloadTable(Reparticion r) {
         String filterStr = trabajadoresSearchTextbox.getText();
-        
-        DefaultTableModel tableModel = (DefaultTableModel) trabajadoresTable.getModel();  
+
+        DefaultTableModel tableModel = (DefaultTableModel) trabajadoresTable.getModel();
         tableModel.setRowCount(0);
         if (r != null) {
             for (int contratoId : contratos.getIDsByIdReparticion(r.getId())) {
                 Contrato c = contratos.get(contratoId);
-                if (c == null) { continue; }
-                
+                if (c == null) {
+                    continue;
+                }
+
                 Trabajador t = trabajadores.get(c.getIdTrabajador());
-                if (t == null) { continue; }
-                
+                if (t == null) {
+                    continue;
+                }
+
                 // Skip based on config
-                if (!showMales && t.getGenero() == Genero.Hombre) { continue; }
-                if (!showFemales && t.getGenero() == Genero.Mujer) { continue; }
-                if (!showOthers && t.getGenero() == Genero.Otro) { continue; }
-                
-                if (!showPermanents && t instanceof TrabajadorPermanente) { continue; }
-                if (!showTemporaries && t instanceof TrabajadorTemporero) { continue; }
-                
+                if (!showMales && t.getGenero() == Genero.Hombre) {
+                    continue;
+                }
+                if (!showFemales && t.getGenero() == Genero.Mujer) {
+                    continue;
+                }
+                if (!showOthers && t.getGenero() == Genero.Otro) {
+                    continue;
+                }
+
+                if (!showPermanents && t instanceof TrabajadorPermanente) {
+                    continue;
+                }
+                if (!showTemporaries && t instanceof TrabajadorTemporero) {
+                    continue;
+                }
+
                 // Filter the table if the filterStr is not empty
                 if (!filterStr.isEmpty()) {
                     if (!t.getNombreCompleto().contains(filterStr)) {
                         continue;
                     }
                 }
-                
+
                 tableModel.addRow(new Object[]{
                     t.getId(),
                     t.getNombre(),
@@ -878,25 +893,27 @@ public final class MainWindow extends javax.swing.JFrame {
     }
 
     /**
-     * 
-     * Retorna la reparticion seleccionada en el arbol, si hay alguna. 
-     * 
+     *
+     * Retorna la reparticion seleccionada en el arbol, si hay alguna.
+     *
      * @param tree
      * @return Reparticion la reparticion seleccionada en el arbol.
      */
     public Reparticion getReparticionFromTree(JTree tree) {
         DefaultMutableTreeNode selectedNode
                 = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
-        if (selectedNode == null) { return null; }
-        
+        if (selectedNode == null) {
+            return null;
+        }
+
         Reparticion r = (Reparticion) selectedNode.getUserObject();
         return r;
     }
-    
+
     public void filterReparticiones() {
         reloadTree();
     }
-    
+
     public void filterTrabajadores() {
         // Obtener la reparticion, usando la lista de la izquierda
         Reparticion r = getReparticionFromTree(reparticionTree);
@@ -905,7 +922,6 @@ public final class MainWindow extends javax.swing.JFrame {
         }
     }
 
-    
     public boolean isShowMales() {
         return showMales;
     }
@@ -953,18 +969,16 @@ public final class MainWindow extends javax.swing.JFrame {
     public void setReportToFile(boolean reportToFile) {
         this.reportToFile = reportToFile;
     }
-    
-    
-    
+
     // private ReporteKind reportKind = true;
     private boolean reportToFile = true;
-    
+
     private boolean showMales = true;
     private boolean showFemales = true;
     private boolean showOthers = true;
     private boolean showPermanents = true;
     private boolean showTemporaries = true;
-    
+
     private final Trabajadores trabajadores;
     private final Reparticiones reparticiones;
     private final Contratos contratos;

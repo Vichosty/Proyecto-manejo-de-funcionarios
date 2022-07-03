@@ -12,7 +12,7 @@ package gobierno;
 //listado con los sexos que puede tener el empleado
 public enum Genero {
     Desconocido,
-    Hombre, 
+    Hombre,
     Mujer,
     Otro
 }

@@ -68,73 +68,82 @@ public class Reparticion {
     }
 
     public int getNumTrabajadores() {
-        return(this.trabajadores.size());
+        return (this.trabajadores.size());
     }
-    
+
     public Trabajador getTrabajador(int index) {
         if (index >= 0 && index < getNumTrabajadores()) {
             return this.trabajadores.get(index);
         }
-        return(null);
+        return (null);
     }
-    
+
     public ArrayList<Integer> getIdsTrabajadores() {
         ArrayList<Integer> result = new ArrayList<>();
-        for(Trabajador t : trabajadores) { result.add(t.getId()); }
-        return(result);
+        for (Trabajador t : trabajadores) {
+            result.add(t.getId());
+        }
+        return (result);
     }
-    
+
     // Agrega una referencia a un trabajador en la lista de ids
     // Sin crear un nuevo contrato (usado por Contratos para agregar una referencia)
     public boolean addTrabajadorRef(int id) {
         // Chequear si ya esta en la lista
-        for(Trabajador trabajador : trabajadores) {
-            if (trabajador.getId() == id) { return(false); }
+        for (Trabajador trabajador : trabajadores) {
+            if (trabajador.getId() == id) {
+                return (false);
+            }
         }
-        
+
         Trabajador t = Trabajadores.get().get(id);
-        if (t != null)
-            return(trabajadores.add(t));
-        return(false);
+        if (t != null) {
+            return (trabajadores.add(t));
+        }
+        return (false);
     }
-    
+
     public int findTrabajadorId(String nombre) {
         Trabajadores ts = Trabajadores.get();
         for (Trabajador t : trabajadores) {
             if (t.getNombre().equalsIgnoreCase(nombre)) {
-                return(t.getId());
+                return (t.getId());
             }
         }
-        
-        return(-1);
+
+        return (-1);
     }
-    
+
     public boolean removeTrabajadorById(int id, boolean removeFromContratos) {
         Contratos cs = Contratos.get();
-        
+
         ArrayList<Trabajador> found = new ArrayList<>();
         boolean removed = true;
         if (removeFromContratos) {
             removed = cs.remove(id, getId());
         }
-        
+
         if (removed) {
             // Removido con exito de los contratos, remover de aca tambien
-            for(Trabajador t : trabajadores) {
-                if (t.getId() == id) { found.add(t); }
+            for (Trabajador t : trabajadores) {
+                if (t.getId() == id) {
+                    found.add(t);
+                }
             }
         }
-        
-        return(trabajadores.removeAll(found));
+
+        return (trabajadores.removeAll(found));
     }
-    
+
     public boolean removeAll() {
-        if (trabajadores.isEmpty()) { return(false); }
-        
+        if (trabajadores.isEmpty()) {
+            return (false);
+        }
+
         trabajadores.clear();
-        return(true);
+        return (true);
     }
-    
+
     public EstadoReparticion getEstado() {
         // Check if we're in an anormal state, then return that.
 
@@ -148,7 +157,6 @@ public class Reparticion {
     }
 
     // TODO: findTrabajador, etc. (para no tener que usar directamente al gobierno.)
-    
     public static String getIconPath() {
         return "icons/company.png";
     }

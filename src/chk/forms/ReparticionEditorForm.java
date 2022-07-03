@@ -4,18 +4,17 @@
  * and open the template in the editor.
  */
 package chk.forms;
+
 import gobierno.Reparticion;
 
 /**
  *
  * Permite cambiarle el nombre a una reparticion. Retorna una nueva reparticion
  * que es igual a la entregada, excepto que tiene el nuevo nombre.
- * 
+ *
  * uso: ReparticionEditorForm ref = new ReparticionEditorForm(parent, true, r);
- *      ref.setVisible(true);
- *      Reparticion newR = ref.getReparticion();
- *      // ...
- * 
+ * ref.setVisible(true); Reparticion newR = ref.getReparticion(); // ...
+ *
  * @author chkp
  */
 public final class ReparticionEditorForm extends javax.swing.JDialog {

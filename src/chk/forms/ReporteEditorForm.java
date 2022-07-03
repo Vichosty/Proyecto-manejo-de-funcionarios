@@ -14,12 +14,10 @@ import javax.swing.WindowConstants;
 /**
  *
  * Basicamente es un JTextArea que muestra el String pasado por parametro.
- * 
+ *
  * uso: ReporteEditorForm ref = new ReporteEditorForm(parent, true, str);
- *      ref.setVisible(true);
- *      String reporteModificado = ref.getReport();
- *      // ...
- * 
+ * ref.setVisible(true); String reporteModificado = ref.getReport(); // ...
+ *
  * @author chk
  */
 public class ReporteEditorForm extends javax.swing.JDialog {
@@ -86,7 +84,7 @@ public class ReporteEditorForm extends javax.swing.JDialog {
     public void setReport(String report) {
         this.report = report;
     }
-    
+
     private String report;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JLabel jLabel1;

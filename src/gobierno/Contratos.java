@@ -37,8 +37,8 @@ public class Contratos implements Imprimible {
     }
 
     /**
-    * Retorna una lista con las IDs de todos los Contratos.
-    */
+     * Retorna una lista con las IDs de todos los Contratos.
+     */
     public ArrayList<Integer> getIDs() {
         ArrayList<Integer> list = new ArrayList<>();
         for (int key : contratos.keySet()) {
@@ -48,9 +48,9 @@ public class Contratos implements Imprimible {
     }
 
     /**
-    * Retorna una lista con las IDs de todos los Contratos pertenecientes al
-    * Trabajador cuya ID corresponda al parametro idTrabajador.
-    */
+     * Retorna una lista con las IDs de todos los Contratos pertenecientes al
+     * Trabajador cuya ID corresponda al parametro idTrabajador.
+     */
     public ArrayList<Integer> getIDsByIdTrabajador(int idTrabajador) {
         ArrayList<Integer> list = new ArrayList<>();
         for (Contrato c : contratos.values()) {
@@ -62,9 +62,9 @@ public class Contratos implements Imprimible {
     }
 
     /**
-    * Retorna una lista con las IDs de todos los contratos pertenecientes
-    * a la Reparticion con ID idReparticion.
-    */
+     * Retorna una lista con las IDs de todos los contratos pertenecientes a la
+     * Reparticion con ID idReparticion.
+     */
     public ArrayList<Integer> getIDsByIdReparticion(int idReparticion) {
         ArrayList<Integer> list = new ArrayList<>();
         for (Contrato c : contratos.values()) {
@@ -76,9 +76,9 @@ public class Contratos implements Imprimible {
     }
 
     /**
-    * Agrega un nuevo contrato. En caso que este tenga ID negativa, se le
-    * asigna automaticamente una nueva que no se encuentre en uso.
-    */
+     * Agrega un nuevo contrato. En caso que este tenga ID negativa, se le
+     * asigna automaticamente una nueva que no se encuentre en uso.
+     */
     public boolean add(Contrato c) {
         // Si agregamos uno con id < 0, auto asignar la mayor posible
         if (c.getId() < 0) {
@@ -102,8 +102,8 @@ public class Contratos implements Imprimible {
     }
 
     /**
-    * Elimina el primer contrato que tenga la ID entregada.
-    */
+     * Elimina el primer contrato que tenga la ID entregada.
+     */
     public Contrato remove(int id) {
         if (contratos.containsKey(id)) {
             Contrato c = get(id);
@@ -118,9 +118,9 @@ public class Contratos implements Imprimible {
     }
 
     /**
-    * Elimina el primer contrato cuyo par Trabajador/Reparticion sea igual
-    * a los provistos.
-    */
+     * Elimina el primer contrato cuyo par Trabajador/Reparticion sea igual a
+     * los provistos.
+     */
     public boolean remove(int idTrabajador, int idReparticion) {
         boolean found = false;
         for (int idContrato : getIDsByIdTrabajador(idTrabajador)) {
@@ -138,9 +138,9 @@ public class Contratos implements Imprimible {
     }
 
     /**
-    * Remueve todos los contratos cuyo Trabajador corresponde a la ID
-    * entregada.
-    */
+     * Remueve todos los contratos cuyo Trabajador corresponde a la ID
+     * entregada.
+     */
     public boolean removeByIdTrabajador(int id) {
         boolean found = false;
         for (int idContrato : getIDs()) {
@@ -159,9 +159,9 @@ public class Contratos implements Imprimible {
     }
 
     /**
-    * Remueve todos los contratos cuya Reparticion corresponda a la ID
-    * entregada.
-    */
+     * Remueve todos los contratos cuya Reparticion corresponda a la ID
+     * entregada.
+     */
     public boolean removeByIdReparticion(int id) {
         boolean found = false;
         for (int idContrato : getIDs()) {

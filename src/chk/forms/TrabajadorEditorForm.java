@@ -6,17 +6,17 @@
 package chk.forms;
 
 import gobierno.*;
+
 /**
  *
- * Este form crea un nuevo Trabajador, le asigna los valores del pasado por parametro
- * y luego al retornar al form parent, este puede reemplazar el existente por la
- * version modificada aca.
- * 
- * uso: TrabajadorEditorForm t = new TrabajadorEditorForm(parent, true, trabajadorOld, true);
- *      t.setVisible(true);
- *      trabajadorOld = t.getTrabajador(); // Esto reemplaza el trabajador con el modificado.
- *      // ...
- * 
+ * Este form crea un nuevo Trabajador, le asigna los valores del pasado por
+ * parametro y luego al retornar al form parent, este puede reemplazar el
+ * existente por la version modificada aca.
+ *
+ * uso: TrabajadorEditorForm t = new TrabajadorEditorForm(parent, true,
+ * trabajadorOld, true); t.setVisible(true); trabajadorOld = t.getTrabajador();
+ * // Esto reemplaza el trabajador con el modificado. // ...
+ *
  * @author chkp
  */
 public final class TrabajadorEditorForm extends javax.swing.JDialog {
@@ -36,7 +36,7 @@ public final class TrabajadorEditorForm extends javax.swing.JDialog {
         } else {
             trabajadorSaved = new TrabajadorTemporero();
         }
-        
+
         if (trabajador != null) {
             setTrabajador(trabajador);
         } else {
@@ -46,9 +46,9 @@ public final class TrabajadorEditorForm extends javax.swing.JDialog {
                 this.trabajador = new TrabajadorTemporero();
             }
         }
-        
+
         initComponents();
-        
+
         if (trabajador != null) {
             if (isPermanent) {
                 titleLabel.setText("Editar Trabajador Permanente");
@@ -67,7 +67,7 @@ public final class TrabajadorEditorForm extends javax.swing.JDialog {
                 setTitle("Crear Trabajador Temporero");
                 // setTrabajador(new TrabajadorTemporero());
             }
-            
+
             // setTrabajador(this.trabajador);
         }
     }
@@ -324,15 +324,13 @@ public final class TrabajadorEditorForm extends javax.swing.JDialog {
     }//GEN-LAST:event_saveButtonActionPerformed
 
     private void cajaGeneroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cajaGeneroActionPerformed
-        
-        if(evt.getSource()== cajaGenero){
-            this.trabajador.setGenero((Genero)cajaGenero.getSelectedItem());
+
+        if (evt.getSource() == cajaGenero) {
+            this.trabajador.setGenero((Genero) cajaGenero.getSelectedItem());
             this.checkForChanges();
         }
     }//GEN-LAST:event_cajaGeneroActionPerformed
 
-
-    
     public void checkForChanges() {
         boolean changedSomething = false;
         if (!this.trabajador.getNombre().equals(this.trabajadorSaved.getNombre())) {
@@ -341,10 +339,10 @@ public final class TrabajadorEditorForm extends javax.swing.JDialog {
             changedSomething = true;
         } else if (!this.trabajador.getFechaDeNacimiento().equals(this.trabajadorSaved.getFechaDeNacimiento())) {
             changedSomething = true;
-        } else if(!this.trabajador.getGenero().equals(this.trabajadorSaved.getGenero())) {
+        } else if (!this.trabajador.getGenero().equals(this.trabajadorSaved.getGenero())) {
             changedSomething = true;
         }
-        
+
         // Check if the inputs are empty
         if (this.trabajador.getNombre().isEmpty() || this.trabajador.getApellido().isEmpty()) {
             changedSomething = false;
@@ -365,7 +363,7 @@ public final class TrabajadorEditorForm extends javax.swing.JDialog {
         trabajadorSaved.setApellido(this.trabajador.getApellido());
         trabajadorSaved.setFechaDeNacimiento(this.trabajador.getFechaDeNacimiento());
         trabajadorSaved.setGenero(this.trabajador.getGenero());
-        
+
         // Actualiza los widgets
         if (this.nombreText != null) {
             this.nombreText.setText(this.trabajador.getNombre());
