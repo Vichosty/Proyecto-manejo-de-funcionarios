@@ -331,7 +331,7 @@ public final class TrabajadorEditorForm extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_cajaGeneroActionPerformed
 
-    public void checkForChanges() {
+    public boolean checkForChanges() {
         boolean changedSomething = false;
         if (!this.trabajador.getNombre().equals(this.trabajadorSaved.getNombre())) {
             changedSomething = true;
@@ -350,9 +350,12 @@ public final class TrabajadorEditorForm extends javax.swing.JDialog {
 
         this.saveButton.setEnabled(changedSomething);
         this.backButton.setEnabled(changedSomething);
+        
+        return(changedSomething);
     }
 
-    public gobierno.Trabajador getTrabajador() {
+    public gobierno.Trabajador getTrabajador() throws ObjetoNoModificadoException {
+        if (!checkForChanges()) { throw new ObjetoNoModificadoException(); }
         return this.trabajador;
     }
 

@@ -31,6 +31,8 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -505,6 +507,7 @@ public final class MainWindow extends javax.swing.JFrame {
      * @param evt
      */
     private void trabajadoresTableMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_trabajadoresTableMousePressed
+
         JTable table = (JTable) evt.getSource();
         Point point = evt.getPoint();
         int row = table.rowAtPoint(point);
@@ -515,18 +518,30 @@ public final class MainWindow extends javax.swing.JFrame {
                 int id = (int) (cell);
 
                 Trabajador t = trabajadores.get(id);
+                Reparticion r = null;
                 if (t != null) {
-                    boolean isPermanent = t instanceof gobierno.TrabajadorPermanente;
-                    TrabajadorEditorForm editor = new TrabajadorEditorForm(this, true, t, isPermanent);
-                    editor.setVisible(true);
-                    trabajadores.modify(id, editor.getTrabajador());
-
-                    // Obtener la reparticion, usando la lista de la izquierda
-                    Reparticion r = getReparticionFromTree(reparticionTree);
-                    reloadTable(r);
+                    try {
+                        boolean isPermanent = t instanceof gobierno.TrabajadorPermanente;
+                        TrabajadorEditorForm editor = new TrabajadorEditorForm(this, true, t, isPermanent);
+                        editor.setVisible(true);
+                        Trabajador newT = editor.getTrabajador();
+                        trabajadores.modify(id, newT);
+                        
+                        r = getReparticionFromTree(reparticionTree);
+                    } catch (ReparticionNotFoundException ex) {
+                        Logger.getLogger(MainWindow.class.getName()).log(Level.WARNING, null, ex);
+                        reloadTable(null);
+                    } catch (ObjetoNoModificadoException ex) {
+                        Logger.getLogger(MainWindow.class.getName()).log(Level.INFO, null, ex);
+                    } finally {
+                        // Obtener la reparticion, usando la lista de la izquierda
+                        
+                        reloadTable(r);
+                    }
                 }
             }
         }
+
     }//GEN-LAST:event_trabajadoresTableMousePressed
 
     /**
@@ -570,21 +585,31 @@ public final class MainWindow extends javax.swing.JFrame {
      * @param evt
      */
     private void trabajadoresEditButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trabajadoresEditButtonActionPerformed
-        // Obtener el trabajador dada la id seleccionada
-        int selectedRow = trabajadoresTable.getSelectedRow();
-        int selectedId = (int) trabajadoresTable.getValueAt(selectedRow, 0);
-        Trabajador t = trabajadores.get(selectedId);
-
-        // Editar el trabajador
-        boolean isPermanent = t instanceof gobierno.TrabajadorPermanente;
-        TrabajadorEditorForm editor = new TrabajadorEditorForm(this, true, t, isPermanent);
-        editor.setVisible(true);
-        trabajadores.modify(selectedId, editor.getTrabajador());
-
-        // Obtener la reparticion, usando la lista de la izquierda
-        Reparticion r = getReparticionFromTree(reparticionTree);
-
-        reloadTable(r);
+        try {                                                       
+            // Obtener el trabajador dada la id seleccionada
+            int selectedRow = trabajadoresTable.getSelectedRow();
+            int selectedId = (int) trabajadoresTable.getValueAt(selectedRow, 0);
+            Trabajador t = trabajadores.get(selectedId);
+            
+            // Editar el trabajador
+            boolean isPermanent = t instanceof gobierno.TrabajadorPermanente;
+            TrabajadorEditorForm editor = new TrabajadorEditorForm(this, true, t, isPermanent);
+            editor.setVisible(true);
+            Trabajador newT = editor.getTrabajador();
+            trabajadores.modify(selectedId, newT);
+            
+            // Obtener la reparticion, usando la lista de la izquierda
+            Reparticion r = null;
+            try {
+                r = getReparticionFromTree(reparticionTree);
+            } catch (ReparticionNotFoundException ex) {
+                Logger.getLogger(MainWindow.class.getName()).log(Level.INFO, null, ex);
+            }
+            
+            reloadTable(r);
+        } catch (ObjetoNoModificadoException ex) {
+            Logger.getLogger(MainWindow.class.getName()).log(Level.INFO, null, ex);
+        }
     }//GEN-LAST:event_trabajadoresEditButtonActionPerformed
 
     /**
@@ -608,10 +633,16 @@ public final class MainWindow extends javax.swing.JFrame {
             Trabajador t = trabajadores.get(selectedId);
 
             // Obtener la reparticion, usando la lista de la izquierda
-            Reparticion r = getReparticionFromTree(reparticionTree);
+            Reparticion r;
+            try {
+                r = getReparticionFromTree(reparticionTree);
 
-            // Remover el contrato entre ambos (si existe)
-            contratos.remove(t.getId(), r.getId());
+                // Remover el contrato entre ambos (si existe)
+                contratos.remove(t.getId(), r.getId());
+            } catch (ReparticionNotFoundException ex) {
+                r = null;
+                Logger.getLogger(MainWindow.class.getName()).log(Level.INFO, null, ex);
+            }
 
             reloadTable(r);
         }
@@ -624,20 +655,28 @@ public final class MainWindow extends javax.swing.JFrame {
      * @param evt
      */
     private void trabajadoresAdd1ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trabajadoresAdd1ButtonActionPerformed
-        // Creamos un nuevo trabajador y lo agregamos al gobierno
-        TrabajadorEditorForm editor = new TrabajadorEditorForm(this, true, null, true);
-        editor.setVisible(true);
-        Trabajador t = editor.getTrabajador();
-        t.setId(trabajadores.getMayorId() + 1);
-        trabajadores.add(t);
-
-        // Obtener la reparticion, usando la lista de la izquierda
-        Reparticion r = getReparticionFromTree(reparticionTree);
-
-        // Creamos un nuevo contrato y lo agregamos al gobierno
-        contratos.add(new Contrato(contratos.getMayorId() + 1, t.getId(), r.getId()));
-
-        reloadTable(r);
+        try {                                                       
+            // Creamos un nuevo trabajador y lo agregamos al gobierno
+            TrabajadorEditorForm editor = new TrabajadorEditorForm(this, true, null, true);
+            editor.setVisible(true);
+            Trabajador t = editor.getTrabajador();
+            t.setId(trabajadores.getMayorId() + 1);
+            trabajadores.add(t);
+            
+            // Obtener la reparticion, usando la lista de la izquierda
+            Reparticion r = null;
+            try {
+                r = getReparticionFromTree(reparticionTree);
+                
+                // Creamos un nuevo contrato y lo agregamos al gobierno
+                contratos.add(new Contrato(contratos.getMayorId() + 1, t.getId(), r.getId()));
+            } catch (ReparticionNotFoundException ex) {
+                Logger.getLogger(MainWindow.class.getName()).log(Level.INFO, null, ex);
+            }
+            reloadTable(r);
+        } catch (ObjetoNoModificadoException ex) {
+            Logger.getLogger(MainWindow.class.getName()).log(Level.INFO, null, ex);
+        }
     }//GEN-LAST:event_trabajadoresAdd1ButtonActionPerformed
 
     /**
@@ -648,14 +687,20 @@ public final class MainWindow extends javax.swing.JFrame {
      */
     private void trabajadoresAdd2ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trabajadoresAdd2ButtonActionPerformed
         // Obtener la reparticion, usando la lista de la izquierda
-        Reparticion r = getReparticionFromTree(reparticionTree);
+        Reparticion r = null;
+        try {
+            r = getReparticionFromTree(reparticionTree);
 
-        TrabajadorChooserForm form = new TrabajadorChooserForm(this, true, r);
-        form.setVisible(true);
-        Trabajador t = form.getTrabajador();
-        if (t != null && t.getId() >= 0) {
-            // Creamos un nuevo contrato y lo agregamos al gobierno
-            contratos.add(new Contrato(contratos.getMayorId() + 1, t.getId(), r.getId()));
+            TrabajadorChooserForm form = new TrabajadorChooserForm(this, true, r);
+            form.setVisible(true);
+            Trabajador t = form.getTrabajador();
+            if (t != null && t.getId() >= 0) {
+                // Creamos un nuevo contrato y lo agregamos al gobierno
+                contratos.add(new Contrato(contratos.getMayorId() + 1, t.getId(), r.getId()));
+            }
+
+        } catch (ReparticionNotFoundException ex) {
+            Logger.getLogger(MainWindow.class.getName()).log(Level.INFO, null, ex);
         }
 
         reloadTable(r);
@@ -671,9 +716,14 @@ public final class MainWindow extends javax.swing.JFrame {
         ReparticionEditorForm form = new ReparticionEditorForm(this, true, null);
         form.setVisible(true);
 
-        Reparticion r = form.getReparticion();
-        r.setId(reparticiones.getMayorId() + 1);
-        reparticiones.add(r);
+        try {
+            Reparticion r = form.getReparticion();
+            r.setId(reparticiones.getMayorId() + 1);
+            reparticiones.add(r);
+        }
+        catch (ObjetoNoModificadoException ex) {
+            Logger.getLogger(MainWindow.class.getName()).log(Level.INFO, null, ex);
+        }
         reloadTree();
     }//GEN-LAST:event_reparticionAddButtonActionPerformed
 
@@ -685,15 +735,22 @@ public final class MainWindow extends javax.swing.JFrame {
      */
     private void reparticionEditButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reparticionEditButtonActionPerformed
         // Obtener reparticion seleccionada
-        Reparticion r = getReparticionFromTree(reparticionTree);
+        Reparticion r = null;
+        try {
+            r = getReparticionFromTree(reparticionTree);
+            
+            // Crear editor de reparticiones
+            ReparticionEditorForm form = new ReparticionEditorForm(this, true, r);
+            form.setVisible(true);
 
-        // Crear editor de reparticiones
-        ReparticionEditorForm form = new ReparticionEditorForm(this, true, r);
-        form.setVisible(true);
-
-        // Reemplazar la reparticion con la nueva
-        reparticiones.modify(r.getId(), form.getReparticion().getNombre());
-
+            // Reemplazar la reparticion con la nueva
+            Reparticion newR = form.getReparticion();
+            reparticiones.modify(r.getId(), newR.getNombre());
+        } catch (ReparticionNotFoundException ex) {
+            Logger.getLogger(MainWindow.class.getName()).log(Level.WARNING, null, ex);
+        } catch (ObjetoNoModificadoException ex) {
+            Logger.getLogger(MainWindow.class.getName()).log(Level.INFO, null, ex);
+        }
         reloadTree();
     }//GEN-LAST:event_reparticionEditButtonActionPerformed
 
@@ -708,21 +765,26 @@ public final class MainWindow extends javax.swing.JFrame {
         if (reparticionTree.getModel().getChildCount(reparticionTree.getModel().getRoot()) <= 0) {
             return;
         }
-        Reparticion r = getReparticionFromTree(reparticionTree);
-        if (r == null) {
-            return;
+        
+        Reparticion r;
+        try {
+            r = getReparticionFromTree(reparticionTree);
+        
+            int config = JOptionPane.YES_NO_OPTION;
+            int response = JOptionPane.showConfirmDialog(null,
+                    "Estas seguro de que deseas eliminar esta reparticion?",
+                    "Cuidado",
+                    config);
+            if (response == JOptionPane.YES_OPTION) {
+                reparticiones.remove(r.getId());
+                reloadTree();
+                reparticionRemoveButton.setEnabled(false);
+                reparticionEditButton.setEnabled(false);
+            }
+        
         }
-
-        int config = JOptionPane.YES_NO_OPTION;
-        int response = JOptionPane.showConfirmDialog(null,
-                "Estas seguro de que deseas eliminar esta reparticion?",
-                "Cuidado",
-                config);
-        if (response == JOptionPane.YES_OPTION) {
-            reparticiones.remove(r.getId());
-            reloadTree();
-            reparticionRemoveButton.setEnabled(false);
-            reparticionEditButton.setEnabled(false);
+        catch (ReparticionNotFoundException ex) {
+            Logger.getLogger(MainWindow.class.getName()).log(Level.INFO, null, ex);
         }
     }//GEN-LAST:event_reparticionRemoveButtonActionPerformed
 
@@ -746,27 +808,52 @@ public final class MainWindow extends javax.swing.JFrame {
 
     private void showMaleCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showMaleCheckBoxActionPerformed
         setShowMales(showMaleCheckBox.isSelected());
-        reloadTable(getReparticionFromTree(reparticionTree));
+        try {
+            reloadTable(getReparticionFromTree(reparticionTree));
+        } catch (ReparticionNotFoundException ex) {
+            Logger.getLogger(MainWindow.class.getName()).log(Level.INFO, null, ex);
+            reloadTable(null);
+        }
     }//GEN-LAST:event_showMaleCheckBoxActionPerformed
 
     private void showFemaleCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showFemaleCheckBoxActionPerformed
         setShowFemales(showFemaleCheckBox.isSelected());
-        reloadTable(getReparticionFromTree(reparticionTree));
+        try {
+            reloadTable(getReparticionFromTree(reparticionTree));
+        } catch (ReparticionNotFoundException ex) {
+            Logger.getLogger(MainWindow.class.getName()).log(Level.INFO, null, ex);
+            reloadTable(null);
+        }
     }//GEN-LAST:event_showFemaleCheckBoxActionPerformed
 
     private void showOtherCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showOtherCheckBoxActionPerformed
         setShowOthers(showOtherCheckBox.isSelected());
-        reloadTable(getReparticionFromTree(reparticionTree));
+        try {
+            reloadTable(getReparticionFromTree(reparticionTree));
+        } catch (ReparticionNotFoundException ex) {
+            Logger.getLogger(MainWindow.class.getName()).log(Level.INFO, null, ex);
+            reloadTable(null);
+        }
     }//GEN-LAST:event_showOtherCheckBoxActionPerformed
 
     private void showPermanentCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showPermanentCheckBoxActionPerformed
         setShowPermanents(showPermanentCheckBox.isSelected());
-        reloadTable(getReparticionFromTree(reparticionTree));
+        try {
+            reloadTable(getReparticionFromTree(reparticionTree));
+        } catch (ReparticionNotFoundException ex) {
+            Logger.getLogger(MainWindow.class.getName()).log(Level.INFO, null, ex);
+            reloadTable(null);
+        }
     }//GEN-LAST:event_showPermanentCheckBoxActionPerformed
 
     private void showTemporaryCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showTemporaryCheckBoxActionPerformed
         setShowTemporaries(showTemporaryCheckBox.isSelected());
-        reloadTable(getReparticionFromTree(reparticionTree));
+        try {
+            reloadTable(getReparticionFromTree(reparticionTree));
+        } catch (ReparticionNotFoundException ex) {
+            Logger.getLogger(MainWindow.class.getName()).log(Level.INFO, null, ex);
+            reloadTable(null);
+        }
     }//GEN-LAST:event_showTemporaryCheckBoxActionPerformed
 
     private void reportToFileCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportToFileCheckBoxActionPerformed
@@ -783,7 +870,12 @@ public final class MainWindow extends javax.swing.JFrame {
     public void reloadTree() {
         String filterStr = reparticionSearchTextbox.getText();
 
-        Reparticion savedR = getReparticionFromTree(reparticionTree);
+        Reparticion savedR;
+        try {
+            savedR = getReparticionFromTree(reparticionTree);
+        } catch (ReparticionNotFoundException ex) {
+            savedR = null;
+        }
         DefaultMutableTreeNode savedNode = null;
 
         DefaultMutableTreeNode treeRoot = new DefaultMutableTreeNode();
@@ -818,8 +910,12 @@ public final class MainWindow extends javax.swing.JFrame {
             reparticionTree.setSelectionPath(savedPath);
         }
 
-        savedR = getReparticionFromTree(reparticionTree);
-        reloadTable(savedR);
+        try {
+            savedR = getReparticionFromTree(reparticionTree);
+            reloadTable(savedR);
+        } catch (ReparticionNotFoundException ex) {
+            reloadTable(null);
+        }
     }
 
     /**
@@ -898,12 +994,13 @@ public final class MainWindow extends javax.swing.JFrame {
      *
      * @param tree
      * @return Reparticion la reparticion seleccionada en el arbol.
+     * @throws chk.forms.ReparticionNotFoundException
      */
-    public Reparticion getReparticionFromTree(JTree tree) {
+    public Reparticion getReparticionFromTree(JTree tree) throws ReparticionNotFoundException {
         DefaultMutableTreeNode selectedNode
                 = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
         if (selectedNode == null) {
-            return null;
+            throw new ReparticionNotFoundException();
         }
 
         Reparticion r = (Reparticion) selectedNode.getUserObject();
@@ -915,10 +1012,12 @@ public final class MainWindow extends javax.swing.JFrame {
     }
 
     public void filterTrabajadores() {
-        // Obtener la reparticion, usando la lista de la izquierda
-        Reparticion r = getReparticionFromTree(reparticionTree);
-        if (r != null) {
+        try {
+            // Obtener la reparticion, usando la lista de la izquierda
+            Reparticion r = getReparticionFromTree(reparticionTree);
             reloadTable(r);
+        } catch (ReparticionNotFoundException ex) {
+            Logger.getLogger(MainWindow.class.getName()).log(Level.INFO, null, ex);
         }
     }
 

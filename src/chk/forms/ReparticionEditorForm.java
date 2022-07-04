@@ -174,7 +174,7 @@ public final class ReparticionEditorForm extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_saveButtonActionPerformed
 
-    public void checkForChanges() {
+    public boolean checkForChanges() {
         boolean changedSomething = false;
         if (!this.reparticion.getNombre().equals(this.reparticionSaved.getNombre())) {
             changedSomething = true;
@@ -187,9 +187,11 @@ public final class ReparticionEditorForm extends javax.swing.JDialog {
 
         this.saveButton.setEnabled(changedSomething);
         this.backButton.setEnabled(changedSomething);
+        return(changedSomething);
     }
 
-    public Reparticion getReparticion() {
+    public Reparticion getReparticion() throws ObjetoNoModificadoException {
+        if (!checkForChanges()) { throw new ObjetoNoModificadoException(); }
         return this.reparticion;
     }
 

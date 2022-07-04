@@ -145,7 +145,6 @@ public class ProyectoFuncionarios {
 
         ThreadLocalRandom random = ThreadLocalRandom.current();
 
-        // Genero[] posiblesGeneros = Genero.values();
         try {
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
             Date startDate = df.parse("1980-01-01");
